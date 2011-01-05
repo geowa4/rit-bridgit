@@ -14,11 +14,23 @@ options {
 
 application
   : 'application' IDENT
-    constant*
-    (variable | function | procedure | typeDec)*
-    'begin'
-    statement*
-    'end' IDENT?
+    '{'
+      setup
+      main
+    '}'
+  ;
+
+setup
+  : 'setup' '{'
+      constant*
+      (variable | function | typeDec)*
+    '}'
+  ;
+
+main
+  : 'main' '{'
+      statement*
+    '}'
   ;
   
 constant
@@ -29,25 +41,14 @@ variable
   : 'var' IDENT (',' IDENT)* ':' type (':=' expression)?
   ;
 
-procedure
-  : 'procedure' IDENT '(' parameters* ')'
-    (constant | variable)*
-    'begin'
-      statement*
-    'end' IDENT
-  ;
-
 function
-  : 'function' IDENT '(' parameters ')' ':' type
-    (constant | variable)*
-    'begin'
+  : 'function' IDENT '(' parameters? ')' (':' type)?
+    '{'
+      constant*
+      variable*
       statement*
-      'return' IDENT
-    'end' IDENT
-  ;
-  
-procedureCall
-  : IDENT '(' arguments? ')'
+      ('return' IDENT)?
+    '}'
   ;
 
 arguments
@@ -66,7 +67,7 @@ statement
   : assignment
   | conditional
   | loop
-  | procedureCall
+  | functionCall
   ;
 
 assignment
@@ -74,14 +75,17 @@ assignment
   ;
 
 conditional
-  : 'if' expression 'then' statement+
-    ('elsif' expression 'then' statement+)*
-    ('else' statement+)?
-    'fi'
+  : 'if' expression '{' statement+ '}'
+    ('else' 'if' expression '{' statement+ '}')*
+    ('else' '{' statement+ '}')?
   ;
 
 loop
-  : 'while' expression 'do' statement* 'done'
+  : 'while' expression '{' statement* '}'
+  ;
+
+functionCall
+  : IDENT '(' arguments? ')'
   ;
 
 type
@@ -98,7 +102,7 @@ typeDec
   ;
   
 structType
-  : 'struct' IDENT 'def' field* 'fed'
+  : 'struct' IDENT '{' field* '}'
   ;
   
 field
