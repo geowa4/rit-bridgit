@@ -12,7 +12,6 @@ public class CodeView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
