@@ -14,9 +14,16 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="RCP Perspective"
-            class="edu.rit.se.bridgit.Perspective"
-            id="BridgIt.perspective">
+            class="edu.rit.se.bridgit.edit.perspectives.EditPerspective"
+            fixed="true"
+            id="edu.rit.se.bridgit.edit.perspectives.editPerspective"
+            name="Edit Perspective">
+      </perspective>
+      <perspective
+            class="edu.rit.se.bridgit.execution.perspectives.ExecutionPerspective"
+            fixed="true"
+            id="edu.rit.se.bridgit.execution.perspectives.executionPerspective"
+            name="Execution Perspective">
       </perspective>
    </extension>
    <extension
@@ -30,6 +37,89 @@
                value="icons/alt_window_16.gif,icons/alt_window_32.gif">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            allowMultiple="false"
+            class="edu.rit.se.bridgit.edit.views.ObjectsView"
+            id="edu.rit.se.bridgit.edit.views.objectsView"
+            name="Objects"
+            restorable="true">
+      </view>
+      <view
+            allowMultiple="false"
+            class="edu.rit.se.bridgit.edit.views.WorldView"
+            id="edu.rit.se.bridgit.edit.views.worldView"
+            name="World"
+            restorable="true">
+      </view>
+      <view
+            allowMultiple="false"
+            class="edu.rit.se.bridgit.edit.views.CodeView"
+            id="edu.rit.se.bridgit.edit.views.codeView"
+            name="Code"
+            restorable="true">
+      </view>
+      <view
+            class="edu.rit.se.bridgit.edit.views.TypesView"
+            id="edu.rit.se.bridgit.edit.views.typesView"
+            name="Types"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="edu.rit.se.bridgit.edit.perspectives.editPerspective">
+         <view
+               closeable="false"
+               id="edu.rit.se.bridgit.edit.views.objectsView"
+               minimized="false"
+               moveable="false"
+               relationship="left"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               standalone="true"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="edu.rit.se.bridgit.edit.views.worldView"
+               minimized="false"
+               moveable="false"
+               relationship="right"
+               relative="edu.rit.se.bridgit.edit.views.objectsView"
+               showTitle="true"
+               standalone="true"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="edu.rit.se.bridgit.edit.views.codeView"
+               minimized="false"
+               moveable="false"
+               relationship="right"
+               relative="edu.rit.se.bridgit.edit.views.worldView"
+               showTitle="true"
+               standalone="true"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="edu.rit.se.bridgit.edit.views.typesView"
+               minimized="false"
+               moveable="false"
+               relationship="bottom"
+               relative="edu.rit.se.bridgit.edit.views.worldView"
+               showTitle="true"
+               standalone="true"
+               visible="true">
+         </view>
+      </perspectiveExtension>
+      <perspectiveExtension
+            targetID="edu.rit.se.bridgit.execution.perspectives.executionPerspective">
+      </perspectiveExtension>
    </extension>
 
 </plugin>
