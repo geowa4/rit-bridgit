@@ -34,11 +34,11 @@ main
   ;
   
 constant
-  : 'constant' IDENT ':' type ':=' expression
+  : 'constant' IDENT ':' type '=' expression
   ;
 
 variable
-  : 'var' IDENT (',' IDENT)* ':' type (':=' expression)?
+  : 'var' IDENT (',' IDENT)* ':' type ('=' expression)?
   ;
 
 function
@@ -71,7 +71,7 @@ statement
   ;
 
 assignment
-  : IDENT ':=' expression
+  : IDENT '=' expression
   ;
 
 conditional
@@ -138,7 +138,7 @@ add
   ;
   
 relation
-  : add (('=' | '/=' | '<' | '<=' | '>=' | '>') add)*
+  : add (('==' | '!=' | '<' | '<=' | '>=' | '>') add)*
   ;
   
 expression
