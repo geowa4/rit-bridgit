@@ -1,11 +1,11 @@
-package edu.rit.se.bridgit.edit.views;
+package edu.rit.se.bridgit.execution.views;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
-public class WorldView extends ViewPart {
+public class Console extends ViewPart {
 
-	public WorldView() {
+	public Console() {
 		// TODO Auto-generated constructor stub
 	}
 

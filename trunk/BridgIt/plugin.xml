@@ -49,8 +49,8 @@
       </view>
       <view
             allowMultiple="false"
-            class="edu.rit.se.bridgit.edit.views.WorldView"
-            id="edu.rit.se.bridgit.edit.views.worldView"
+            class="edu.rit.se.bridgit.views.WorldView"
+            id="edu.rit.se.bridgit.views.worldView"
             name="World"
             restorable="true">
       </view>
@@ -65,6 +65,12 @@
             class="edu.rit.se.bridgit.edit.views.TypesView"
             id="edu.rit.se.bridgit.edit.views.typesView"
             name="Object Types"
+            restorable="true">
+      </view>
+      <view
+            class="edu.rit.se.bridgit.execution.views.Console"
+            id="edu.rit.se.bridgit.execution.views.Console"
+            name="Console"
             restorable="true">
       </view>
    </extension>
@@ -98,7 +104,7 @@
          </view>
          <view
                closeable="false"
-               id="edu.rit.se.bridgit.edit.views.worldView"
+               id="edu.rit.se.bridgit.views.worldView"
                minimized="false"
                moveable="false"
                ratio="0.70f"
@@ -115,7 +121,7 @@
                moveable="false"
                ratio="0.5f"
                relationship="right"
-               relative="edu.rit.se.bridgit.edit.views.worldView"
+               relative="edu.rit.se.bridgit.views.worldView"
                showTitle="true"
                standalone="true"
                visible="true">
@@ -123,6 +129,28 @@
       </perspectiveExtension>
       <perspectiveExtension
             targetID="edu.rit.se.bridgit.execution.perspectives.executionPerspective">
+         <view
+               closeable="false"
+               id="edu.rit.se.bridgit.views.worldView"
+               minimized="false"
+               moveable="false"
+               relationship="top"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               standalone="true"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="edu.rit.se.bridgit.execution.views.Console"
+               minimized="false"
+               moveable="false"
+               relationship="bottom"
+               relative="edu.rit.se.bridgit.edit.views.worldView"
+               showTitle="true"
+               standalone="true"
+               visible="true">
+         </view>
       </perspectiveExtension>
    </extension>
    <extension
