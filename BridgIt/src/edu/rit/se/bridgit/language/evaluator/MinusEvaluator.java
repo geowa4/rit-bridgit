@@ -9,6 +9,7 @@ public class MinusEvaluator extends BinaryEvaluator
 	public MinusEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException 
 	{
 		super(op1, op2);
+		this.operation = "Subtraction";
 	}
 	
 	@Override
@@ -19,7 +20,7 @@ public class MinusEvaluator extends BinaryEvaluator
 			)
 		) 
 		{
-			throw new InvalidTypeException(op.getType(), "Multiplication");
+			throw new InvalidTypeException(op.getType(), operation);
 		}
 	}
 

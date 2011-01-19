@@ -8,6 +8,8 @@ public abstract class BinaryEvaluator extends Evaluator {
 	protected Evaluator op1;
 	protected Evaluator op2;
 	
+	protected String operation = "Binary";
+	
 	public BinaryEvaluator(Evaluator op1, Evaluator op2)
 	{
 		super();
@@ -23,7 +25,7 @@ public abstract class BinaryEvaluator extends Evaluator {
 			)
 		) 
 		{
-			throw new InvalidTypeException(op.getType(), "Binary");
+			throw new InvalidTypeException(op.getType(), operation);
 		}
 	}
 

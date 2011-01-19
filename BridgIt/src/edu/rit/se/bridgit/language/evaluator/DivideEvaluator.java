@@ -7,6 +7,7 @@ public class DivideEvaluator extends BinaryEvaluator {
 
 	public DivideEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException {
 		super(op1, op2);
+		this.operation = "Division";
 	}
 
 	@Override
@@ -17,7 +18,7 @@ public class DivideEvaluator extends BinaryEvaluator {
 			)
 		) 
 		{
-			throw new InvalidTypeException(op.getType(), "Division");
+			throw new InvalidTypeException(op.getType(), operation);
 		}
 	}
 	

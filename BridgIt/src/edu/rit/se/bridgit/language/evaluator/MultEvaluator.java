@@ -7,6 +7,7 @@ public class MultEvaluator extends BinaryEvaluator {
 
 	public MultEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException {
 		super(op1, op2);
+		this.operation = "Multiplication";
 	}
 
 	@Override
@@ -17,7 +18,7 @@ public class MultEvaluator extends BinaryEvaluator {
 			)
 		) 
 		{
-			throw new InvalidTypeException(op.getType(), "Multiplication");
+			throw new InvalidTypeException(op.getType(), operation);
 		}
 	}
 	

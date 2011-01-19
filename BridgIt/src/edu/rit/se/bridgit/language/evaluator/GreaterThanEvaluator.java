@@ -5,10 +5,10 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class GreaterThanEvaluator extends BinaryEvaluator 
 {
-	
 	public GreaterThanEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException 
 	{
 		super(op1, op2);
+		this.operation = "Greater Than";
 	}
 
 	@Override
