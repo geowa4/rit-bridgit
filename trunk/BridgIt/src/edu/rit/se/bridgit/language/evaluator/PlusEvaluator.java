@@ -12,11 +12,13 @@ public class PlusEvaluator extends BinaryEvaluator
 	}
 
 	@Override
-	public Type evaluate() 
+	public Type evaluate() throws InvalidTypeException 
 	{
 		Type result1 = op1.evaluate();
-		Object r1Val = result1.getValue();
 		Type result2= op2.evaluate();
+		validateType(result1);
+		validateType(result2);
+		Object r1Val = result1.getValue();
 		Object r2Val = result2.getValue();
 		Type ret;
 		if(r1Val instanceof Integer &&
