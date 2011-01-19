@@ -9,6 +9,7 @@ public class PlusEvaluator extends BinaryEvaluator
 	public PlusEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException 
 	{
 		super(op1, op2);
+		this.operation = "Addition";
 	}
 
 	@Override

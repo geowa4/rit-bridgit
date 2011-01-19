@@ -5,7 +5,8 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class UnaryEvaluator extends Evaluator {
 
-	private Integer value;
+	private Evaluator e;
+	protected String operation;
 	
 	/**
 	 * Only create me if you want to perform a arithmetic negation. 
@@ -14,19 +15,24 @@ public class UnaryEvaluator extends Evaluator {
 	 * 
 	 * @param value
 	 */
-	public UnaryEvaluator(Integer value) {
+	public UnaryEvaluator(Evaluator e) {
 		super();
-		this.value = value;
+		this.e = e;
+		this.operation = "Unary Negation";
 	}
 
 	@Override
-	public Type evaluate() {
-		return new Type(-value);
+	public Type evaluate() throws InvalidTypeException {
+		Type result = e.evaluate();
+		validateType(result);
+		Object value = result.getValue();
+		return new Type(- (Integer) value);
 	}
 
 	@Override
 	protected void validateType(Type t) throws InvalidTypeException {
-		//no-op
+		if(!t.getType().equals(Integer.class))
+			throw new InvalidTypeException(t.getType(), operation);
 	}
 
 }
