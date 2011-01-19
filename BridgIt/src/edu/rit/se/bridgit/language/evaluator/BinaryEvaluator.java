@@ -3,7 +3,7 @@ package edu.rit.se.bridgit.language.evaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public abstract class BinaryEvaluator implements Evaluator {
+public abstract class BinaryEvaluator extends Evaluator {
 	
 	protected Evaluator op1;
 	protected Evaluator op2;
@@ -15,7 +15,7 @@ public abstract class BinaryEvaluator implements Evaluator {
 		this.op2 = op2;
 	}
 
-	protected void validateEvaluator(Type op) throws InvalidTypeException 
+	protected void validateType(Type op) throws InvalidTypeException 
 	{
 		if(!(	op.getType().equals(Integer.class) 
 			||	op.getType().equals(Double.class) 
@@ -28,7 +28,7 @@ public abstract class BinaryEvaluator implements Evaluator {
 	}
 
 	@Override
-	public abstract Type evaluate();
+	public abstract Type evaluate() throws InvalidTypeException;
 
 	public Evaluator getOp1() {
 		return op1;
