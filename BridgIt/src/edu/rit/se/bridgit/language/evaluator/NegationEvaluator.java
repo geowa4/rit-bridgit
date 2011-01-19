@@ -5,11 +5,11 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class NegationEvaluator extends Evaluator {
 
-	private Type value;
+	private Evaluator e;
 	
-	public NegationEvaluator(Type value) {
+	public NegationEvaluator(Evaluator e) {
 		super();
-		this.value = value;
+		this.e = e;
 	}
 	
 	protected void validateType(Type op) throws InvalidTypeException 
@@ -22,8 +22,10 @@ public class NegationEvaluator extends Evaluator {
 
 	@Override
 	public Type evaluate() throws InvalidTypeException {
-		validateType(value);
-		return value;
+		Type result = e.evaluate();
+		result = new Type(! (Boolean) result.getValue());
+		validateType(result);
+		return result;
 	}
 
 }
