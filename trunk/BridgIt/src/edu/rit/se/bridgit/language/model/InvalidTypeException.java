@@ -5,6 +5,6 @@ public class InvalidTypeException extends Exception {
 	
 	public InvalidTypeException(Class<?> type, String operation)
 	{
-		super(type + " is an invalid type for " + operation + " operation");
+		super(type + " is an invalid type for " + operation);
 	}
 }
