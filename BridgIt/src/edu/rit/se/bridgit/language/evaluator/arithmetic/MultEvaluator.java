@@ -1,13 +1,15 @@
-package edu.rit.se.bridgit.language.evaluator;
+package edu.rit.se.bridgit.language.evaluator.arithmetic;
 
+import edu.rit.se.bridgit.language.evaluator.BinaryEvaluator;
+import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class DivideEvaluator extends BinaryEvaluator {
+public class MultEvaluator extends BinaryEvaluator {
 
-	public DivideEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException {
+	public MultEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException {
 		super(op1, op2);
-		this.operation = "Division";
+		this.operation = "Multiplication";
 	}
 
 	@Override
@@ -34,18 +36,18 @@ public class DivideEvaluator extends BinaryEvaluator {
 		Type ret;
 		if(r1Val instanceof Integer &&
 				r2Val instanceof Integer)
-			ret = new Type((Integer) r1Val / (Integer) r2Val);
+			ret = new Type((Integer) r1Val * (Integer) r2Val);
 		
 		else if(r1Val instanceof Integer &&
 				r2Val instanceof Double)
-			ret = new Type((Integer) r1Val / (Double) r2Val);
+			ret = new Type((Integer) r1Val * (Double) r2Val);
 		
 		else if(r1Val instanceof Double &&
 				r2Val instanceof Integer)
-			ret = new Type((Double) r1Val / (Integer) r2Val);
+			ret = new Type((Double) r1Val * (Integer) r2Val);
 		
 		else 
-			ret = new Type((Double) r1Val / (Double) r2Val);
+			ret = new Type((Double) r1Val * (Double) r2Val);
 		
 		return ret;
 	}
