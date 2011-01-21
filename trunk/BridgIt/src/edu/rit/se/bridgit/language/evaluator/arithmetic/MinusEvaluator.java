@@ -1,15 +1,19 @@
-package edu.rit.se.bridgit.language.evaluator;
+package edu.rit.se.bridgit.language.evaluator.arithmetic;
 
+import edu.rit.se.bridgit.language.evaluator.BinaryEvaluator;
+import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class ModEvaluator extends BinaryEvaluator {
-
-	public ModEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException {
+public class MinusEvaluator extends BinaryEvaluator 
+{
+	
+	public MinusEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException 
+	{
 		super(op1, op2);
-		this.operation = "Modulo";
+		this.operation = "Subtraction";
 	}
-
+	
 	@Override
 	protected void validateType(Type op) throws InvalidTypeException 
 	{
@@ -21,7 +25,7 @@ public class ModEvaluator extends BinaryEvaluator {
 			throw new InvalidTypeException(op.getType(), operation);
 		}
 	}
-	
+
 	@Override
 	public Type evaluate() throws InvalidTypeException 
 	{
@@ -34,19 +38,20 @@ public class ModEvaluator extends BinaryEvaluator {
 		Type ret;
 		if(r1Val instanceof Integer &&
 				r2Val instanceof Integer)
-			ret = new Type((Integer) r1Val % (Integer) r2Val);
+			ret = new Type((Integer) r1Val - (Integer) r2Val);
 		
 		else if(r1Val instanceof Integer &&
 				r2Val instanceof Double)
-			ret = new Type((Integer) r1Val % (Double) r2Val);
+			ret = new Type((Integer) r1Val - (Double) r2Val);
 		
 		else if(r1Val instanceof Double &&
 				r2Val instanceof Integer)
-			ret = new Type((Double) r1Val % (Integer) r2Val);
+			ret = new Type((Double) r1Val - (Integer) r2Val);
 		
-		else 
-			ret = new Type((Double) r1Val % (Double) r2Val);
+		else
+			ret = new Type((Double) r1Val - (Double) r2Val);
 		
 		return ret;
 	}
+
 }
