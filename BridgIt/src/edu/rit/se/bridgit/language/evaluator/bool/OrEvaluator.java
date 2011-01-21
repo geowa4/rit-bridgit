@@ -1,12 +1,15 @@
-package edu.rit.se.bridgit.language.evaluator;
+package edu.rit.se.bridgit.language.evaluator.bool;
 
+import edu.rit.se.bridgit.language.evaluator.BinaryEvaluator;
+import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class AndEvaluator extends BinaryEvaluator {
+public class OrEvaluator extends BinaryEvaluator {
 
-	public AndEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException {
+	public OrEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException {
 		super(op1, op2);
+		this.operation = "Or";
 	}
 
 	@Override
@@ -14,7 +17,7 @@ public class AndEvaluator extends BinaryEvaluator {
 	{
 		if(!op.getType().equals(Boolean.class))
 		{
-			throw new InvalidTypeException(op.getType(), "And");
+			throw new InvalidTypeException(op.getType(), operation);
 		}
 	}
 	
@@ -27,6 +30,6 @@ public class AndEvaluator extends BinaryEvaluator {
 		validateType(result2);
 		Object r1Val = result1.getValue();
 		Object r2Val = result2.getValue();
-		return new Type((Boolean) r1Val && (Boolean) r2Val);
+		return new Type((Boolean) r1Val || (Boolean) r2Val);
 	}
 }

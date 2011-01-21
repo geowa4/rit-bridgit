@@ -1,14 +1,17 @@
-package edu.rit.se.bridgit.language.evaluator;
+package edu.rit.se.bridgit.language.evaluator.bool;
 
+import edu.rit.se.bridgit.language.evaluator.BinaryEvaluator;
+import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class GreaterThanEvaluator extends BinaryEvaluator 
+public class LessThanEvaluator extends BinaryEvaluator 
 {
-	public GreaterThanEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException 
+	
+	public LessThanEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException 
 	{
 		super(op1, op2);
-		this.operation = "Greater Than";
+		this.operation = "Less Than";
 	}
 
 	@Override
@@ -23,14 +26,14 @@ public class GreaterThanEvaluator extends BinaryEvaluator
 		Type ret;
 		if(r1Val instanceof Integer &&
 				r2Val instanceof Integer)
-			ret = new Type((Integer) r1Val > (Integer) r2Val);
+			ret = new Type((Integer) r1Val < (Integer) r2Val);
 		
 		else if(r1Val instanceof Double &&
 				r2Val instanceof Double)
-			ret = new Type((Double) r1Val > (Double) r2Val);
+			ret = new Type((Double) r1Val < (Double) r2Val);
 		
 		else
-			ret = new Type(((String) r1Val).compareTo((String) r2Val) > 0);
+			ret = new Type(((String) r1Val).compareTo((String) r2Val) < 0);
 		
 		return ret;
 	}
