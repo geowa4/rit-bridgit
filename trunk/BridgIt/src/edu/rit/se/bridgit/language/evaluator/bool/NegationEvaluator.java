@@ -1,6 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator.bool;
 
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
+import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
@@ -24,8 +25,8 @@ public class NegationEvaluator extends Evaluator {
 	}
 
 	@Override
-	public Type evaluate() throws InvalidTypeException {
-		Type result = e.evaluate();
+	public Type evaluate(Scope scope) throws InvalidTypeException {
+		Type result = e.evaluate(scope);
 		result = new Type(! (Boolean) result.getValue());
 		validateType(result);
 		return result;

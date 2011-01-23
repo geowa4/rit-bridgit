@@ -30,7 +30,7 @@ public abstract class BinaryEvaluator extends Evaluator {
 	}
 
 	@Override
-	public abstract Type evaluate() throws InvalidTypeException;
+	public abstract Type evaluate(Scope scope) throws InvalidTypeException;
 
 	public Evaluator getOp1() {
 		return op1;
