@@ -1,13 +1,14 @@
-package edu.rit.se.bridgit.language.evaluator;
+package edu.rit.se.bridgit.language.evaluator.term;
 
+import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class IntegerEvaluator extends Evaluator {
+public class DoubleEvaluator extends Evaluator {
 
-	private Integer value;
+	private Double value;
 	
-	public IntegerEvaluator(Integer value) {
+	public DoubleEvaluator(Double value) {
 		super();
 		this.value = value;
 	}
@@ -20,7 +21,7 @@ public class IntegerEvaluator extends Evaluator {
 	@Override
 	protected void validateType(Type t) throws InvalidTypeException {
 		if(t.getType().equals(Integer.class))
-			throw new InvalidTypeException(t.getType(), "Integer");
+			throw new InvalidTypeException(t.getType(), "Double");
 	}
 
 }
