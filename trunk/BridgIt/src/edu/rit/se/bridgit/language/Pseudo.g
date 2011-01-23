@@ -6,42 +6,49 @@ options {
 
 @header {
   package edu.rit.se.bridgit.language;
+  import edu.rit.se.bridgit.language.evaluator.*;
+  import edu.rit.se.bridgit.language.evaluator.bool.*;
+  import edu.rit.se.bridgit.language.evaluator.term.*;
+  import edu.rit.se.bridgit.language.evaluator.arithmetic.*;
 }
 
 @lexer::header {
   package edu.rit.se.bridgit.language;
 }
 
-application
-  : 'application' IDENT
+application returns [BlockEvaluator eval]
+  : 'application' IDENT {$eval = new BlockEvaluator();}
     '{'
-      setup
-      main
+      setup {$eval.add($setup.eval);}
+      main 
     '}'
   ;
 
-setup
-  : 'setup' '{'
-      constant*
-      (variable | function | typeDec)*
+setup returns [BlockEvaluator eval]
+  : 'setup' '{' {$eval = new BlockEvaluator();}
+      ( constant {$eval.add($constant.eval);} )*
+      ( variable {$eval.add($variable.eval);} 
+      | function {$eval.add($function.eval);}
+      )*
     '}'
   ;
 
-main
-  : 'main' '{'
+main returns [BlockEvaluator eval]
+  : 'main' '{' {$eval = new BlockEvaluator();}
       statement*
     '}'
   ;
   
-constant
+constant returns [Evaluator eval]
   : 'constant' IDENT ':' type '=' expression
   ;
 
-variable
-  : 'var' IDENT (',' IDENT)* ':' type ('=' expression)?
+variable returns [Evaluator eval]
+  : 'var'IDENT ':' type ('=' expression)?
+    {$eval = new VariableEvaluator($IDENT.text, $type.text, $expression.eval);}
   ;
 
-function
+function returns [Evaluator eval]
   : 'function' IDENT '(' parameters? ')' (':' type)?
     '{'
       constant*
@@ -51,69 +58,52 @@ function
     '}'
   ;
 
-arguments
+arguments returns [Evaluator eval]
   : expression (',' expression)*
   ;
 
-parameters
+parameters returns [Evaluator eval]
   : parameter (',' parameter)*
   ;
 
-parameter
+parameter returns [Evaluator eval]
   : IDENT ':' type
   ; 
 
-statement
+statement returns [Evaluator eval]
   : assignment
   | conditional
   | loop
   | functionCall
   ;
 
-assignment
+assignment returns [Evaluator eval]
   : IDENT '=' expression
   ;
 
-conditional
+conditional returns [Evaluator eval]
   : 'if' expression '{' statement+ '}'
     ('else' 'if' expression '{' statement+ '}')*
     ('else' '{' statement+ '}')?
   ;
 
-loop
+loop returns [Evaluator eval]
   : 'while' expression '{' statement* '}'
   ;
 
-functionCall
+functionCall returns [Evaluator eval]
   : IDENT '(' arguments? ')'
   ;
 
-type
-  : 'Integer'
-  | 'Boolean'
-  | 'String'
-  | 'List'
-  | IDENT
+type returns [String name]
+  : 'Integer' {$name = "Integer";}
+  | 'Boolean' {$name = "Boolean";}
+  | 'String'  {$name = "String";}
+  | 'List'    {$name = "List";}
+  | IDENT     {$name = $IDENT.text;}
   ;
 
-typeDec
-  : structType
-  | enumType
-  ;
-  
-structType
-  : 'struct' IDENT '{' field* '}'
-  ;
-  
-field
-  : IDENT ':' type
-  ;
-
-enumType
-  : 'enum' IDENT '=' '<' IDENT (',' IDENT)* '>'
-  ;
-
-term
+term returns [Evaluator eval]
   : STRING_LITERAL
   | IDENT
   | '(' expression ')'
@@ -121,27 +111,27 @@ term
   | IDENT '(' arguments? ')'
   ;
 
-negation
+negation returns [Evaluator eval]
   : 'not'* term
   ;
 
-unary
+unary returns [Evaluator eval]
   : ('+' | '-')* negation
   ;
 
-mult
+mult returns [Evaluator eval]
   : unary (('*' | '/' | 'mod') unary)*
   ;
   
-add
+add returns [Evaluator eval]
   : mult (('+' | '-') mult)*
   ;
   
-relation
+relation returns [Evaluator eval]
   : add (('==' | '!=' | '<' | '<=' | '>=' | '>') add)*
   ;
   
-expression
+expression returns [Evaluator eval]
   : relation (('and' | 'or') relation)*
   ;
 
