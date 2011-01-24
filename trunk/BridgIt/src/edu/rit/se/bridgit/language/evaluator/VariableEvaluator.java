@@ -7,31 +7,53 @@ public class VariableEvaluator extends Evaluator
 {
 	
 	private String name;
-	private String type;
+	private String pseudoType;
 	private Evaluator value;
+	private boolean isAssignment;
 	
-	public VariableEvaluator(String name, String type, Evaluator value) 
+	public VariableEvaluator(String name, Evaluator value)
 	{
 		this.name = name;
-		this.type = type;
 		this.value = value;
+		this.isAssignment = true;
+	}
+	
+	public VariableEvaluator(String name, String pseudoType, Evaluator value) 
+	{
+		this.name = name;
+		this.pseudoType = pseudoType;
+		this.value = value;
+		this.isAssignment = false;
 	}
 	
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException 
 	{
-		Type ret = value.evaluate(scope);
-		validateType(ret);
-		ret.setPsuedoType(type);
-		scope.addVariable(name, ret);
-		return ret;
+		if(pseudoType == null)
+			pseudoType = scope.getVariableValue(name).getPsuedoType();
+		if(value != null)
+		{
+			Type eval = value != null ? value.evaluate(scope) : null;
+			validateType(eval);
+			eval.setPsuedoType(pseudoType);
+			if(!isAssignment)
+				scope.addVariable(name, eval);
+			else
+				scope.modifyVariableValue(name, eval);
+			return eval;
+		}
+		else
+		{
+			scope.addVariable(name, null);
+			return null;
+		}
 	}
 
 	@Override
 	protected void validateType(Type t) throws InvalidTypeException 
 	{
 		//TODO this needs to be flushed out more
-		if(!t.getType().getName().contains(type))
+		if(!t.getType().getName().contains(pseudoType))
 		{
 			throw new InvalidTypeException(t.getType(), "Variable Assignment");
 		}

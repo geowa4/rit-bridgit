@@ -6,9 +6,10 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class DivideEvaluator extends BinaryEvaluator {
-
-	public DivideEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException {
+public class DivideEvaluator extends BinaryEvaluator 
+{
+	public DivideEvaluator(Evaluator op1, Evaluator op2)
+	{
 		super(op1, op2);
 		this.operation = "Division";
 	}

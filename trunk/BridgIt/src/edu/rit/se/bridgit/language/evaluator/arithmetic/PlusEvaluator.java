@@ -9,7 +9,7 @@ import edu.rit.se.bridgit.language.model.Type;
 public class PlusEvaluator extends BinaryEvaluator 
 {
 	
-	public PlusEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException 
+	public PlusEvaluator(Evaluator op1, Evaluator op2)
 	{
 		super(op1, op2);
 		this.operation = "Addition";

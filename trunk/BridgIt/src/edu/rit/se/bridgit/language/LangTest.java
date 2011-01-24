@@ -14,14 +14,14 @@ public class LangTest
 	{
 		CharStream stream = new ANTLRStringStream("application Awesome { " +
 				"setup { " +
-//					"constant a:Integer = 0 \n" + 
-//					"constant b:Integer = 1 \n" +
-//					"constant c:Integer =2 \n" +
+					"constant a:Integer = 0; \n" + 
+					"constant b:Integer = 1; \n" +
+					"constant c:Integer =2; \n" +
 
-					"var x:Integer \n" +
-					"var z:Integer = (4 * 8) + (6 + 1 / 3) \n" +
+					"var x:Integer; \n" +
+					"var z:Integer = (4 * 8) + (6 + 1 / 3); \n" +
 
-					"var s:String = \"hello\" \n" +
+					"var s:String = \"hello\"; \n" +
 				"} \n" +
 
 				"main {} \n" +

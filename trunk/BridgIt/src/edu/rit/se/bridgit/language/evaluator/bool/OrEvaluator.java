@@ -6,9 +6,11 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class OrEvaluator extends BinaryEvaluator {
+public class OrEvaluator extends BinaryEvaluator 
+{
 
-	public OrEvaluator(Evaluator op1, Evaluator op2) throws InvalidTypeException {
+	public OrEvaluator(Evaluator op1, Evaluator op2)
+	{
 		super(op1, op2);
 		this.operation = "Or";
 	}
