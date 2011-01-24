@@ -31,17 +31,30 @@ public class Scope
 	
 	public Type modifyVariableValue(String name, Type type)
 	{
-		variables.put(name, type);
-		return type;
+		if(variables.containsKey(name))
+		{
+			variables.put(name, type);
+			return type;
+		}
+		else
+		{
+			return parent.modifyVariableValue(name, type);
+		}
 	}
 	
 	public Type getVariableValue(String name) 
 	{
-		return variables.get(name);
+		if(variables.containsKey(name))
+			return variables.get(name);
+		else
+			return parent.getVariableValue(name);
 	}
 	
 	public Type getConstantValue(String name) 
 	{
-		return constants.get(name);
+		if(constants.containsKey(name))
+			return constants.get(name);
+		else
+			return parent.getConstantValue(name);
 	}
 }
