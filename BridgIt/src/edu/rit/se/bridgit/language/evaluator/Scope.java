@@ -46,15 +46,19 @@ public class Scope
 	{
 		if(variables.containsKey(name))
 			return variables.get(name);
-		else
+		else if(parent != null)
 			return parent.getVariableValue(name);
+		else
+			return null;
 	}
 	
 	public Type getConstantValue(String name) 
 	{
 		if(constants.containsKey(name))
 			return constants.get(name);
-		else
+		else if(parent != null)
 			return parent.getConstantValue(name);
+		else
+			return null;
 	}
 }

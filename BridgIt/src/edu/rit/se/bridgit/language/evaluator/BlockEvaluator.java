@@ -24,6 +24,7 @@ public class BlockEvaluator extends Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException 
 	{
+		scope = new Scope(scope);
 		for(Evaluator e : evaluators) 
 		{
 			e.evaluate(scope);
