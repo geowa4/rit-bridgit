@@ -56,7 +56,7 @@ function returns [Evaluator eval]
       constant*
       variable*
       statement*
-      ('return' IDENT)?
+      ('return' IDENT ';')?
     '}'
   ;
 
@@ -80,7 +80,7 @@ statement returns [Evaluator eval]
   ;
 
 assignment returns [Evaluator eval]
-  : IDENT '=' expression {$eval = new VariableEvaluator($IDENT.text, $expression.eval);}
+  : IDENT '=' expression ';' {$eval = new VariableEvaluator($IDENT.text, $expression.eval);}
   ;
 
 conditional returns [IfEvaluator eval]
