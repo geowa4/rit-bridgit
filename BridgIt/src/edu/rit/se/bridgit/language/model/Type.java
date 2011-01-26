@@ -4,7 +4,7 @@ public class Type
 {
 	private Class<?> type;
 	private Object value;
-	private String psuedoType;
+	private String pseudoType;
 	
 	public Type(Object value) 
 	{
@@ -33,11 +33,11 @@ public class Type
 		this.value = value;
 	}
 
-	public String getPsuedoType() {
-		return psuedoType;
+	public String getPseudoType() {
+		return pseudoType;
 	}
 
-	public void setPsuedoType(String psuedoType) {
-		this.psuedoType = psuedoType;
+	public void setPseudoType(String pseudoType) {
+		this.pseudoType = pseudoType;
 	}
 }

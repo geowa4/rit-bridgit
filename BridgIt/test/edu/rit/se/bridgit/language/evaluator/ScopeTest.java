@@ -81,6 +81,8 @@ public class ScopeTest
 		Scope scope = new Scope(null);
 		Type original = new Type("value");
 		Type modified = new Type("modified");
+		original.setPseudoType("String");
+		modified.setPseudoType("String");
 		scope.addVariable("test", original);
 		scope.modifyVariableValue("test", modified);
 		assertThat("Variable \"test\" must not equal its original value.",
@@ -96,6 +98,8 @@ public class ScopeTest
 		Scope scope = new Scope(null);
 		Type original = new Type("value");
 		Type modified = new Type(true);
+		original.setPseudoType("String");
+		original.setPseudoType("Boolean");
 		scope.addVariable("test", original);
 		scope.modifyVariableValue("test", modified);
 		fail("Modifying a variable to a different type is not allowed.");
@@ -109,6 +113,8 @@ public class ScopeTest
 		Scope scope = new Scope(parent);
 		Type original = new Type("value");
 		Type modified = new Type("modified");
+		original.setPseudoType("String");
+		modified.setPseudoType("String");
 		parent.addVariable("test", original);
 		scope.modifyVariableValue("test", modified);
 		assertThat("Variable \"test\" (acessed from child) must not equal its original value.",
@@ -129,6 +135,8 @@ public class ScopeTest
 		Scope scope = new Scope(parent);
 		Type original = new Type("value");
 		Type modified = new Type(true);
+		original.setPseudoType("String");
+		original.setPseudoType("Boolean");
 		parent.addVariable("test", original);
 		scope.modifyVariableValue("test", modified);
 		fail("Modifying a variable to a different type is not allowed.");
