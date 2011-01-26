@@ -10,7 +10,7 @@ application Awesome {
 		constant b:Integer = 1;
 		constant c:Integer =2;
 
-		var x, y:Integer;
+		var x:Integer;
 		var z:Integer = (4 * 8) + (6 + 1 / 3);
 
 		var s:String = "hello";

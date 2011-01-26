@@ -17,6 +17,11 @@ public class Scope
 		this.parent = parent;
 	}
 	
+	public Scope getParent()
+	{
+		return parent;
+	}
+
 	public Type addVariable(String name, Type type) 
 	{
 		variables.put(name, type);
