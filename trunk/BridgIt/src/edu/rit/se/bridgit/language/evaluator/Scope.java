@@ -51,7 +51,7 @@ public class Scope
 
 	public void checkSameType(Type expected, Type actual) throws InvalidTypeException
 	{
-		if(!expected.getType().equals(actual.getType()))
+		if(!expected.getPseudoType().equals(actual.getPseudoType()))
 			throw new InvalidTypeException(actual.getType(), "Assignment");
 	}
 	

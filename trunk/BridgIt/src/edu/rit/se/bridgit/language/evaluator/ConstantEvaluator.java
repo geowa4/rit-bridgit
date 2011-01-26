@@ -22,7 +22,7 @@ public class ConstantEvaluator extends Evaluator
 	{
 		Type ret = value.evaluate(scope);
 		validateType(ret);
-		ret.setPsuedoType(type);
+		ret.setPseudoType(type);
 		scope.addConstant(name, ret);
 		return ret;
 	}

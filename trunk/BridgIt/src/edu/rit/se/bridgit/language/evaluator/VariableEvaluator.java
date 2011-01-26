@@ -30,12 +30,12 @@ public class VariableEvaluator extends Evaluator
 	public Type evaluate(Scope scope) throws InvalidTypeException 
 	{
 		if(pseudoType == null)
-			pseudoType = scope.getVariableValue(name).getPsuedoType();
+			pseudoType = scope.getVariableValue(name).getPseudoType();
 		if(value != null)
 		{
-			Type eval = value != null ? value.evaluate(scope) : null;
+			Type eval = value.evaluate(scope);
 			validateType(eval);
-			eval.setPsuedoType(pseudoType);
+			eval.setPseudoType(pseudoType);
 			if(!isAssignment)
 				scope.addVariable(name, eval);
 			else
