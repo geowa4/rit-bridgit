@@ -75,19 +75,14 @@ public class ScopeTest
 	}
 	
 	@Test
-	public void modifyVariableToSameTypeInScopeWithNoParent()
+	public void modifyVariableToSameTypeInScopeWithNoParent() 
+	throws InvalidTypeException
 	{
 		Scope scope = new Scope(null);
 		Type original = new Type("value");
 		Type modified = new Type("modified");
 		scope.addVariable("test", original);
-		try
-		{
-			scope.modifyVariableValue("test", modified);
-		} catch (InvalidTypeException e)
-		{
-			fail(e.toString());
-		}
+		scope.modifyVariableValue("test", modified);
 		assertThat("Variable \"test\" must not equal its original value.",
 				scope.getVariableValue("test"), not(equalTo(original)));
 		assertEquals("Variable \"test\" must have the correct value.", 
@@ -102,6 +97,39 @@ public class ScopeTest
 		Type original = new Type("value");
 		Type modified = new Type(true);
 		scope.addVariable("test", original);
+		scope.modifyVariableValue("test", modified);
+		fail("Modifying a variable to a different type is not allowed.");
+	}
+	
+	@Test
+	public void modifyVariableToSameTypeInParentScope() 
+	throws InvalidTypeException
+	{
+		Scope parent = new Scope(null);
+		Scope scope = new Scope(parent);
+		Type original = new Type("value");
+		Type modified = new Type("modified");
+		parent.addVariable("test", original);
+		scope.modifyVariableValue("test", modified);
+		assertThat("Variable \"test\" (acessed from child) must not equal its original value.",
+				scope.getVariableValue("test"), not(equalTo(original)));
+		assertEquals("Variable \"test\" (acessed from child) must have the correct value.", 
+				modified, scope.getVariableValue("test"));
+		assertThat("Variable \"test\" (acessed from parent) must not equal its original value.",
+				parent.getVariableValue("test"), not(equalTo(original)));
+		assertEquals("Variable \"test\" (acessed from parent) must have the correct value.", 
+				modified, parent.getVariableValue("test"));
+	}
+	
+	@Test(expected=InvalidTypeException.class)
+	public void modifyVariableToDifferentTypeInParentScope() 
+	throws InvalidTypeException
+	{
+		Scope parent = new Scope(null);
+		Scope scope = new Scope(parent);
+		Type original = new Type("value");
+		Type modified = new Type(true);
+		parent.addVariable("test", original);
 		scope.modifyVariableValue("test", modified);
 		fail("Modifying a variable to a different type is not allowed.");
 	}
