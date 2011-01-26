@@ -12,20 +12,23 @@ public class LangTest
 {
 	public static void main(String...args) throws RecognitionException, InvalidTypeException
 	{
-		CharStream stream = new ANTLRStringStream("application Awesome { " +
-				"setup { " +
-					"constant a:Integer = 0; \n" + 
-					"constant b:Integer = 1; \n" +
-					"constant c:Integer =2; \n" +
-
-					"var x:Integer; \n" +
-					"var z:Integer = (4 * 8) + (6 + 1 / 3); \n" +
-
-					"var s:String = \"hello\"; \n" +
-				"} \n" +
-
-				"main {} \n" +
-			"}"
+		CharStream stream = new ANTLRStringStream("application Awesome {\n" + 
+				"	setup {\n" + 
+				"		constant a:Integer = 0; \n" + 
+				"		constant b:Integer = 1;\n" + 
+				"		constant c:Integer =2;\n" + 
+				"\n" + 
+				"		var x:Integer;\n" + 
+				"		var z:Integer = (4 * 8) + (6 + 1 / 3);\n" + 
+				"\n" + 
+				"		var s:String = \"hello\";\n" + 
+				"		var ss:String = \"say \\\"hello\\\"\";\n" + 
+				"		var sss:String = \"a\" + \"b\";\n" + 
+				"		var ssss:String = \"say \\\" \" + s + \"\\\"\";\n" + 
+				"	}\n" + 
+				"\n" + 
+				"	main {}\n" + 
+				"}"
 		);
 		PseudoLexer lexer = new PseudoLexer(stream);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);

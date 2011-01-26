@@ -113,7 +113,7 @@ loop returns [Evaluator eval]
   ;
 
 functionCall returns [Evaluator eval]
-  : IDENT '(' arguments? ')'
+  : IDENT '(' arguments? ')' ';'
   ;
 
 type returns [String name]
