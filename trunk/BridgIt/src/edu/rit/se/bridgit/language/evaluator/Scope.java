@@ -3,6 +3,7 @@ package edu.rit.se.bridgit.language.evaluator;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class Scope 
@@ -34,10 +35,11 @@ public class Scope
 		return type;
 	}
 	
-	public Type modifyVariableValue(String name, Type type)
+	public Type modifyVariableValue(String name, Type type) throws InvalidTypeException
 	{
 		if(variables.containsKey(name))
 		{
+			checkSameType(variables.get(name), type);
 			variables.put(name, type);
 			return type;
 		}
@@ -45,6 +47,12 @@ public class Scope
 		{
 			return parent.modifyVariableValue(name, type);
 		}
+	}
+
+	public void checkSameType(Type expected, Type actual) throws InvalidTypeException
+	{
+		if(!expected.getType().equals(actual.getType()))
+			throw new InvalidTypeException(actual.getType(), "Assignment");
 	}
 	
 	public Type getVariableValue(String name) 
