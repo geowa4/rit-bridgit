@@ -10,15 +10,15 @@ public class Type
 	{
 		super();
 		this.value = value;
-		this.type = value.getClass();
+		this.type = value == null ? null : value.getClass();
 		this.pseudoType = pseudoType;
 		validateTypes();
 	}
 	
 	private void validateTypes() throws InvalidTypeException
 	{
-		//This will need to change if we add inheritance
-		if(!type.getName().contains(pseudoType))
+		//This method will likely need to change
+		if(type != null && !type.getName().contains(pseudoType))
 			throw new InvalidTypeException(type, "Assignment");
 	}
 	

@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
+import edu.rit.se.bridgit.language.evaluator.term.DoubleEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -49,7 +50,7 @@ public class VariableTest
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		assertThat("Variable must be set to 7.",
-				scope.getVariableValue("x"), nullValue());
+				scope.getVariableValue("x").getValue(), nullValue());
 	}
 	
 	@Test
@@ -91,28 +92,67 @@ public class VariableTest
 	public void assignToNullAfterValidInitialization() 
 	throws InvalidTypeException
 	{
-		//TODO
+		Evaluator value = new IntegerEvaluator(7);
+		VariableEvaluator evaluator = new VariableEvaluator(
+				"x", "Integer", value);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		
+		Evaluator newValue = new IntegerEvaluator(null);
+		VariableEvaluator assignment = new VariableEvaluator("x", newValue);
+		assignment.evaluate(scope);
+		
+		assertEquals("Variable must be changed to null.",
+				new Type(null, "Integer").getValue(), scope.getVariableValue("x").getValue());
 	}
 	
 	@Test
 	public void assignToValidTypeAfterNoInitialization() 
 	throws InvalidTypeException
 	{
-		//TODO
+		VariableEvaluator evaluator = new VariableEvaluator(
+				"x", "Integer", null);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		
+		Evaluator newValue = new IntegerEvaluator(8);
+		VariableEvaluator assignment = new VariableEvaluator("x", newValue);
+		assignment.evaluate(scope);
+		
+		assertEquals("Variable must be changed to 8.",
+				new Type(8, "Integer").getValue(), scope.getVariableValue("x").getValue());
 	}
 	
 	@Test(expected=InvalidTypeException.class)
 	public void assignToInValidTypeAfterNoInitialization() 
 	throws InvalidTypeException
 	{
-		//TODO
-		throw new InvalidTypeException(Integer.class, "Assignment");
+		VariableEvaluator evaluator = new VariableEvaluator(
+				"x", "Integer", null);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		
+		Evaluator newValue = new DoubleEvaluator(8d);
+		VariableEvaluator assignment = new VariableEvaluator("x", newValue);
+		assignment.evaluate(scope);
+		
+		fail("Variable cannot be assigned to a different type.");
 	}
 	
 	@Test
 	public void assignToNullAfterNoInitialization() 
 	throws InvalidTypeException
 	{
-		//TODO
+		VariableEvaluator evaluator = new VariableEvaluator(
+				"x", "Integer", null);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		
+		Evaluator newValue = new IntegerEvaluator(null);
+		VariableEvaluator assignment = new VariableEvaluator("x", newValue);
+		assignment.evaluate(scope);
+		
+		assertEquals("Variable must be changed to null.",
+				new Type(null, "Integer").getValue(), scope.getVariableValue("x").getValue());
 	}
 }
