@@ -14,7 +14,19 @@ import edu.rit.se.bridgit.language.model.Type;
  */
 public class BlockEvaluator extends Evaluator 
 {
-	private List<Evaluator> evaluators = new LinkedList<Evaluator>();
+	private boolean nestScope;
+	private List<Evaluator> evaluators;
+	
+	public BlockEvaluator()
+	{
+		this(true);
+	}
+	
+	public BlockEvaluator(boolean nestScope)
+	{
+		this.nestScope = nestScope;
+		this.evaluators = new LinkedList<Evaluator>();
+	}
 	
 	public boolean add(Evaluator e)
 	{
@@ -24,7 +36,8 @@ public class BlockEvaluator extends Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException 
 	{
-		scope = new Scope(scope);
+		if(nestScope)
+			scope = new Scope(scope);
 		for(Evaluator e : evaluators) 
 		{
 			e.evaluate(scope);
