@@ -8,9 +8,6 @@ import edu.rit.se.bridgit.language.model.Type;
 
 /**
  * Evaluates a list of Evaluators. Useful for `setup`, `main`, and `function` blocks.
- * 
- * @author student
- *
  */
 public class BlockEvaluator extends Evaluator 
 {
