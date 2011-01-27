@@ -26,14 +26,14 @@ public class GreaterThanEvaluator extends BinaryEvaluator
 		Type ret;
 		if(r1Val instanceof Integer &&
 				r2Val instanceof Integer)
-			ret = new Type((Integer) r1Val > (Integer) r2Val);
+			ret = new Type((Integer) r1Val > (Integer) r2Val, "Boolean");
 		
 		else if(r1Val instanceof Double &&
 				r2Val instanceof Double)
-			ret = new Type((Double) r1Val > (Double) r2Val);
+			ret = new Type((Double) r1Val > (Double) r2Val, "Boolean");
 		
 		else
-			ret = new Type(((String) r1Val).compareTo((String) r2Val) > 0);
+			ret = new Type(((String) r1Val).compareTo((String) r2Val) > 0, "Boolean");
 		
 		return ret;
 	}

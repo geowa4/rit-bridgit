@@ -32,6 +32,6 @@ public class AndEvaluator extends BinaryEvaluator
 		validateType(result2);
 		Object r1Val = result1.getValue();
 		Object r2Val = result2.getValue();
-		return new Type((Boolean) r1Val && (Boolean) r2Val);
+		return new Type((Boolean) r1Val && (Boolean) r2Val, "Boolean");
 	}
 }

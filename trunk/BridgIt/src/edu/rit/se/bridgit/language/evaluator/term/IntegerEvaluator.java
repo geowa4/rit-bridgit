@@ -15,8 +15,8 @@ public class IntegerEvaluator extends Evaluator {
 	}
 
 	@Override
-	public Type evaluate(Scope scope) {
-		return new Type(value);
+	public Type evaluate(Scope scope) throws InvalidTypeException {
+		return new Type(value, "Integer");
 	}
 
 	@Override

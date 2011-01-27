@@ -28,7 +28,7 @@ public class UnaryEvaluator extends Evaluator {
 		Type result = e.evaluate(scope);
 		validateType(result);
 		Object value = result.getValue();
-		return new Type(- (Integer) value);
+		return new Type(- (Integer) value, "Integer");
 	}
 
 	@Override

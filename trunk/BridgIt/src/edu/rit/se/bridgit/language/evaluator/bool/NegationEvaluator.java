@@ -27,7 +27,7 @@ public class NegationEvaluator extends Evaluator {
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException {
 		Type result = e.evaluate(scope);
-		result = new Type(! (Boolean) result.getValue());
+		result = new Type(! (Boolean) result.getValue(), "Boolean");
 		validateType(result);
 		return result;
 	}
