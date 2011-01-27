@@ -44,7 +44,7 @@ public class VariableEvaluator extends Evaluator
 		}
 		else
 		{
-			scope.addVariable(name, null);
+			scope.addVariable(name, new Type(null, pseudoType));
 			return null;
 		}
 	}
