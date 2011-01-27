@@ -1,6 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator;
 
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class ConstantEvaluator extends Evaluator 
@@ -18,7 +19,7 @@ public class ConstantEvaluator extends Evaluator
 	}
 	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException 
+	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
 		Type ret = value.evaluate(scope);
 		validateType(ret);

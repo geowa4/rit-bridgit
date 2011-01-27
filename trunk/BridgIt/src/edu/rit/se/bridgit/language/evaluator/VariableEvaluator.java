@@ -1,6 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator;
 
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class VariableEvaluator extends Evaluator 
@@ -27,7 +28,7 @@ public class VariableEvaluator extends Evaluator
 	}
 	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException 
+	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
 		if(pseudoType == null)
 			pseudoType = scope.getVariableValue(name).getPseudoType();

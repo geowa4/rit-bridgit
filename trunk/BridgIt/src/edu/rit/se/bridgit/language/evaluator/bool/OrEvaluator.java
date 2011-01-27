@@ -4,6 +4,7 @@ import edu.rit.se.bridgit.language.evaluator.BinaryEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class OrEvaluator extends BinaryEvaluator 
@@ -25,7 +26,7 @@ public class OrEvaluator extends BinaryEvaluator
 	}
 	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException 
+	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
 		Type result1 = op1.evaluate(scope);
 		Type result2= op2.evaluate(scope);

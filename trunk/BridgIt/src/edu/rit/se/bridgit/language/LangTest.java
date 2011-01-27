@@ -7,10 +7,12 @@ import org.antlr.runtime.RecognitionException;
 
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 
 public class LangTest 
 {
-	public static void main(String...args) throws RecognitionException, InvalidTypeException
+	public static void main(String...args) 
+	throws RecognitionException, InvalidTypeException, NameConflictException
 	{
 		CharStream stream = new ANTLRStringStream("                                         \n" + 
 				"// this is a test program\n" + 

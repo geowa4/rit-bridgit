@@ -11,13 +11,14 @@ import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.DoubleEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class VariableTest 
 {
 	@Test
 	public void declarationWithValidInitialization() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
@@ -31,7 +32,7 @@ public class VariableTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void declareWithInvalidInitialization() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		Evaluator value = new BooleanEvaluator(true);
 		VariableEvaluator evaluator = new VariableEvaluator(
@@ -43,7 +44,7 @@ public class VariableTest
 	
 	@Test
 	public void declareWithoutInitialization() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
 				"x", "Integer", null);
@@ -55,7 +56,7 @@ public class VariableTest
 	
 	@Test
 	public void assignToValidTypeAfterValidInitialization() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
@@ -73,7 +74,7 @@ public class VariableTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void assignToInvalidTypeAfterValidInitialization() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
@@ -90,7 +91,7 @@ public class VariableTest
 	
 	@Test
 	public void assignToNullAfterValidInitialization() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
@@ -108,7 +109,7 @@ public class VariableTest
 	
 	@Test
 	public void assignToValidTypeAfterNoInitialization() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
 				"x", "Integer", null);
@@ -125,7 +126,7 @@ public class VariableTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void assignToInValidTypeAfterNoInitialization() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
 				"x", "Integer", null);
@@ -141,7 +142,7 @@ public class VariableTest
 	
 	@Test
 	public void assignToNullAfterNoInitialization() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
 				"x", "Integer", null);

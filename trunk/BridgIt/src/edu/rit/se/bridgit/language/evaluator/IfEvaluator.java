@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class IfEvaluator extends Evaluator 
@@ -20,7 +21,7 @@ public class IfEvaluator extends Evaluator
 	}
 	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException 
+	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
 		for(ConditionalBlockPair pair : ladder)
 		{

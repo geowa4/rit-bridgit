@@ -10,6 +10,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class ScopeTest
@@ -31,7 +32,8 @@ public class ScopeTest
 	}
 	
 	@Test
-	public void addVariable() throws InvalidTypeException
+	public void addVariable() 
+	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
 		Type type = new Type(7, "Integer");
@@ -43,7 +45,7 @@ public class ScopeTest
 	}
 	
 	@Test
-	public void addConstant() throws InvalidTypeException
+	public void addConstant() throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
 		Type type = new Type(7, "Integer");
@@ -54,8 +56,59 @@ public class ScopeTest
 				7, type.getValue());
 	}
 	
+	@Test(expected=NameConflictException.class)
+	public void createNameConflictWithVariable() 
+	throws InvalidTypeException, NameConflictException
+	{
+		Scope scope = new Scope(null);
+		Type type1 = new Type(8d, "Double");
+		Type type2 = new Type(8, "Integer");
+		scope.addConstant("x", type1);
+		scope.addVariable("x", type2);
+		fail("Declaring the same variable twice must generate an Exception.");
+	}
+	
+	@Test(expected=NameConflictException.class)
+	public void createNameConflictWithConstant() 
+	throws InvalidTypeException, NameConflictException
+	{
+		Scope scope = new Scope(null);
+		Type type1 = new Type(8d, "Double");
+		Type type2 = new Type(8, "Integer");
+		scope.addVariable("x", type1);
+		scope.addConstant("x", type2);
+		fail("Declaring the same variable twice must generate an Exception.");
+	}
+	
+	@Test(expected=NameConflictException.class)
+	public void createNameConflictWithVariableInParent() 
+	throws InvalidTypeException, NameConflictException
+	{
+		Scope parent = new Scope(null);
+		Scope scope = new Scope(parent);
+		Type type1 = new Type(8d, "Double");
+		Type type2 = new Type(8, "Integer");
+		parent.addConstant("x", type1);
+		scope.addVariable("x", type2);
+		fail("Declaring the same variable twice must generate an Exception.");
+	}
+	
+	@Test(expected=NameConflictException.class)
+	public void createNameConflictWithConstantInParent() 
+	throws InvalidTypeException, NameConflictException
+	{
+		Scope parent = new Scope(null);
+		Scope scope = new Scope(parent);
+		Type type1 = new Type(8d, "Double");
+		Type type2 = new Type(8, "Integer");
+		parent.addVariable("x", type1);
+		scope.addConstant("x", type2);
+		fail("Declaring the same variable twice must generate an Exception.");
+	}
+	
 	@Test
-	public void constantsAreNotVariables() throws InvalidTypeException
+	public void constantsAreNotVariables() 
+	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
 		Type type = new Type(7, "Integer");
@@ -65,7 +118,8 @@ public class ScopeTest
 	}
 	
 	@Test
-	public void variablesAreNotConstants() throws InvalidTypeException
+	public void variablesAreNotConstants() 
+	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
 		Type type = new Type(7, "Integer");
@@ -76,7 +130,7 @@ public class ScopeTest
 	
 	@Test
 	public void modifyVariableToSameTypeInScopeWithNoParent() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
 		Type original = new Type("value", "String");
@@ -93,7 +147,7 @@ public class ScopeTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void modifyVariableToDifferentTypeInScopeWithNoParent() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
 		Type original = new Type("value", "String");
@@ -107,7 +161,7 @@ public class ScopeTest
 	
 	@Test
 	public void modifyVariableToSameTypeInParentScope() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
@@ -129,7 +183,7 @@ public class ScopeTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void modifyVariableToDifferentTypeInParentScope() 
-	throws InvalidTypeException
+	throws InvalidTypeException, NameConflictException
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
