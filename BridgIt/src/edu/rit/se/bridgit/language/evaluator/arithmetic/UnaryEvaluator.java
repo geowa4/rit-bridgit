@@ -3,6 +3,7 @@ package edu.rit.se.bridgit.language.evaluator.arithmetic;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class UnaryEvaluator extends Evaluator {
@@ -24,7 +25,7 @@ public class UnaryEvaluator extends Evaluator {
 	}
 
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException {
+	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException {
 		Type result = e.evaluate(scope);
 		validateType(result);
 		Object value = result.getValue();

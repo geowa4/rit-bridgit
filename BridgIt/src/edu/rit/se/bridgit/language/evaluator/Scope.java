@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class Scope 
@@ -23,16 +24,40 @@ public class Scope
 		return parent;
 	}
 
-	public Type addVariable(String name, Type type) 
+	public Type addVariable(String name, Type type) throws NameConflictException 
 	{
+		if(isVariable(name) || isConstant(name))
+			throw new NameConflictException(name);
 		variables.put(name, type);
 		return type;
 	}
 	
-	public Type addConstant(String name, Type type) 
+	public boolean isVariable(String name)
 	{
+		if(variables.containsKey(name))
+			return true;
+		else if(parent != null)
+			return parent.isVariable(name);
+		else
+			return false;
+	}
+	
+	public Type addConstant(String name, Type type) throws NameConflictException 
+	{
+		if(isVariable(name) || isConstant(name))
+			throw new NameConflictException(name);
 		constants.put(name, type);
 		return type;
+	}
+	
+	public boolean isConstant(String name)
+	{
+		if(constants.containsKey(name))
+			return true;
+		else if(parent != null)
+			return parent.isConstant(name);
+		else
+			return false;
 	}
 	
 	public Type modifyVariableValue(String name, Type type) throws InvalidTypeException

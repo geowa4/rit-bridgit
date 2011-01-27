@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 /**
@@ -31,7 +32,7 @@ public class BlockEvaluator extends Evaluator
 	}
 	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException 
+	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
 		if(nestScope)
 			scope = new Scope(scope);

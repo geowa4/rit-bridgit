@@ -1,6 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator;
 
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public abstract class BinaryEvaluator extends Evaluator {
@@ -30,7 +31,7 @@ public abstract class BinaryEvaluator extends Evaluator {
 	}
 
 	@Override
-	public abstract Type evaluate(Scope scope) throws InvalidTypeException;
+	public abstract Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException;
 
 	public Evaluator getOp1() {
 		return op1;

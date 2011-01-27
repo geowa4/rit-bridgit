@@ -15,7 +15,12 @@ public class MemberLoadEvaluator extends Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException 
 	{
-		return scope.getVariableValue(name);
+		if(scope.isVariable(name))
+			return scope.getVariableValue(name);
+		else if(scope.isConstant(name))
+			return scope.getConstantValue(name);
+		else
+			return null;
 	}
 
 	@Override
