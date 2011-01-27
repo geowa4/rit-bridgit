@@ -129,7 +129,13 @@ term returns [Evaluator eval]
   | IDENT                    {$eval = new MemberLoadEvaluator($IDENT.text);}
   | '(' expression ')'       {$eval = $expression.eval;}
   | INTEGER                  {$eval = new IntegerEvaluator(Integer.parseInt($INTEGER.text));}
+  | bool                     {$eval = $bool.eval;}
   | IDENT '(' arguments? ')' {$eval = new IntegerEvaluator(0);}
+  ;
+
+bool returns[Evaluator eval]
+  : 'true'  {$eval = new BooleanEvaluator(true);}
+  | 'false' {$eval = new BooleanEvaluator(false);}
   ;
 
 negation returns [Evaluator eval]
