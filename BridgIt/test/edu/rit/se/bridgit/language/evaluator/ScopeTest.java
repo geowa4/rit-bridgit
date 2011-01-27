@@ -31,10 +31,10 @@ public class ScopeTest
 	}
 	
 	@Test
-	public void addVariable()
+	public void addVariable() throws InvalidTypeException
 	{
 		Scope scope = new Scope(null);
-		Type type = new Type(7);
+		Type type = new Type(7, "Integer");
 		scope.addVariable("test", type);
 		assertEquals("The \"test\" variable should be set in the current scope.", 
 				type, scope.getVariableValue("test"));
@@ -43,10 +43,10 @@ public class ScopeTest
 	}
 	
 	@Test
-	public void addConstant()
+	public void addConstant() throws InvalidTypeException
 	{
 		Scope scope = new Scope(null);
-		Type type = new Type(7);
+		Type type = new Type(7, "Integer");
 		scope.addConstant("test", type);
 		assertEquals("The \"test\" constant should be set in the current scope.", 
 				type, scope.getConstantValue("test"));
@@ -55,20 +55,20 @@ public class ScopeTest
 	}
 	
 	@Test
-	public void constantsAreNotVariables()
+	public void constantsAreNotVariables() throws InvalidTypeException
 	{
 		Scope scope = new Scope(null);
-		Type type = new Type(7);
+		Type type = new Type(7, "Integer");
 		scope.addVariable("var", type);
 		assertThat("\"var\" should not be accessible as a constant.", 
 				scope.getConstantValue("var"), nullValue());
 	}
 	
 	@Test
-	public void variablesAreNotConstants()
+	public void variablesAreNotConstants() throws InvalidTypeException
 	{
 		Scope scope = new Scope(null);
-		Type type = new Type(7);
+		Type type = new Type(7, "Integer");
 		scope.addConstant("const", type);
 		assertThat("\"const\" should not be accessible as a constant.", 
 				scope.getVariableValue("const"), nullValue());
@@ -79,8 +79,8 @@ public class ScopeTest
 	throws InvalidTypeException
 	{
 		Scope scope = new Scope(null);
-		Type original = new Type("value");
-		Type modified = new Type("modified");
+		Type original = new Type("value", "String");
+		Type modified = new Type("modified", "String");
 		original.setPseudoType("String");
 		modified.setPseudoType("String");
 		scope.addVariable("test", original);
@@ -96,8 +96,8 @@ public class ScopeTest
 	throws InvalidTypeException
 	{
 		Scope scope = new Scope(null);
-		Type original = new Type("value");
-		Type modified = new Type(true);
+		Type original = new Type("value", "String");
+		Type modified = new Type(true, "String");
 		original.setPseudoType("String");
 		original.setPseudoType("Boolean");
 		scope.addVariable("test", original);
@@ -111,8 +111,8 @@ public class ScopeTest
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
-		Type original = new Type("value");
-		Type modified = new Type("modified");
+		Type original = new Type("value", "String");
+		Type modified = new Type("modified", "String");
 		original.setPseudoType("String");
 		modified.setPseudoType("String");
 		parent.addVariable("test", original);
@@ -133,8 +133,8 @@ public class ScopeTest
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
-		Type original = new Type("value");
-		Type modified = new Type(true);
+		Type original = new Type("value", "String");
+		Type modified = new Type(true, "String");
 		original.setPseudoType("String");
 		original.setPseudoType("Boolean");
 		parent.addVariable("test", original);

@@ -27,38 +27,38 @@ public class PlusEvaluator extends BinaryEvaluator
 		Type ret;
 		if(r1Val instanceof Integer &&
 				r2Val instanceof Integer)
-			ret = new Type((Integer) r1Val + (Integer) r2Val);
+			ret = new Type((Integer) r1Val + (Integer) r2Val, "Integer");
 		
 		else if(r1Val instanceof Integer &&
 				r2Val instanceof Double)
-			ret = new Type((Integer) r1Val + (Double) r2Val);
+			ret = new Type((Integer) r1Val + (Double) r2Val, "Double");
 		
 		else if(r1Val instanceof Integer &&
 				r2Val instanceof String)
-			ret = new Type((Integer) r1Val + (String) r2Val);
+			ret = new Type((Integer) r1Val + (String) r2Val, "String");
 		
 		else if(r1Val instanceof Double &&
 				r2Val instanceof Integer)
-			ret = new Type((Double) r1Val + (Integer) r2Val);
+			ret = new Type((Double) r1Val + (Integer) r2Val, "Double");
 		
 		else if(r1Val instanceof Double &&
 				r2Val instanceof Double)
-			ret = new Type((Double) r1Val + (Double) r2Val);
+			ret = new Type((Double) r1Val + (Double) r2Val, "Double");
 		
 		else if(r1Val instanceof Double &&
 				r2Val instanceof String)
-			ret = new Type((Double) r1Val + (String) r2Val);
+			ret = new Type((Double) r1Val + (String) r2Val, "String");
 		
 		else if(r1Val instanceof String &&
 				r2Val instanceof Integer)
-			ret = new Type((String) r1Val + (Integer) r2Val);
+			ret = new Type((String) r1Val + (Integer) r2Val, "String");
 		
 		else if(r1Val instanceof String &&
 				r2Val instanceof Double)
-			ret = new Type((String) r1Val + (Double) r2Val);
+			ret = new Type((String) r1Val + (Double) r2Val, "String");
 		
 		else
-			ret = new Type((String) r1Val + (String) r2Val);
+			ret = new Type((String) r1Val + (String) r2Val, "String");
 		
 		return ret;
 	}

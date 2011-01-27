@@ -34,8 +34,8 @@ public class VariableEvaluator extends Evaluator
 		if(value != null)
 		{
 			Type eval = value.evaluate(scope);
-			validateType(eval);
 			eval.setPseudoType(pseudoType);
+			validateType(eval);
 			if(!isAssignment)
 				scope.addVariable(name, eval);
 			else
@@ -52,10 +52,10 @@ public class VariableEvaluator extends Evaluator
 	@Override
 	protected void validateType(Type t) throws InvalidTypeException 
 	{
-		//TODO this needs to be flushed out more
-		if(!t.getType().getName().contains(pseudoType))
+		if(!t.getPseudoType().equals(pseudoType))
 		{
-			throw new InvalidTypeException(t.getType(), "Variable Assignment");
+			throw new InvalidTypeException(t.getType(), 
+					"Variable Assignment to " + pseudoType);
 		}
 	}
 

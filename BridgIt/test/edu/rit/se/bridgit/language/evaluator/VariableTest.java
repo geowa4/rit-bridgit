@@ -67,15 +67,24 @@ public class VariableTest
 		assignment.evaluate(scope);
 		
 		assertEquals("Variable must be changed to 8.",
-				new Type(8).getValue(), scope.getVariableValue("x").getValue());
+				new Type(8, "Integer").getValue(), scope.getVariableValue("x").getValue());
 	}
 	
 	@Test(expected=InvalidTypeException.class)
 	public void assignToInvalidTypeAfterValidInitialization() 
 	throws InvalidTypeException
 	{
-		//TODO
-		throw new InvalidTypeException(Integer.class, "Assignment");
+		Evaluator value = new IntegerEvaluator(7);
+		VariableEvaluator evaluator = new VariableEvaluator(
+				"x", "Integer", value);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		
+		Evaluator newValue = new BooleanEvaluator(false);
+		VariableEvaluator assignment = new VariableEvaluator("x", newValue);
+		assignment.evaluate(scope);
+		
+		fail("Variable cannot be assigned to a different type.");
 	}
 	
 	@Test
