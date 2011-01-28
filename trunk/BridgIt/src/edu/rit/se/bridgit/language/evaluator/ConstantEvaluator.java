@@ -8,22 +8,24 @@ public class ConstantEvaluator extends Evaluator
 {
 	
 	private String name;
-	private String type;
+	private String pseudoType;
 	private Evaluator value;
 	
-	public ConstantEvaluator(String name, String type, Evaluator value) 
+	public ConstantEvaluator(String name, String pseudoType, Evaluator value) 
 	{
 		this.name = name;
-		this.type = type;
+		this.pseudoType = pseudoType;
 		this.value = value;
 	}
 	
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
+		if(value == null)
+			throw new InvalidTypeException(null, "Constant Assignment to null");
 		Type ret = value.evaluate(scope);
 		validateType(ret);
-		ret.setPseudoType(type);
+		ret.setPseudoType(pseudoType);
 		scope.addConstant(name, ret);
 		return ret;
 	}
@@ -31,10 +33,10 @@ public class ConstantEvaluator extends Evaluator
 	@Override
 	protected void validateType(Type t) throws InvalidTypeException 
 	{
-		//TODO this needs to be flushed out more
-		if(!t.getType().getName().contains(type))
+		if(!t.getPseudoType().contains(pseudoType))
 		{
-			throw new InvalidTypeException(t.getType(), "Constant Assignment");
+			throw new InvalidTypeException(t.getType(), 
+					"Constant Assignment to " + pseudoType);
 		}
 	}
 

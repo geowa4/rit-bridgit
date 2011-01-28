@@ -21,7 +21,7 @@ public class VariableTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Evaluator value = new IntegerEvaluator(7);
-		VariableEvaluator evaluator = new VariableEvaluator(
+		Evaluator evaluator = new VariableEvaluator(
 				"x", "Integer", value);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
@@ -35,7 +35,7 @@ public class VariableTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Evaluator value = new BooleanEvaluator(true);
-		VariableEvaluator evaluator = new VariableEvaluator(
+		Evaluator evaluator = new VariableEvaluator(
 				"x", "Integer", value);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
@@ -46,7 +46,7 @@ public class VariableTest
 	public void declareWithoutInitialization() 
 	throws InvalidTypeException, NameConflictException
 	{
-		VariableEvaluator evaluator = new VariableEvaluator(
+		Evaluator evaluator = new VariableEvaluator(
 				"x", "Integer", null);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
