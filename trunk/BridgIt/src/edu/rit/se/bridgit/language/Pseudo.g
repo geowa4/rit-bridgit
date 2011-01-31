@@ -56,7 +56,7 @@ function returns [Evaluator eval]
       constant*
       variable*
       statement*
-      ('return' IDENT ';')?
+      ('return' expression ';')?
     '}'
   ;
 
