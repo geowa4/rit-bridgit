@@ -1,8 +1,6 @@
 package edu.rit.se.bridgit.monklypse;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
