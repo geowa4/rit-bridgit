@@ -146,7 +146,7 @@
                minimized="false"
                moveable="false"
                relationship="bottom"
-               relative="edu.rit.se.bridgit.edit.views.worldView"
+               relative="edu.rit.se.bridgit.views.worldView"
                showTitle="true"
                standalone="true"
                visible="true">
