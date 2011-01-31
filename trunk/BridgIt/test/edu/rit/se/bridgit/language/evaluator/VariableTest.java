@@ -10,6 +10,7 @@ import org.junit.Test;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.DoubleEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
+import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -99,7 +100,7 @@ public class VariableTest
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		
-		Evaluator newValue = new IntegerEvaluator(null);
+		Evaluator newValue = new NullEvaluator();
 		VariableEvaluator assignment = new VariableEvaluator("x", newValue);
 		assignment.evaluate(scope);
 		
@@ -149,7 +150,7 @@ public class VariableTest
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		
-		Evaluator newValue = new IntegerEvaluator(null);
+		Evaluator newValue = new NullEvaluator();
 		VariableEvaluator assignment = new VariableEvaluator("x", newValue);
 		assignment.evaluate(scope);
 		

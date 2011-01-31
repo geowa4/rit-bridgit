@@ -5,23 +5,29 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class IntegerEvaluator extends Evaluator {
+public class IntegerEvaluator extends Evaluator 
+{
 
 	private Integer value;
 	
-	public IntegerEvaluator(Integer value) {
+	public IntegerEvaluator(Integer value) 
+	{
 		super();
 		this.value = value;
 	}
 
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException {
-		return new Type(value, "Integer");
+	public Type evaluate(Scope scope) throws InvalidTypeException 
+	{
+		Type t = new Type(value, "Integer");
+		validateType(t);
+		return t;
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException {
-		if(t.getType().equals(Integer.class))
+	protected void validateType(Type t) throws InvalidTypeException 
+	{
+		if(t.getType() == null || !t.getType().equals(Integer.class))
 			throw new InvalidTypeException(t.getType(), "Integer");
 	}
 
