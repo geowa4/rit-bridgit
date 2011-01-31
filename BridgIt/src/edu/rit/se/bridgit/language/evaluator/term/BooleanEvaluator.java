@@ -19,13 +19,15 @@ public class BooleanEvaluator extends Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException 
 	{
-		return new Type(value, "Boolean");
+		Type t = new Type(value, "Boolean");
+		validateType(t);
+		return t;
 	}
 
 	@Override
 	protected void validateType(Type t) throws InvalidTypeException 
 	{
-		if(t.getType().equals(Boolean.class))
+		if(t.getType() == null || !t.getType().equals(Boolean.class))
 			throw new InvalidTypeException(t.getType(), "Boolean");
 	}
 
