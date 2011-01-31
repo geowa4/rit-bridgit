@@ -1,7 +1,14 @@
 package edu.rit.se.bridgit.views;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
+import org.monklypse.core.JMEComposite;
+
+
+import edu.rit.se.bridgit.monklypse.RenderCanvas;
 
 public class WorldView extends ViewPart {
 
@@ -11,7 +18,13 @@ public class WorldView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		// TODO Auto-generated method stub
+		Composite container = new Composite(parent, SWT.None);
+        container.setLayout(new GridLayout(1, true));
+        //for (int i = 0; i < 4; ++i) {
+                JMEComposite composite = new JMEComposite(container,
+                                new RenderCanvas());
+                composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+        //}
 
 	}
 

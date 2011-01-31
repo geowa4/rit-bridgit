@@ -5,6 +5,9 @@ Bundle-SymbolicName: BridgIt; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.rit.se.bridgit.Activator
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ org.monklypse.jme2;bundle-version="1.0.0",
+ org.monklypse.jme2.physics;bundle-version="1.0.0",
+ org.monklypse.lwjgl;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
