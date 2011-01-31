@@ -1,8 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.core.IsNull.nullValue;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,12 +44,12 @@ public class MemberLoadTest
 				constType.getValue(), val.getValue());
 	}
 	
-	@Test
-	public void retrieveNonExistentMember() throws InvalidTypeException
+	@Test(expected=InvalidTypeException.class)
+	public void retrieveNonExistentMember() 
+	throws InvalidTypeException
 	{
 		MemberLoadEvaluator evaluator = new MemberLoadEvaluator("z");
-		Type val = evaluator.evaluate(scope);
-		assertThat("Since the member does not exist, null must be returned.",
-				val, nullValue());
+		evaluator.evaluate(scope);
+		fail("Since the member does not exist, an exception must be thrown.");
 	}
 }

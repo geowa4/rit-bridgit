@@ -20,7 +20,7 @@ public class MemberLoadEvaluator extends Evaluator
 		else if(scope.isConstant(name))
 			return scope.getConstantValue(name);
 		else
-			return null;
+			throw new InvalidTypeException(null, "Member Load");
 	}
 
 	@Override
