@@ -17,19 +17,19 @@ public class NegationEvaluator extends Evaluator {
 		this.operation = "Boolean Negation";
 	}
 	
-	protected void validateType(Type op) throws InvalidTypeException 
+	protected void validateType(Type t) throws InvalidTypeException 
 	{
-		if(!(op.getValue() instanceof Boolean)) 
+		if(!(t.getPseudoType().equals("Boolean"))) 
 		{
-			throw new InvalidTypeException(op.getType(), operation);
+			throw new InvalidTypeException(t.getType(), operation);
 		}
 	}
 
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException {
 		Type result = e.evaluate(scope);
-		result = new Type(! (Boolean) result.getValue(), "Boolean");
 		validateType(result);
+		result = new Type(! (Boolean) result.getValue(), "Boolean");
 		return result;
 	}
 
