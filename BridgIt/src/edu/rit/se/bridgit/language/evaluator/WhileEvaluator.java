@@ -1,4 +1,4 @@
-package src.edu.rit.se.bridgit.language.evaluator;
+package edu.rit.se.bridgit.language.evaluator;
 
 import java.util.LinkedList;
 import java.util.List;
