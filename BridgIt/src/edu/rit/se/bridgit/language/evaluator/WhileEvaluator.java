@@ -1,40 +1,39 @@
 package edu.rit.se.bridgit.language.evaluator;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class WhileEvaluator extends Evaluator
 {
+	private ConditionalBlockPair pair;
 	
-	private List<ConditionalBlockPair> ladder = 
-		new LinkedList<ConditionalBlockPair>();
-	
-	public boolean addConditional(Evaluator conditional, Evaluator block)
+	public WhileEvaluator()
 	{
-		ConditionalBlockPair pair = new ConditionalBlockPair();
+		pair = new ConditionalBlockPair();
+	}
+	
+	public void setConditional(Evaluator conditional, Evaluator block)
+	{
 		pair.setConditional(conditional);
 		pair.setBlock(block);
-		return ladder.add(pair);
 	}
 
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException {
-		scope = new Scope(scope);
-		for(ConditionalBlockPair pair : ladder)
+		while(executeConditional(scope))
 		{
-			Type val = pair.getConditional().evaluate(scope);
-			validateType(val);
-			if((Boolean) val.getValue())
-			{
-				pair.getBlock().evaluate(scope);
-				return val;
-			}
+			pair.getBlock().evaluate(scope);
 		}
 		return null;
+	}
+	
+	private Boolean executeConditional(Scope scope) 
+	throws InvalidTypeException, NameConflictException
+	{
+		Type ret = pair.getConditional().evaluate(scope);
+		validateType(ret);
+		return (Boolean) ret.getValue();
 	}
 
 	@Override
@@ -44,6 +43,5 @@ public class WhileEvaluator extends Evaluator
 			throw new InvalidTypeException(t.getType(), "While");
 		}		
 	}
-
 }
 
