@@ -20,9 +20,11 @@ public abstract class BinaryEvaluator extends Evaluator {
 
 	protected void validateType(Type op) throws InvalidTypeException 
 	{
-		if(!(	op.getType().equals(Integer.class) 
+		if(!(	op == null
+			||	op.getType().equals(Integer.class) 
 			||	op.getType().equals(Double.class) 
 			||	op.getType().equals(String.class)
+			||	op.getType().equals(Boolean.class)
 			)
 		) 
 		{

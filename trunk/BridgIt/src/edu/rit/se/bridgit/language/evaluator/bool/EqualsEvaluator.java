@@ -24,19 +24,6 @@ public class EqualsEvaluator extends BinaryEvaluator
 		validateType(result2);
 		Object r1Val = result1.getValue();
 		Object r2Val = result2.getValue();
-		Type ret;
-		if(r1Val instanceof Integer &&
-				r2Val instanceof Integer)
-			ret = new Type(((Integer) r1Val).equals((Integer) r2Val), "Boolean");
-		
-		else if(r1Val instanceof Double &&
-				r2Val instanceof Double)
-			ret = new Type(((Double) r1Val).equals((Double) r2Val), "Boolean");
-		
-		else
-			ret = new Type(((String) r1Val).equals((String) r2Val), "Boolean");
-		
-		return ret;
+		return new Type(r1Val.equals(r2Val), "Boolean");
 	}
-
 }
