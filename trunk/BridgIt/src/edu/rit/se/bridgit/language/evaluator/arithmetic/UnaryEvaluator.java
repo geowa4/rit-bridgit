@@ -29,12 +29,16 @@ public class UnaryEvaluator extends Evaluator {
 		Type result = e.evaluate(scope);
 		validateType(result);
 		Object value = result.getValue();
-		return new Type(- (Integer) value, "Integer");
+		if(value instanceof Integer)
+			return new Type(- (Integer) value, "Integer");
+		else
+			return new Type(- (Double) value, "Double");
 	}
 
 	@Override
 	protected void validateType(Type t) throws InvalidTypeException {
-		if(!t.getType().equals(Integer.class))
+		if(!t.getType().equals(Integer.class) &&
+				!t.getType().equals(Double.class))
 			throw new InvalidTypeException(t.getType(), operation);
 	}
 
