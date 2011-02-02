@@ -20,7 +20,8 @@ public class WhileEvaluator extends Evaluator
 	}
 
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException {
+	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
+	{
 		while(executeConditional(scope))
 		{
 			pair.getBlock().evaluate(scope);
