@@ -10,6 +10,8 @@ options {
   import edu.rit.se.bridgit.language.evaluator.bool.*;
   import edu.rit.se.bridgit.language.evaluator.term.*;
   import edu.rit.se.bridgit.language.evaluator.arithmetic.*;
+  import edu.rit.se.bridgit.language.evaluator.conditional.*;
+  import edu.rit.se.bridgit.language.evaluator.function.*;
 }
 
 @lexer::header {
@@ -130,9 +132,13 @@ loop returns [WhileEvaluator eval]
 	;
 
 
-functionCall returns [FunctionCallEvaluator eval]
+functionCall returns [Evaluator eval]
   : IDENT '(' arguments? ')' ';'
      {$eval = new FunctionCallEvaluator($IDENT.text, $arguments.eval);}
+  ;
+
+newObject returns [Evaluator eval]
+  : 'new' IDENT '(' ')' {$eval = new IntegerEvaluator(1);}
   ;
 
 type returns [String name]
@@ -149,7 +155,7 @@ term returns [Evaluator eval]
   | '(' expression ')'       {$eval = $expression.eval;}
   | INTEGER                  {$eval = new IntegerEvaluator(Integer.parseInt($INTEGER.text));}
   | bool                     {$eval = $bool.eval;}
-  | IDENT '(' arguments? ')' {$eval = new IntegerEvaluator(0);}
+  | functionCall             {$eval = $functionCall.eval;}
   ;
 
 bool returns[Evaluator eval]
