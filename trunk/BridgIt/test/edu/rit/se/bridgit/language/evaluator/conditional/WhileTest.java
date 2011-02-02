@@ -1,10 +1,16 @@
-package edu.rit.se.bridgit.language.evaluator;
+package edu.rit.se.bridgit.language.evaluator.conditional;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.rit.se.bridgit.language.evaluator.BlockEvaluator;
+import edu.rit.se.bridgit.language.evaluator.MemberLoadEvaluator;
+import edu.rit.se.bridgit.language.evaluator.MockBlockEvaluator;
+import edu.rit.se.bridgit.language.evaluator.Scope;
+import edu.rit.se.bridgit.language.evaluator.VariableEvaluator;
+import edu.rit.se.bridgit.language.evaluator.conditional.WhileEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
