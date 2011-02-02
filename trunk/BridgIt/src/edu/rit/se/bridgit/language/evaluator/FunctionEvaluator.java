@@ -10,7 +10,7 @@ public class FunctionEvaluator extends Evaluator{
 	private Evaluator parameters;
 	private String returnType;
 	private Evaluator functionBlock;
-	private boolean nestScope;
+	private boolean nestScope; 
 	
 	
 	public FunctionEvaluator(String name, Evaluator parameters, boolean nestScope)
