@@ -126,7 +126,7 @@ loop returns [WhileEvaluator eval]
        (
          whileStmt=statement             {while_block.add($whileStmt.eval);}
        )* 
-       '}'                            {$eval.addConditional($whileExp.eval, while_block);}
+       '}'                            {$eval.setConditional($whileExp.eval, while_block);}
 	;
 
 
