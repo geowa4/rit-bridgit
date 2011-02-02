@@ -52,13 +52,13 @@ variable returns [Evaluator eval]
 
 function returns [FunctionEvaluator eval]
   :'function' IDENT '(' parameters? ')' (':' type)? {$eval = new FunctionEvaluator($IDENT.text, $parameters.eval, $type.text, true);}
-    '{'				{BlockEvaluator function_block = new BlockEvaluator();}
+    '{'				{BlockEvaluator function_block = new BlockEvaluator(false);}
       (constant {function_block.add($constant.eval);})*		
       (variable {function_block.add($variable.eval);})*
       (statement {function_block.add($statement.eval);})*
       ('return' 
       expression {function_block.add($expression.eval);}
-      ';')?
+      ';')? {$eval.addFunctionBlock(function_block);}
     '}'
   ;
 
