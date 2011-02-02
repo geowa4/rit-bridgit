@@ -50,26 +50,37 @@ variable returns [Evaluator eval]
     {$eval = new VariableEvaluator($IDENT.text, $type.text, $expression.eval);}
   ;
 
-function returns [Evaluator eval]
-  : 'function' IDENT '(' parameters? ')' (':' type)?
-    '{'
-      constant*
-      variable*
-      statement*
-      ('return' expression ';')?
+function returns [FunctionEvaluator eval]
+  :'function' IDENT '(' parameters? ')' (':' type)? {$eval = new FunctionEvaluator($IDENT.text, $parameters.eval, $type.text, true);}
+    '{'				{BlockEvaluator function_block = new BlockEvaluator();}
+      (constant {function_block.add($constant.eval);})*		
+      (variable {function_block.add($variable.eval);})*
+      (statement {function_block.add($statement.eval);})*
+      ('return' 
+      expression {function_block.add($expression.eval);}
+      ';')?
     '}'
   ;
 
-arguments returns [Evaluator eval]
-  : expression (',' expression)*
+arguments returns [GroupEvaluator eval]
+  : {$eval = new GroupEvaluator();}
+  firstExp=expression {eval.addItem($firstExp.eval);}
+  (',' 
+  optionalExp=expression {eval.addItem($optionalExp.eval);} 
+  )* 
   ;
 
-parameters returns [Evaluator eval]
-  : parameter (',' parameter)*
+parameters returns [GroupEvaluator eval]
+  : {$eval = new GroupEvaluator();}
+  firstParam=parameter {eval.addItem($firstParam.eval);}
+  (',' 
+  optionalParam=parameter {eval.addItem($optionalParam.eval);}
+  )*
   ;
 
-parameter returns [Evaluator eval]
+parameter returns [ParameterEvaluator eval]
   : IDENT ':' type
+  {$eval = new ParameterEvaluator($IDENT.text, $type.text);}
   ; 
 
 statement returns [Evaluator eval]
@@ -108,12 +119,20 @@ conditional returns [IfEvaluator eval]
     )?
   ;
 
-loop returns [Evaluator eval]
-  : 'while' expression '{' statement* '}'
-  ;
+loop returns [WhileEvaluator eval]
+  : {$eval = new WhileEvaluator();}
+    'while' whileExp=expression
+       '{'                            {BlockEvaluator while_block = new BlockEvaluator();} 
+       (
+         whileStmt=statement             {while_block.add($whileStmt.eval);}
+       )* 
+       '}'                            {$eval.addConditional($whileExp.eval, while_block);}
+	;
 
-functionCall returns [Evaluator eval]
+
+functionCall returns [FunctionCallEvaluator eval]
   : IDENT '(' arguments? ')' ';'
+     {$eval = new FunctionCallEvaluator($IDENT.text, $arguments.eval);}
   ;
 
 type returns [String name]
