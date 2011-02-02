@@ -23,6 +23,12 @@ public class LangTest
 				"application Awesome {\n" + 
 				"	setup {" +
 				"      var a:Integer = 0;" +
+				"function test(x:Integer, y:String)\n" + 
+				"				{\n" + 
+				"					constant d:Integer =2;\n" + 
+				"					var one:Integer = x;\n" + 
+				"					one = 100 + one;\n" + 
+				"				}" +
 				"   }\n" + 
 				"	main {\n" + 
 				"		if a == 0 {\n" + 
