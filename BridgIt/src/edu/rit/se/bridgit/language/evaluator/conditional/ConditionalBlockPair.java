@@ -1,4 +1,6 @@
-package edu.rit.se.bridgit.language.evaluator;
+package edu.rit.se.bridgit.language.evaluator.conditional;
+
+import edu.rit.se.bridgit.language.evaluator.Evaluator;
 
 public class ConditionalBlockPair
 {
