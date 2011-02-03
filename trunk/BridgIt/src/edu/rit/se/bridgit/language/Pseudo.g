@@ -138,7 +138,7 @@ functionCall returns [Evaluator eval]
   ;
 
 newObject returns [Evaluator eval]
-  : 'new' IDENT '(' ')' {$eval = new IntegerEvaluator(1);}
+  : 'new' IDENT '(' ')' {$eval = new NewEvaluator($IDENT.text);}
   ;
 
 type returns [String name]
@@ -156,6 +156,7 @@ term returns [Evaluator eval]
   | INTEGER                  {$eval = new IntegerEvaluator(Integer.parseInt($INTEGER.text));}
   | bool                     {$eval = $bool.eval;}
   | functionCall             {$eval = $functionCall.eval;}
+  | newObject                {$eval = $newObject.eval;}
   ;
 
 bool returns[Evaluator eval]
