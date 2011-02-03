@@ -1,6 +1,5 @@
 package edu.rit.se.bridgit.language.evaluator.conditional;
 
-import edu.rit.se.bridgit.language.evaluator.ConditionalBlockPair;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
