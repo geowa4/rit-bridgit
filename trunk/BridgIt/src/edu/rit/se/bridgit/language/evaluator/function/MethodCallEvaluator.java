@@ -7,6 +7,7 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalBridge;
+import edu.rit.se.bridgit.language.model.bridge.NoMethodFoundException;
 
 public class MethodCallEvaluator extends Evaluator
 {
@@ -25,9 +26,17 @@ public class MethodCallEvaluator extends Evaluator
 	{
 		Type ret = loader.evaluate(scope);
 		validateType(ret);
-		return new Type(
-				((GraphicalBridge) ret.getValue()).sendMessage(methodName), 
-				ret.getPseudoType());
+		try
+		{
+			return new Type(
+					((GraphicalBridge) ret.getValue()).sendMessage(methodName), 
+					ret.getPseudoType());
+		}
+		catch(NoMethodFoundException e)
+		{
+			System.err.println(e);
+			return null;
+		}
 	}
 
 	@Override
