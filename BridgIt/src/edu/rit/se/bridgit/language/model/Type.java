@@ -15,6 +15,15 @@ public class Type
 		validateTypes();
 	}
 	
+	public Type(Type in_type) throws InvalidTypeException{
+		super();
+		this.value = in_type.value;
+		this.type = value == null ? null : value.getClass();
+		this.pseudoType = in_type.pseudoType;
+		validateTypes();
+	}
+
+
 	private void validateTypes() throws InvalidTypeException
 	{
 		//This method will likely need to change
