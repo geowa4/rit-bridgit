@@ -89,24 +89,12 @@
             targetID="edu.rit.se.bridgit.edit.perspectives.editPerspective">
          <view
                closeable="false"
-               id="edu.rit.se.bridgit.edit.views.objectsView"
-               minimized="false"
-               moveable="false"
-               ratio="0.250f"
-               relationship="left"
-               relative="org.eclipse.ui.editorss"
-               showTitle="true"
-               standalone="true"
-               visible="true">
-         </view>
-         <view
-               closeable="false"
                id="edu.rit.se.bridgit.edit.views.typesView"
                minimized="false"
                moveable="false"
-               ratio="0.25f"
-               relationship="right"
-               relative="edu.rit.se.bridgit.edit.views.objectsView"
+               ratio="0.75f"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss"
                showTitle="true"
                standalone="true"
                visible="true">
@@ -116,20 +104,20 @@
                id="edu.rit.se.bridgit.views.worldView"
                minimized="false"
                moveable="false"
-               ratio="0.70f"
-               relationship="top"
-               relative="edu.rit.se.bridgit.edit.views.typesView"
+               ratio="0.60f"
+               relationship="left"
+               relative="org.eclipse.ui.editorss"
                showTitle="true"
                standalone="true"
                visible="true">
          </view>
          <view
                closeable="false"
-               id="edu.rit.se.bridgit.edit.views.codeView"
+               id="edu.rit.se.bridgit.edit.views.objectsView"
                minimized="false"
                moveable="false"
-               ratio="0.5f"
-               relationship="right"
+               ratio="0.30f"
+               relationship="left"
                relative="edu.rit.se.bridgit.views.worldView"
                showTitle="true"
                standalone="true"
