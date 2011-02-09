@@ -7,12 +7,12 @@ public class ObjectsView extends ViewPart {
 
 	public ObjectsView() {
 		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
 	public void createPartControl(Composite parent) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
