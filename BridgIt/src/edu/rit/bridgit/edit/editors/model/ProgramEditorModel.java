@@ -1,4 +1,4 @@
-package edu.rit.bridgit.model;
+package edu.rit.bridgit.edit.editors.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

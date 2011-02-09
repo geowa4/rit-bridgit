@@ -8,8 +8,8 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-import edu.rit.bridgit.model.ProgramEditorInput;
-import edu.rit.bridgit.model.ProgramEditorModel;
+import edu.rit.bridgit.edit.editors.model.ProgramEditorInput;
+import edu.rit.bridgit.edit.editors.model.ProgramEditorModel;
 import edu.rit.se.bridgit.edit.editors.ProgramEditor;
 
 public class CodeView extends ViewPart {
@@ -23,7 +23,7 @@ public class CodeView extends ViewPart {
 		// Attempt to attach the program editor to this view
 		try {
 			IEditorPart editor = getSite().getPage().openEditor(new ProgramEditorInput(),
-					"edu.rit.se.bridgit.edit.editors.ProgramEditor");
+					"edu.rit.se.bridgit.edit.editors.programeditor");
 			editor.createPartControl(parent);
 		} catch (PartInitException e) {
 			e.printStackTrace();

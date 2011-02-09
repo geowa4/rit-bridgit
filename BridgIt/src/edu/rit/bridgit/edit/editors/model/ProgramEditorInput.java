@@ -1,4 +1,4 @@
-package edu.rit.bridgit.model;
+package edu.rit.bridgit.edit.editors.model;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
@@ -27,7 +27,7 @@ public class ProgramEditorInput implements IEditorInput {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Program Editor Input";
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class ProgramEditorInput implements IEditorInput {
 	@Override
 	public String getToolTipText() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Program Editor";
 	}
 
 }
