@@ -7,7 +7,7 @@ public class EditPerspective implements IPerspectiveFactory {
 
 	@Override
 	public void createInitialLayout(IPageLayout layout) {
-		layout.setEditorAreaVisible(false);
+		layout.setEditorAreaVisible(true);
 	}
 
 }

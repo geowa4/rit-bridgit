@@ -75,6 +75,15 @@
       </view>
    </extension>
    <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="edu.rit.se.bridgit.edit.editors.ProgramEditor"
+            default="false"
+            id="edu.rit.se.bridgit.edit.editors.programeditor"
+            name="ProgramEditor">
+      </editor>
+   </extension>
+   <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
             targetID="edu.rit.se.bridgit.edit.perspectives.editPerspective">
@@ -170,6 +179,20 @@
             </command>
          </menu>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="edu.rit.se.bridgit.toolbars.mainToolbar">
+            <command
+                  commandId="edu.rit.se.bridgit.commands.play"
+                  icon="icons/alt_window_32.gif"
+                  label="Play"
+                  style="push"
+                  tooltip="Play&apos;s the scene.">
+            </command>
+         </toolbar>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
@@ -177,6 +200,11 @@
             defaultHandler="edu.rit.se.bridgit.commands.ExitHandler"
             id="edu.rit.se.bridgit.commands.exit"
             name="Exit">
+      </command>
+      <command
+            defaultHandler="edu.rit.se.bridgit.commands.PlayHandler"
+            id="edu.rit.se.bridgit.commands.play"
+            name="Play">
       </command>
    </extension>
 
