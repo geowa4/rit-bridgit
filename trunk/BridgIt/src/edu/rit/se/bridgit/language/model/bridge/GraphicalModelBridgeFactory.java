@@ -9,6 +9,7 @@ public class GraphicalModelBridgeFactory
 {
 	protected static HashMap<String, GraphicalBridge> availableclasses = 
 		new HashMap<String, GraphicalBridge>();;
+	
 	static 
 	{
 		loadAvailableClasses();
