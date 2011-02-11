@@ -1,42 +1,44 @@
 package edu.rit.se.bridgit.language.model.bridge;
 
-import java.util.Vector;
+import java.util.List;
+import java.util.Queue;
 
 public class GraphicalBridge
 {
-	String _pseudoType;
-	Vector<String> _available_methods;
+	String pseudoType;
+	List<String> availableMethods;
+	Queue<?> actionQueue;
 	
-	public GraphicalBridge(String in_pseudoType, Vector<String> in_methods)
+	public GraphicalBridge(String pseudoType, List<String> methods, Queue<?> actionQueue)
 	{
-		_pseudoType = in_pseudoType;
-		_available_methods = in_methods;
+		this.pseudoType = pseudoType;
+		this.availableMethods = methods;
+		this.actionQueue = actionQueue;
 	}
 	
-	public GraphicalBridge(GraphicalBridge in_graphicalBridge) 
+	public GraphicalBridge(GraphicalBridge other) 
 	{
-		this._pseudoType = in_graphicalBridge._pseudoType;
-		this._available_methods = in_graphicalBridge._available_methods;
+		this(other.pseudoType, other.availableMethods, other.actionQueue);
 	}
 	
-	public Object sendMessage(String in_methodName) throws NoMethodFoundException
+	public Object sendMessage(String methodName) throws NoMethodFoundException
 	{
-		if(!_available_methods.contains(in_methodName))
+		if(!availableMethods.contains(methodName))
 		{
-			throw new NoMethodFoundException(_pseudoType, in_methodName);
+			throw new NoMethodFoundException(pseudoType, methodName);
 		}
-		System.out.println(_pseudoType + "calls" + in_methodName);	
-		return null;
+		actionQueue.add(null); //TODO: this should add something real
+		return new Boolean(true); //TODO: must return something real
 	}
 	
-	public Vector<String> getAvailableMethods()
+	public List<String> getAvailableMethods()
 	{
-		return _available_methods;
+		return availableMethods;
 	}
 	
 	public String getPseudoType()
 	{
-		return _pseudoType;
+		return pseudoType;
 	}
 	
 }

@@ -1,64 +1,39 @@
 package edu.rit.se.bridgit.language.model.bridge;
 
 import java.util.HashMap;
-import java.util.Vector;
+import java.util.LinkedList;
 
 public class GraphicalModelBridgeFactory
 {
-	private HashMap<String, GraphicalBridge> _available_classes;
-	private HashMap<String, Vector<GraphicalBridge>> _current_instances;
+	protected static HashMap<String, GraphicalBridge> availableclasses = 
+		new HashMap<String, GraphicalBridge>();
+	protected static HashMap<String, LinkedList<GraphicalBridge>> currentinstances = 
+		new HashMap<String, LinkedList<GraphicalBridge>>();
 	
-	private static GraphicalModelBridgeFactory _instance = null;
-	
-	private GraphicalModelBridgeFactory()
+	public static GraphicalBridge buildBridge(String pseudoType)
 	{
-		_available_classes = new HashMap<String, GraphicalBridge>();
-		_current_instances = new HashMap<String, Vector<GraphicalBridge>>();
-	}
-	
-	public static GraphicalModelBridgeFactory getInstance()
-	{
-		if(_instance != null)
+		if(availableclasses.containsKey(pseudoType))
 		{
-			return _instance;
-		}
-		else
-		{
-			_instance = new GraphicalModelBridgeFactory();
-			return _instance;
-		}
-	}
-	
-	public GraphicalBridge buildBridge(String in_pseudoType)
-	{
-		//check if that type is available
-		if(_available_classes.containsKey(in_pseudoType))
-		{
-			//get the type from the map of available types
-			GraphicalBridge return_val = new GraphicalBridge(_available_classes.get(in_pseudoType));
+			GraphicalBridge returnval = new GraphicalBridge(availableclasses.get(pseudoType));
 			
-			//check if we have a vector to hold available instances
-			if(!_current_instances.containsKey(in_pseudoType))
+			if(!currentinstances.containsKey(pseudoType))
 			{
-				//if we don't add a vector for it
-				_current_instances.put(in_pseudoType, new Vector<GraphicalBridge>());
+				currentinstances.put(pseudoType, new LinkedList<GraphicalBridge>());
 			}
-			
-			//add the new instance to list of current instances
-			_current_instances.get(in_pseudoType).add(return_val);
-			return return_val;
+			currentinstances.get(pseudoType).add(returnval);
+			return returnval;
 		}
 		else
 			return null;
 	}
 	
-	public void addPossibleClass(GraphicalBridge in_gb)
+	public static void addPossibleClass(GraphicalBridge gb)
 	{
-		_available_classes.put(in_gb._pseudoType, in_gb);
+		availableclasses.put(gb.pseudoType, gb);
 	}
 	
-	public int getNumberInstances(String in_pseudoType)
+	public static int getNumberInstances(String inpseudoType)
 	{
-		return _current_instances.get(in_pseudoType).size();
+		return currentinstances.get(inpseudoType).size();
 	}
 }
