@@ -18,7 +18,7 @@ public class NewEvaluator extends Evaluator
 	public Type evaluate(Scope scope) 
 	throws InvalidTypeException, NameConflictException
 	{
-		return new Type(GraphicalModelBridgeFactory.getInstance().buildBridge(pseudoType), pseudoType);
+		return new Type(GraphicalModelBridgeFactory.buildBridge(pseudoType), pseudoType);
 	}
 
 	@Override
