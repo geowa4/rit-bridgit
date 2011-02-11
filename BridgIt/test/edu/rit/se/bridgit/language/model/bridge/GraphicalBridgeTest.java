@@ -1,13 +1,14 @@
 package edu.rit.se.bridgit.language.model.bridge;
 
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThat;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Vector;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class GraphicalBridgeTest
 	public void createBridges()
 	{
 		actionQueue = new LinkedList<Object>();
-		List<String> methods = new LinkedList<String>() 
+		List<String> methods = new Vector<String>() 
 		{
 			private static final long serialVersionUID = 6401829779778644565L;
 		{
