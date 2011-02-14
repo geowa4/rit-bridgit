@@ -1,14 +1,16 @@
 package edu.rit.se.bridgit.views;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
 import org.monklypse.core.JMEComposite;
-
 
 import edu.rit.bridgit.edit.editors.model.ProgramEditorInput;
 import edu.rit.se.bridgit.monklypse.RenderCanvas;
