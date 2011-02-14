@@ -1,6 +1,5 @@
 package edu.rit.se.bridgit.language.model.bridge;
 
-import java.awt.Image;
 import java.util.List;
 import java.util.Queue;
 
@@ -42,8 +41,8 @@ public class GraphicalBridge
 		return pseudoType;
 	}
 	
-	public Image getTumbnail()
+	public String getTumbnail()
 	{
-		return null;
+		return "/Users/student/Desktop/BridgIt_Project/BridgIt/BridgIt/icons/alt_about.gif";
 	}
 }
