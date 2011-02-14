@@ -19,6 +19,8 @@ public class MemberLoadEvaluator extends Evaluator
 			return scope.getVariableValue(name);
 		else if(scope.isConstant(name))
 			return scope.getConstantValue(name);
+		else if(scope.isParameter(name))
+			return scope.getParameterValue(name);
 		else
 			throw new InvalidTypeException(null, "Member Load");
 	}
