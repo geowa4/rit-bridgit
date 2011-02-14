@@ -13,6 +13,8 @@ public class Scope
 	
 	private Map<String, Type> variables = new HashMap<String, Type>();
 	private Map<String, Type> constants = new HashMap<String, Type>();
+	private Map<String, Type> parameters = new HashMap<String, Type>();
+	private Map<String, Type> functions = new HashMap<String, Type>();
 	
 	public Scope(Scope parent) 
 	{
@@ -32,12 +34,47 @@ public class Scope
 		return type;
 	}
 	
+	public Type addFunction(String name, Type type)throws NameConflictException 
+	{
+		if(isFunction(name))
+			throw new NameConflictException(name);
+		functions.put(name, type);
+		return type;
+	}
+	
+	public Type addParameter(String name, Type type) throws NameConflictException, InvalidTypeException{
+		if(isParameter(name))
+			throw new NameConflictException(name);
+		parameters.put(name, type);
+		return type;
+	}
+	
 	public boolean isVariable(String name)
 	{
 		if(variables.containsKey(name))
 			return true;
 		else if(parent != null)
 			return parent.isVariable(name);
+		else
+			return false;
+	}
+	
+	public boolean isFunction(String name)
+	{
+		if(functions.containsKey(name))
+			return true;
+		else if(parent != null)
+			return parent.isFunction(name);
+		else
+			return false;
+	}
+	
+	public boolean isParameter(String name)
+	{
+		if(parameters.containsKey(name))
+			return true;
+		else if(parent != null)
+			return parent.isParameter(name);
 		else
 			return false;
 	}
@@ -86,6 +123,26 @@ public class Scope
 			return variables.get(name);
 		else if(parent != null)
 			return parent.getVariableValue(name);
+		else
+			return null;
+	}
+	
+	public Type getParameterValue(String name) 
+	{
+		if(parameters.containsKey(name))
+			return parameters.get(name);
+		else if(parent != null)
+			return parent.getParameterValue(name);
+		else
+			return null;
+	}
+	
+	public Type getFunctionValue(String name) 
+	{
+		if(functions.containsKey(name))
+			return functions.get(name);
+		else if(parent != null)
+			return parent.getFunctionValue(name);
 		else
 			return null;
 	}
