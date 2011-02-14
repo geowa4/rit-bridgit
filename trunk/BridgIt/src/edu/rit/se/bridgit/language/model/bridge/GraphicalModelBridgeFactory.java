@@ -62,4 +62,9 @@ public class GraphicalModelBridgeFactory
 	{
 		return currentinstances.get(inpseudoType).size();
 	}
+	
+	public static String getThumbnailForType(String type)
+	{
+		return ((GraphicalBridge) availableclasses.get(type)).getTumbnail();
+	}
 }
