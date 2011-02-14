@@ -38,16 +38,19 @@ public class FunctionEvaluator extends Evaluator{
 	public Type evaluate(Scope scope) throws InvalidTypeException,
 			NameConflictException {
 		
+		
+		Scope functionScope = null;
 		if(nestScope)
-			scope = new Scope(scope);
+			functionScope = new Scope(scope);
 		
 		if(parameters != null){
-			parameters.evaluate(scope);
+			parameters.evaluate(functionScope);
 		}	
-		if(functionBlock != null){
-			functionBlock.evaluate(scope);
-		}
-		return null;
+		
+			Type type = functionBlock.evaluate(functionScope);
+			scope.addFunction(name, type);
+		
+		return type;
 	}
 
 	@Override
