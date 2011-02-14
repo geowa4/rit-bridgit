@@ -28,8 +28,7 @@ application returns [BlockEvaluator eval]
 
 setup returns [BlockEvaluator eval] 
   : 'setup' '{' {$eval = new BlockEvaluator(false);}
-      ( constant {$eval.add($constant.eval);} )*
-      
+      ( constant {$eval.add($constant.eval);} )*     
       ( variable {$eval.add($variable.eval);} 
       | function {$eval.add($function.eval);}
       )*
