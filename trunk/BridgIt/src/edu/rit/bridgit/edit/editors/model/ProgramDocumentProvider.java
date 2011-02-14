@@ -1,5 +1,7 @@
 package edu.rit.bridgit.edit.editors.model;
 
+import java.io.StringBufferInputStream;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.text.IDocument;
@@ -24,7 +26,7 @@ public class ProgramDocumentProvider implements IDocumentProvider {
 	@Override
 	public IDocument getDocument(Object element) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ProgramDocument();
 	}
 
 	@Override
@@ -36,8 +38,7 @@ public class ProgramDocumentProvider implements IDocumentProvider {
 	@Override
 	public void saveDocument(IProgressMonitor monitor, Object element,
 			IDocument document, boolean overwrite) throws CoreException {
-		// TODO Auto-generated method stub
-
+		// TODO Auto-generated method stuff
 	}
 
 	@Override
