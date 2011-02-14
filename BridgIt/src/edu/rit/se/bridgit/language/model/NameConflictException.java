@@ -8,4 +8,9 @@ public class NameConflictException extends Exception
 	{
 		super(name + " has already been defined.");
 	}
+	
+	public NameConflictException(String name, String text)
+	{
+			super(name + " " + text);
+	}
 }
