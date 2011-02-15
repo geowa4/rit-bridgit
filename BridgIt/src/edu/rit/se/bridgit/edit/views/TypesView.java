@@ -20,9 +20,9 @@ import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 public class TypesView extends ViewPart implements ISelectionChangedListener
 {
-	Composite parent;
-	ListViewer list;
-	Label imagePreview;
+	private Composite parent;
+	private ListViewer list;
+	private Label imagePreview;
 
 	@Override
 	public void createPartControl(Composite parent) 
@@ -47,9 +47,16 @@ public class TypesView extends ViewPart implements ISelectionChangedListener
 	}
 	
 	public void selectionChanged(SelectionChangedEvent event) {
-		IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-		imagePreview.setImage(new Image(parent.getDisplay(), 
-				GraphicalModelBridgeFactory.getThumbnailForType(selection.getFirstElement().toString())));
+		Object selection = ((IStructuredSelection) event.getSelection()).getFirstElement();
+		if(selection != null)
+		{
+			String imagePath = 
+				GraphicalModelBridgeFactory.getThumbnailForType(selection.toString());
+			if(!imagePath.equals(""))
+			{
+				imagePreview.setImage(new Image(parent.getDisplay(), imagePath));
+			}
+		}
 	}
 }
 

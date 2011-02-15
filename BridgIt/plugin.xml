@@ -174,7 +174,7 @@
                id="edu.rit.se.bridgit.toolbars.mainToolbar">
             <command
                   commandId="edu.rit.se.bridgit.commands.play"
-                  icon="icons/alt_window_32.gif"
+                  icon="icons/play.gif"
                   label="Play"
                   style="push"
                   tooltip="Play&apos;s the scene.">
