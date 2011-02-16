@@ -11,6 +11,7 @@ import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.DoubleEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
+import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -157,4 +158,16 @@ public class VariableTest
 		assertEquals("Variable must be changed to null.",
 				new Type(null, "Integer").getValue(), scope.getVariableValue("x").getValue());
 	}
+	
+	@Test
+	public void checkStringVariableDefinition() throws InvalidTypeException, NameConflictException{
+		
+		Evaluator e = new StringEvaluator("Test");
+		VariableEvaluator evaluator = new VariableEvaluator("a", "String", e);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		assertEquals("Variable must be equal to Test.",
+				e.evaluate(scope).getValue(), scope.getVariableValue("a").getValue());
+	}
+	
 }
