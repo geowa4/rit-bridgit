@@ -19,5 +19,4 @@ Import-Package: org.eclipse.ui.editors.text,
  org.eclipse.ui.part,
  org.eclipse.ui.texteditor
 Bundle-ClassPath: .,
- src/,
  lib/antlr-3.3-complete.jar
