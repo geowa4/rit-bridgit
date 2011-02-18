@@ -3,6 +3,7 @@ package edu.rit.se.bridgit.language.evaluator;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.rit.se.bridgit.language.evaluator.function.Function;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -26,7 +27,7 @@ public class Scope
 	private Map<String, Type> variables = new HashMap<String, Type>();
 	private Map<String, Type> constants = new HashMap<String, Type>();
 	private Map<String, Type> parameters = new HashMap<String, Type>();
-	private Map<String, Type> functions = new HashMap<String, Type>();
+	private Map<String, Function> functions = new HashMap<String, Function>();
 	
 	public Scope(Scope parent) 
 	{
@@ -46,12 +47,17 @@ public class Scope
 		return type;
 	}
 	
-	public Type addFunction(String name, Type type)throws NameConflictException 
+	public Type addFunction(Function function, Type type)throws NameConflictException 
 	{
-		if(isFunction(name))
-			throw new NameConflictException(name);
-		functions.put(name, type);
+		if(isFunction(function.getFunctionName()))
+			throw new NameConflictException(function.getFunctionName());
+		functions.put(function.getFunctionName(), function);
 		return type;
+	}
+	
+	public int getFunctionParameterSize(String functionName){
+				
+		return 0;
 	}
 	
 	public Type addParameter(String name, Type type) throws NameConflictException, InvalidTypeException{
@@ -59,6 +65,15 @@ public class Scope
 			throw new NameConflictException(name);
 		parameters.put(name, type);
 		return type;
+	}
+	
+	public Boolean removeParameter(String name){
+		if(isParameter(name)){
+			parameters.remove(name);
+			return true;
+		}
+		else 
+			return false;
 	}
 	
 	public boolean isVariable(String name)
@@ -149,12 +164,24 @@ public class Scope
 			return null;
 	}
 	
-	public Type getFunctionValue(String name) 
+	public Type getFunctionValue(String name) throws InvalidTypeException 
 	{
+		Type type = null;
+		if(functions.containsKey(name))
+			return new Type(functions.get(name), "Function");
+		else if(parent != null)
+			return new Type(parent.getFunctionValue(name), "Function");
+		else
+			return null;
+	}
+	
+	public Function getFunction(String name) throws InvalidTypeException 
+	{
+
 		if(functions.containsKey(name))
 			return functions.get(name);
 		else if(parent != null)
-			return parent.getFunctionValue(name);
+			return parent.getFunction(name);
 		else
 			return null;
 	}
