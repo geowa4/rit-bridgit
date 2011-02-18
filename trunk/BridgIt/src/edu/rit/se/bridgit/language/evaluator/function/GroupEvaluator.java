@@ -20,17 +20,22 @@ public class GroupEvaluator extends Evaluator{
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException,
 			NameConflictException {
-		for(Evaluator e: itemList){
-			Type eval = e.evaluate(scope);
-			validateType(eval);
-			if(eval.getValue() != null){
-				return eval;
+		
+		if(itemList.size() > 0)		
+			for(Evaluator e: itemList){
+				Type type = e.evaluate(scope);
 			}
-		}
-		return null;
+		else
+			;
+		
+		Type type = new Type(itemList, "List");
+		return type;
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException {}
+	protected void validateType(Type t) throws InvalidTypeException {
+		
+	}
 
 }
+
