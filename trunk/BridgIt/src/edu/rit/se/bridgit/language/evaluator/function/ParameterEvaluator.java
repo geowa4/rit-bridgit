@@ -16,39 +16,77 @@ public class ParameterEvaluator extends Evaluator{
 
 	
 	private String name;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	private String type;
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	private Evaluator value;
+	public Evaluator getValue() {
+		return value;
+	}
+
+	public void setValue(Evaluator value) {
+		this.value = value;
+	}
+
+	private boolean isArgument;
 	
 	public ParameterEvaluator(String name, String pseudoType)
 	{
-		this.name = name;
-		this.type = pseudoType;
+		this.setName(name);
+		this.setType(pseudoType);
+		this.isArgument = false;
 	}
+	
+	public ParameterEvaluator(String name, Evaluator value, String pseudoType)
+	{
+		this.setName(name);
+		this.setType(pseudoType);
+		this.setValue(value);
+		this.isArgument = true;
+	}
+	
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException,
 			NameConflictException {
+
 		Type eval = new Type(null, type);
-		/*
-		if(eval.getPseudoType().equalsIgnoreCase("Integer"))
-			eval =  new Type(new IntegerEvaluator(0), type);
-		else if(eval.getPseudoType().equalsIgnoreCase("String"))
-			eval = new Type(new StringEvaluator(""), type);
-		else if(eval.getPseudoType().equalsIgnoreCase("Boolean"))
-			eval = new Type(new BooleanEvaluator(false), type);
-		else if(eval.getPseudoType().equalsIgnoreCase("Double"))
-			eval = new Type(new DoubleEvaluator(0.0), type);
-		else 
-			eval = new Type(new NullEvaluator(), type);
-			*/
-		scope.addParameter(name, eval);		
+
+		if (value != null) {
+			eval = value.evaluate(scope);
+		} else if (!isArgument) {
+
+			if (this.getType().equalsIgnoreCase("Integer"))
+				setValue(new IntegerEvaluator(0));
+			else if (this.getType().equalsIgnoreCase("String"))
+				setValue(new StringEvaluator(""));
+			else if (this.getType().equalsIgnoreCase("Boolean"))
+				setValue(new BooleanEvaluator(false));
+			else if (this.getType().equalsIgnoreCase("Double"))
+				setValue(new BooleanEvaluator(false));
+
+			eval = this.getValue().evaluate(scope);
+		}
+		scope.addParameter(name, eval);
 		return eval;
 	}
 
 	@Override
 	protected void validateType(Type t) throws InvalidTypeException {
-		if(!t.getType().equals(Boolean.class))
-		{
-			throw new InvalidTypeException(t.getType(), "Parameter");
-		}
+		
 	}
 
 }
