@@ -56,7 +56,6 @@ public class FunctionCallEvaluator extends Evaluator {
 			Type eval = scope.getFunction(name).getReturnValue().evaluate(scope.getFunction(name).getFunctionScope());
 			
 			if (eval != null) {
-				System.out.println("what is null");
 				return eval;
 			}
 		
