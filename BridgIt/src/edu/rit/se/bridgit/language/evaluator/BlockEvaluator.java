@@ -35,11 +35,12 @@ public class BlockEvaluator extends Evaluator
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
 		if(nestScope)
-			scope = new Scope(scope);
-		for(Evaluator e : evaluators) 
 		{
-			e.evaluate(scope);
+			scope = new Scope(scope);
+			Scope.setCurrentScope(scope);
 		}
+		for(Evaluator e : evaluators) e.evaluate(scope);
+		if(nestScope) Scope.setCurrentScope(scope.getParent());
 		return null;
 	}
 

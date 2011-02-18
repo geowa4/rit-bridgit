@@ -9,6 +9,18 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class Scope 
 {
+	private static Scope currentScope;
+	
+	public static Scope getCurrentScope()
+	{
+		return currentScope;
+	}
+	
+	public static void setCurrentScope(Scope scope)
+	{
+		currentScope = scope;
+	}
+	
 	private Scope parent;
 	
 	private Map<String, Type> variables = new HashMap<String, Type>();
