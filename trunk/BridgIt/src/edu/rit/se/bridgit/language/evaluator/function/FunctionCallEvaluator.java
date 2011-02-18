@@ -2,9 +2,7 @@ package edu.rit.se.bridgit.language.evaluator.function;
 
 import java.util.List;
 
-import edu.rit.se.bridgit.language.evaluator.BlockEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
-
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
@@ -47,13 +45,11 @@ public class FunctionCallEvaluator extends Evaluator {
 			}
 			scope.getFunction(name).setParameters((List<?>)group.evaluate(scope).getValue());
 			
-			for(Evaluator e : scope.getFunction(name).getFunctionBlock()) 
-			{
-				e.evaluate(scope.getFunction(name).getFunctionScope());
-			}
+			//Priya, the BlockEvaluator already has a list of internal evaluators. Just use that.
+			scope.getFunction(name).getFunctionBlock().evaluate(scope);
 			
-			
-			Type eval = scope.getFunction(name).getReturnValue().evaluate(scope.getFunction(name).getFunctionScope());
+			//Priya, the following threw a NullPointerException
+			Type eval = null;// = scope.getFunction(name).getReturnValue().evaluate(scope.getFunction(name).getFunctionScope());
 			
 			if (eval != null) {
 				return eval;

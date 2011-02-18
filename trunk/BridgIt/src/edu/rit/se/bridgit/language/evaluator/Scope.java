@@ -2,6 +2,7 @@ package edu.rit.se.bridgit.language.evaluator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import edu.rit.se.bridgit.language.evaluator.function.Function;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
@@ -194,5 +195,12 @@ public class Scope
 			return parent.getConstantValue(name);
 		else
 			return null;
+	}
+	
+	public Set<String> getVariables()
+	{
+		Set<String> ret = variables.keySet();
+		ret.addAll(parent.getVariables());
+		return ret;
 	}
 }
