@@ -42,7 +42,7 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
-            class="edu.rit.se.bridgit.edit.views.ObjectsView"
+            class="edu.rit.se.bridgit.edit.views.ScopeView"
             id="edu.rit.se.bridgit.edit.views.objectsView"
             name="Created Objects"
             restorable="true">

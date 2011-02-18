@@ -14,28 +14,29 @@ public class LangTest
 	public static void main(String...args) 
 	throws RecognitionException, InvalidTypeException, NameConflictException
 	{
-		CharStream stream = new ANTLRStringStream("                                         \n" + 
-				"// this is a test program\n" + 
-				"/*\n" + 
-				"	don't mind me, \n" + 
-				"	i'm just a multi-line comment\n" + 
-				"*/\n" + 
-				"application Awesome {\n" + 
-				"	setup {" +
-				"      var a:Integer = 0;" +
-				"function test(x:Integer, y:String)\n" + 
-				"				{\n" + 
-				"					constant d:Integer =2;\n" + 
-				"					var one:Integer = x;\n" + 
-				"					one = 100 + one;\n" + 
-				"				}" +
-				"   }\n" + 
-				"	main {\n" + 
-				"		if a == 0 {\n" + 
-				"			a = 7;\n" + 
-				"		}\n" + 
-				"	}\n" + 
-				"}"
+		CharStream stream = new ANTLRStringStream("garbage"
+//				"                                         \n" + 
+//				"// this is a test program\n" + 
+//				"/*\n" + 
+//				"	don't mind me, \n" + 
+//				"	i'm just a multi-line comment\n" + 
+//				"*/\n" + 
+//				"application Awesome {\n" + 
+//				"	setup {" +
+//				"      var a:Integer = 0;" +
+//				"function test(x:Integer, y:String)\n" + 
+//				"				{\n" + 
+//				"					constant d:Integer =2;\n" + 
+//				"					var one:Integer = x;\n" + 
+//				"					one = 100 + one;\n" + 
+//				"				}" +
+//				"   }\n" + 
+//				"	main {\n" + 
+//				"		if a == 0 {\n" + 
+//				"			a = 7;\n" + 
+//				"		}\n" + 
+//				"	}\n" + 
+//				"}"
 		);
 		PseudoLexer lexer = new PseudoLexer(stream);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
