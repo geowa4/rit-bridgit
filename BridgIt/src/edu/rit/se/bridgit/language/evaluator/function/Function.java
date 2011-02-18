@@ -2,12 +2,13 @@ package edu.rit.se.bridgit.language.evaluator.function;
 
 import java.util.List;
 
+import edu.rit.se.bridgit.language.evaluator.BlockEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 
 public class Function{
 	private List<?> parameters;
-	private List<Evaluator> functionBlock;
+	private BlockEvaluator functionBlock;
 	private String returnType;
 	private String functionName;
 	private Scope functionScope;
@@ -20,11 +21,11 @@ public class Function{
 		this.parameters = parameters;
 	}
 	
-	public List<Evaluator> getFunctionBlock() {
+	public BlockEvaluator getFunctionBlock() {
 		return functionBlock;
 	}
-	public void setFunctionBlock(List<Evaluator> functionBlock) {
-		this.functionBlock = functionBlock;
+	public void setFunctionBlock(BlockEvaluator block) {
+		this.functionBlock = block;
 	}
 	
 	public String getReturnType() {

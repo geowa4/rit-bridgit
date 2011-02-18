@@ -1,11 +1,10 @@
 package edu.rit.se.bridgit.language.evaluator.function;
 
-import java.util.LinkedList;
 import java.util.List;
 
+import edu.rit.se.bridgit.language.evaluator.BlockEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
-import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -15,7 +14,7 @@ public class FunctionEvaluator extends Evaluator{
 	
 	private Function function;
 	private Evaluator parameters;
-	private List<Evaluator> functionBlock = new LinkedList<Evaluator>();
+	private BlockEvaluator functionBlock = new BlockEvaluator();
 	
 	public FunctionEvaluator(String name, Evaluator parameters)
 	{
@@ -32,10 +31,6 @@ public class FunctionEvaluator extends Evaluator{
 		this.parameters = parameters;
 		function.setReturnType(type);
 
-	}
-	
-	public void addFunctionBlock(Evaluator e){
-		functionBlock.add(e);
 	}
 	
 	public void addReturnValue(Evaluator e){
@@ -63,6 +58,11 @@ public class FunctionEvaluator extends Evaluator{
 	protected void validateType(Type t) throws InvalidTypeException {
 		if(t.getType() == null || !t.getType().equals(Function.class))
 			throw new InvalidTypeException(t.getType(), "Function");
+	}
+
+	public void setFunctionBlock(BlockEvaluator block)
+	{
+		functionBlock = block;
 	}
 
 }

@@ -44,7 +44,7 @@
             allowMultiple="false"
             class="edu.rit.se.bridgit.edit.views.ScopeView"
             id="edu.rit.se.bridgit.edit.views.objectsView"
-            name="Created Objects"
+            name="Objects in Scope"
             restorable="true">
       </view>
       <view
