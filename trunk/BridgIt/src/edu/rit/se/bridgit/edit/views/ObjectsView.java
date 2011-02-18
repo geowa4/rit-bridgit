@@ -3,22 +3,24 @@ package edu.rit.se.bridgit.edit.views;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
-public class ObjectsView extends ViewPart {
+public class ObjectsView extends ViewPart 
+{
 
-	public ObjectsView() {
-		// TODO Auto-generated constructor stub
+	public ObjectsView() 
+	{
 		
 	}
 
 	@Override
-	public void createPartControl(Composite parent) {
-		// TODO Auto-generated method stub
+	public void createPartControl(Composite parent) 
+	{
+		
 	}
 
 	@Override
-	public void setFocus() {
-		// TODO Auto-generated method stub
-
+	public void setFocus() 
+	{
+		
 	}
 
 }
