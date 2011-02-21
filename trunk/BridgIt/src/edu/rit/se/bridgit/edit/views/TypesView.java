@@ -4,6 +4,7 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -33,7 +34,7 @@ public class TypesView extends ViewPart implements ISelectionChangedListener
 		list.setContentProvider(new StructuredCollectionContentProvider());
 		list.setInput(GraphicalModelBridgeFactory.getAvailableClasses());
 		list.addSelectionChangedListener(this);
-		imagePreview = new Label(parent, 0);
+		imagePreview = new Label(parent, SWT.NO_FOCUS);
 	}
 
 	@Override

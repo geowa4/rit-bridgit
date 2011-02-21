@@ -167,7 +167,6 @@ public class Scope
 	
 	public Type getFunctionValue(String name) throws InvalidTypeException 
 	{
-		Type type = null;
 		if(functions.containsKey(name))
 			return new Type(functions.get(name), "Function");
 		else if(parent != null)
@@ -201,6 +200,20 @@ public class Scope
 	{
 		Set<String> ret = variables.keySet();
 		ret.addAll(parent.getVariables());
+		return ret;
+	}
+
+	public Set<String> getConstants()
+	{
+		Set<String> ret = constants.keySet();
+		ret.addAll(parent.getConstants());
+		return ret;
+	}
+	
+	public Set<String> getFunctions()
+	{
+		Set<String> ret = functions.keySet();
+		ret.addAll(parent.getFunctions());
 		return ret;
 	}
 }
