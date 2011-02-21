@@ -8,11 +8,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import antlr.RecognitionException;
-
 import edu.rit.se.bridgit.edit.editors.ProgramEditor;
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.NameConflictException;
 
 public class PlayHandler extends AbstractHandler {
 	// The ID of the play perspective
@@ -35,8 +31,15 @@ public class PlayHandler extends AbstractHandler {
 			} catch (WorkbenchException e) {
 				e.printStackTrace();
 			}
-
-			System.out.println(LanguageHandler.evaluateProgram(ProgramEditor.text.getText()));
+			String programText = ProgramEditor.text.getText();
+			if(!programText.equals(""))
+			{
+				System.out.println(LanguageHandler.evaluateProgram(programText));
+			}
+			else 
+			{
+				System.err.println("You have nothing in the program editor.");
+			}
 		}
 		// Otherwise, if we're in the execution perspective
 		else if(activePerspective.getId().equals(EXECUTION_PERSPECTIVE_ID)) {
