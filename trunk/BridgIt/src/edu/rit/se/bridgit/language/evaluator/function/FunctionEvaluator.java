@@ -1,7 +1,5 @@
 package edu.rit.se.bridgit.language.evaluator.function;
 
-import java.util.List;
-
 import edu.rit.se.bridgit.language.evaluator.BlockEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
@@ -9,48 +7,42 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class FunctionEvaluator extends Evaluator{
-
-	
+public class FunctionEvaluator extends Evaluator
+{
 	private Function function;
-	private Evaluator parameters;
-	private BlockEvaluator functionBlock = new BlockEvaluator();
 	
-	public FunctionEvaluator(String name, Evaluator parameters)
+	public FunctionEvaluator(String name)
 	{
 		function = new Function();
 		function.setFunctionName(name);
-		this.parameters = parameters;
-
 	}
 	
-	public FunctionEvaluator(String name, Evaluator parameters, String type)
+	public void setPseudoType(String pseudoType)
 	{
-		function = new Function();
-		function.setFunctionName(name);
-		this.parameters = parameters;
-		function.setReturnType(type);
-
+		function.setReturnType("Function:" + pseudoType);
 	}
 	
 	public void addReturnValue(Evaluator e){
 		function.setReturnValue(e);
 	}
+
+	public void setFunctionBlock(BlockEvaluator block)
+	{
+		function.setFunctionBlock(block);
+	}
+	
+	public void setParameters(ParameterListEvaluator params)
+	{
+		function.setParameters(params);
+	}
 	
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException,
-			NameConflictException {	
-		List<?> parameter = null;
-		Scope functionScope = new Scope(scope);
-
-		if(parameters != null){
-			parameter = (List<?>) parameters.evaluate(functionScope).getValue();		
-		} 		
-		function.setParameters(parameter);
-		function.setFunctionScope(functionScope);
-		function.setFunctionBlock(functionBlock);
-		Type type = new Type(function, "Function");
-		scope.addFunction(function , type);
+			NameConflictException {
+		Type type = new Type(function, function.getReturnType());
+		validateType(type);
+		function.setDefinitionScope(scope);
+		scope.addFunction(function, type);
 		return type;
 	}
 
@@ -59,11 +51,5 @@ public class FunctionEvaluator extends Evaluator{
 		if(t.getType() == null || !t.getType().equals(Function.class))
 			throw new InvalidTypeException(t.getType(), "Function");
 	}
-
-	public void setFunctionBlock(BlockEvaluator block)
-	{
-		functionBlock = block;
-	}
-
 }
 
