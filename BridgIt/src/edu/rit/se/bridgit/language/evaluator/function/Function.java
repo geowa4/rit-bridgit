@@ -5,53 +5,64 @@ import java.util.List;
 import edu.rit.se.bridgit.language.evaluator.BlockEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
+import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.Type;
 
 public class Function{
-	private List<?> parameters;
+	private ParameterListEvaluator parameters;
 	private BlockEvaluator functionBlock;
 	private String returnType;
 	private String functionName;
-	private Scope functionScope;
 	private Evaluator returnValue;
+	private Scope definitionScope;
 	
-	public List<?> getParameters() {
-		return parameters;
+	public Type apply(List<Type> args) throws InvalidTypeException, NameConflictException 
+	{
+		parameters.setArgs(args);
+		return returnValue.evaluate(definitionScope);
 	}
-	public void setParameters(List<?> parameters) {
+	
+	public void setDefinitionScope(Scope definitionScope)
+	{
+		this.definitionScope = definitionScope;
+	}
+	
+	public void setParameters(ParameterListEvaluator parameters) 
+	{
 		this.parameters = parameters;
 	}
 	
-	public BlockEvaluator getFunctionBlock() {
+	public BlockEvaluator getFunctionBlock() 
+	{
 		return functionBlock;
 	}
-	public void setFunctionBlock(BlockEvaluator block) {
+	
+	public void setFunctionBlock(BlockEvaluator block) 
+	{
 		this.functionBlock = block;
 	}
 	
-	public String getReturnType() {
+	public String getReturnType() 
+	{
 		return returnType;
 	}
-	public void setReturnType(String returnType) {
+	
+	public void setReturnType(String returnType) 
+	{
 		this.returnType = returnType;
 	}
 	
-	public String getFunctionName() {
+	public String getFunctionName() 
+	{
 		return functionName;
 	}
-	public void setFunctionName(String functionName) {
+	
+	public void setFunctionName(String functionName) 
+	{
 		this.functionName = functionName;
 	}
 	
-	public Scope getFunctionScope() {
-		return functionScope;
-	}
-	public void setFunctionScope(Scope functionScope) {
-		this.functionScope = functionScope;
-	}
-	
-	public Evaluator getReturnValue() {
-		return returnValue;
-	}
 	public void setReturnValue(Evaluator returnValue) {
 		this.returnValue = returnValue;
 	}

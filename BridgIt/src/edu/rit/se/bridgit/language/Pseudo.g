@@ -52,8 +52,10 @@ variable returns [Evaluator eval]
   ;
 
 function returns [FunctionEvaluator eval]
-  :'function' IDENT '(' parameters? ')' (':' type)? 
-    { $eval = new FunctionEvaluator($IDENT.text, $parameters.eval, $type.text);
+  :'function' IDENT {$eval = new FunctionEvaluator($IDENT.text);}
+    '(' parameters? {$eval.setParameters($parameters.eval);} ')' 
+    ':' type {$eval.setPseudoType($type.text);} 
+    { 
       BlockEvaluator block = new BlockEvaluator(false);
       $eval.setFunctionBlock(block);
     }
@@ -67,19 +69,19 @@ function returns [FunctionEvaluator eval]
     '}'
   ;
 
-arguments returns [GroupEvaluator eval]
-  : {$eval = new GroupEvaluator();}
-  firstExp=expression {eval.addItem($firstExp.eval);}
+arguments returns [ArgumentListEvaluator eval]
+  : {$eval = new ArgumentListEvaluator();}
+  firstExp=expression {$eval.addArg($firstExp.eval);}
   (',' 
-  optionalExp=expression {eval.addItem($optionalExp.eval);} 
+  optionalExp=expression {$eval.addArg($optionalExp.eval);} 
   )* 
   ;
 
-parameters returns [GroupEvaluator eval]
-  : {$eval = new GroupEvaluator();}
-  firstParam=parameter {eval.addItem($firstParam.eval);}
+parameters returns [ParameterListEvaluator eval]
+  : {$eval = new ParameterListEvaluator();}
+  firstParam=parameter {$eval.addParam($firstParam.eval);}
   (',' 
-  optionalParam=parameter {eval.addItem($optionalParam.eval);}
+  optionalParam=parameter {$eval.addParam($optionalParam.eval);}
   )*
   ;
 
