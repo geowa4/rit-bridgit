@@ -53,8 +53,8 @@ variable returns [Evaluator eval]
 
 function returns [FunctionEvaluator eval]
   :'function' IDENT {$eval = new FunctionEvaluator($IDENT.text);}
-    '(' parameters? {$eval.setParameters($parameters.eval);} ')' 
-    ':' type {$eval.setPseudoType($type.text);} 
+    '(' (parameters {$eval.setParameters($parameters.eval);})? ')' 
+    ':' functionType {$eval.setPseudoType($functionType.text);} 
     { 
       BlockEvaluator block = new BlockEvaluator(false);
       $eval.setFunctionBlock(block);
@@ -131,15 +131,15 @@ loop returns [WhileEvaluator eval]
     'while' whileExp=expression
        '{'                            {BlockEvaluator while_block = new BlockEvaluator();} 
        (
-         whileStmt=statement             {while_block.add($whileStmt.eval);}
+         whileStmt=statement          {while_block.add($whileStmt.eval);}
        )* 
        '}'                            {$eval.setConditional($whileExp.eval, while_block);}
 	;
 
 
-functionCall returns [Evaluator eval]
-  : IDENT '(' arguments? ')' ';'
-     {$eval = new FunctionCallEvaluator($IDENT.text, $arguments.eval);}
+functionCall returns [FunctionCallEvaluator eval]
+  : IDENT {$eval = new FunctionCallEvaluator($IDENT.text);}
+    '(' (arguments {$eval.setArgumentsList($arguments.eval);})? ')' ';'
   ;
 
 newObject returns [Evaluator eval]
@@ -152,6 +152,11 @@ type returns [String name]
   | 'String'  {$name = "String";}
   | 'List'    {$name = "List";}
   | IDENT     {$name = $IDENT.text;}
+  ;
+
+functionType returns [String name]
+  : type   {$name = $type.name;}
+  | 'void' {$name = "void";}
   ;
 
 term returns [Evaluator eval]

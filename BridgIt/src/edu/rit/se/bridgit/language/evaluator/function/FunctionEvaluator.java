@@ -40,16 +40,13 @@ public class FunctionEvaluator extends Evaluator
 	public Type evaluate(Scope scope) throws InvalidTypeException,
 			NameConflictException {
 		Type type = new Type(function, function.getReturnType());
-		validateType(type);
 		function.setDefinitionScope(scope);
 		scope.addFunction(function, type);
 		return type;
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException {
-		if(t.getType() == null || !t.getType().equals(Function.class))
-			throw new InvalidTypeException(t.getType(), "Function");
-	}
+	protected void validateType(Type t) throws InvalidTypeException 
+	{}
 }
 
