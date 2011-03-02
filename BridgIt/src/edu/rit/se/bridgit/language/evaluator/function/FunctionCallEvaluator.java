@@ -12,6 +12,7 @@ public class FunctionCallEvaluator implements Evaluator {
 
 	private String name;
 	private ArgumentListEvaluator arguments;
+	private Function function;
 
 	public FunctionCallEvaluator(String name)
 	{
@@ -32,11 +33,20 @@ public class FunctionCallEvaluator implements Evaluator {
 			arguments.evaluate(scope);
 			argVals = arguments.getArgValues();
 		}
-		return scope.getFunction(name).apply(argVals);
+		function = scope.getFunction(name);
+		Type ret = function.apply(argVals);
+		validateType(ret);
+		return ret;
 	}
 
 	@Override
 	public void validateType(Type t) throws InvalidTypeException 
-	{}
+	{
+		if(!function.getReturnType().equals(t.getPseudoType()))
+		{
+			throw new InvalidTypeException(Function.class, "Return type of " + 
+					function.getFunctionName() + " does not match declared return type.");
+		}
+	}
 
 }
