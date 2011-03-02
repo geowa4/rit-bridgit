@@ -175,9 +175,8 @@ public class Scope
 			return null;
 	}
 	
-	public Function getFunction(String name) throws InvalidTypeException 
+	public Function getFunction(String name)
 	{
-
 		if(functions.containsKey(name))
 			return functions.get(name);
 		else if(parent != null)

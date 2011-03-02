@@ -9,7 +9,7 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class IfEvaluator extends Evaluator 
+public class IfEvaluator implements Evaluator 
 {
 	private List<ConditionalBlockPair> ladder = 
 		new LinkedList<ConditionalBlockPair>();
@@ -39,7 +39,7 @@ public class IfEvaluator extends Evaluator
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException 
+	public void validateType(Type t) throws InvalidTypeException 
 	{
 		if(!t.getType().equals(Boolean.class))
 		{

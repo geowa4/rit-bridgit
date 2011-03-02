@@ -17,7 +17,7 @@ public class ModEvaluator extends BinaryEvaluator
 	}
 
 	@Override
-	protected void validateType(Type op) throws InvalidTypeException 
+	public void validateType(Type op) throws InvalidTypeException 
 	{
 		if(!(	op.getType().equals(Integer.class) 
 			||	op.getType().equals(Double.class)

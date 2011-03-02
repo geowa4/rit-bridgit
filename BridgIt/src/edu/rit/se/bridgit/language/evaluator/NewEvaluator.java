@@ -5,7 +5,7 @@ import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
-public class NewEvaluator extends Evaluator
+public class NewEvaluator implements Evaluator
 {
 	private String pseudoType;
 
@@ -22,7 +22,7 @@ public class NewEvaluator extends Evaluator
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException
+	public void validateType(Type t) throws InvalidTypeException
 	{/* no-op */}
 
 }

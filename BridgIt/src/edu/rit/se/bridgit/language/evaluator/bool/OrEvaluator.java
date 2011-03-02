@@ -17,7 +17,7 @@ public class OrEvaluator extends BinaryEvaluator
 	}
 
 	@Override
-	protected void validateType(Type op) throws InvalidTypeException 
+	public void validateType(Type op) throws InvalidTypeException 
 	{
 		if(!op.getType().equals(Boolean.class))
 		{

@@ -10,7 +10,7 @@ import edu.rit.se.bridgit.language.model.Type;
 /**
  * Evaluates a list of Evaluators. Useful for `setup`, `main`, and `function` blocks.
  */
-public class BlockEvaluator extends Evaluator 
+public class BlockEvaluator implements Block 
 {
 	private boolean nestScope;
 	private List<Evaluator> evaluators;
@@ -26,6 +26,7 @@ public class BlockEvaluator extends Evaluator
 		this.evaluators = new LinkedList<Evaluator>();
 	}
 	
+	@Override
 	public boolean add(Evaluator e)
 	{
 		return evaluators.add(e);
@@ -48,6 +49,6 @@ public class BlockEvaluator extends Evaluator
 	 * no-op
 	 */
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException {}
+	public void validateType(Type t) throws InvalidTypeException {}
 	
 }

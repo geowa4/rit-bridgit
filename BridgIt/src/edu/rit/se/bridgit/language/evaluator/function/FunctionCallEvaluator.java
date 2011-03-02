@@ -8,7 +8,7 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class FunctionCallEvaluator extends Evaluator {
+public class FunctionCallEvaluator implements Evaluator {
 
 	private String name;
 	private ArgumentListEvaluator arguments;
@@ -32,13 +32,11 @@ public class FunctionCallEvaluator extends Evaluator {
 			arguments.evaluate(scope);
 			argVals = arguments.getArgValues();
 		}
-		Function f = scope.getFunction(name);
-		if(f.getReturnType().contains(Function.VOID_TYPE)) return f.apply(argVals);
-		else return new Type(null, Function.VOID_TYPE);
+		return scope.getFunction(name).apply(argVals);
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException 
+	public void validateType(Type t) throws InvalidTypeException 
 	{}
 
 }
