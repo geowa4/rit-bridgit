@@ -2,7 +2,7 @@ package edu.rit.se.bridgit.language.evaluator.function;
 
 import java.util.List;
 
-import edu.rit.se.bridgit.language.evaluator.BlockEvaluator;
+import edu.rit.se.bridgit.language.evaluator.Block;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
@@ -13,8 +13,8 @@ public class Function
 {
 	public static final String VOID_TYPE = "void";
 	
-	private ParameterListEvaluator parameters;
-	private BlockEvaluator functionBlock;
+	private ParameterList parameters;
+	private Block functionBlock;
 	private String returnType;
 	private String functionName;
 	private Evaluator returnValue;
@@ -29,7 +29,14 @@ public class Function
 			parameters.evaluate(executionScope);
 		}
 		functionBlock.evaluate(executionScope);
-		return returnValue.evaluate(executionScope);
+		if(getReturnType().contains(Function.VOID_TYPE))
+		{
+			return new Type(null, Function.VOID_TYPE);
+		}
+		else 
+		{
+			return returnValue.evaluate(executionScope);
+		}
 	}
 	
 	public void setDefinitionScope(Scope definitionScope)
@@ -37,17 +44,17 @@ public class Function
 		this.definitionScope = definitionScope;
 	}
 	
-	public void setParameters(ParameterListEvaluator parameters) 
+	public void setParameters(ParameterList parameters) 
 	{
 		this.parameters = parameters;
 	}
 	
-	public BlockEvaluator getFunctionBlock() 
+	public Block getFunctionBlock() 
 	{
 		return functionBlock;
 	}
 	
-	public void setFunctionBlock(BlockEvaluator block) 
+	public void setFunctionBlock(Block block) 
 	{
 		this.functionBlock = block;
 	}
@@ -72,7 +79,8 @@ public class Function
 		this.functionName = functionName;
 	}
 	
-	public void setReturnValue(Evaluator returnValue) {
+	public void setReturnValue(Evaluator returnValue) 
+	{
 		this.returnValue = returnValue;
 	}
 	

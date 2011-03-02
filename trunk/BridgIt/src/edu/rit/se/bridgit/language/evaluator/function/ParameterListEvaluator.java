@@ -4,22 +4,23 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class ParameterListEvaluator extends Evaluator
+public class ParameterListEvaluator implements ParameterList
 {	
 	private List<ParameterEvaluator> params = new LinkedList<ParameterEvaluator>();
 	private List<Type> args;
 	
+	@Override
 	public void addParam(ParameterEvaluator param)
 	{
 		params.add(param);
 	}
 	
+	@Override
 	public void setArgs(List<Type> args)
 	{
 		this.args = args;
@@ -63,6 +64,6 @@ public class ParameterListEvaluator extends Evaluator
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException 
+	public void validateType(Type t) throws InvalidTypeException 
 	{}
 }

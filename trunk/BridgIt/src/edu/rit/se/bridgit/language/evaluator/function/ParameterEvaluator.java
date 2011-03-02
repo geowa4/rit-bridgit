@@ -6,7 +6,7 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class ParameterEvaluator extends Evaluator
+public class ParameterEvaluator implements Evaluator
 {
 	private String name;
 	private String pseudoType;
@@ -29,7 +29,7 @@ public class ParameterEvaluator extends Evaluator
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException 
+	public void validateType(Type t) throws InvalidTypeException 
 	{
 		
 	}

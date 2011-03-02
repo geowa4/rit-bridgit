@@ -9,7 +9,7 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class ArgumentListEvaluator extends Evaluator
+public class ArgumentListEvaluator implements Evaluator
 {	
 	private List<Evaluator> args = new LinkedList<Evaluator>();
 	private List<Type> argValues = new LinkedList<Type>();
@@ -35,6 +35,6 @@ public class ArgumentListEvaluator extends Evaluator
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException 
+	public void validateType(Type t) throws InvalidTypeException 
 	{}
 }

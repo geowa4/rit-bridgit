@@ -4,7 +4,7 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public abstract class BinaryEvaluator extends Evaluator {
+public abstract class BinaryEvaluator implements Evaluator {
 	
 	protected Evaluator op1;
 	protected Evaluator op2;
@@ -18,7 +18,7 @@ public abstract class BinaryEvaluator extends Evaluator {
 		this.op2 = op2;
 	}
 
-	protected void validateType(Type op) throws InvalidTypeException 
+	public void validateType(Type op) throws InvalidTypeException 
 	{
 		if(!(	op == null
 			||	op.getType().equals(Integer.class) 

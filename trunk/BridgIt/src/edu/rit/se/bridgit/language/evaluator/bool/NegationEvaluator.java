@@ -6,7 +6,7 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class NegationEvaluator extends Evaluator {
+public class NegationEvaluator implements Evaluator {
 
 	private Evaluator e;
 	protected String operation;
@@ -17,7 +17,7 @@ public class NegationEvaluator extends Evaluator {
 		this.operation = "Boolean Negation";
 	}
 	
-	protected void validateType(Type t) throws InvalidTypeException 
+	public void validateType(Type t) throws InvalidTypeException 
 	{
 		if(!(t.getPseudoType().equals("Boolean"))) 
 		{

@@ -6,7 +6,7 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class VariableEvaluator extends Evaluator 
+public class VariableEvaluator implements Evaluator 
 {
 	
 	private String name;
@@ -53,7 +53,7 @@ public class VariableEvaluator extends Evaluator
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException 
+	public void validateType(Type t) throws InvalidTypeException 
 	{
 		if(!t.getPseudoType().equals(pseudoType))
 		{

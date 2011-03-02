@@ -5,7 +5,7 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class NullEvaluator extends Evaluator
+public class NullEvaluator implements Evaluator
 {
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException
@@ -14,7 +14,7 @@ public class NullEvaluator extends Evaluator
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException
+	public void validateType(Type t) throws InvalidTypeException
 	{}
 
 }

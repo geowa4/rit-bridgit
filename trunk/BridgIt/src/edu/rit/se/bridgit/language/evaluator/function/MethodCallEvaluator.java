@@ -9,7 +9,7 @@ import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalBridge;
 import edu.rit.se.bridgit.language.model.bridge.NoMethodFoundException;
 
-public class MethodCallEvaluator extends Evaluator
+public class MethodCallEvaluator implements Evaluator
 {
 	private MemberLoadEvaluator loader;
 	private String methodName;
@@ -40,7 +40,7 @@ public class MethodCallEvaluator extends Evaluator
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException
+	public void validateType(Type t) throws InvalidTypeException
 	{
 		if(!(t.getValue() instanceof GraphicalBridge))
 		{

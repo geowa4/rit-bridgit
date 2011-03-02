@@ -18,7 +18,7 @@ options {
   package edu.rit.se.bridgit.language;
 }
 
-application returns [BlockEvaluator eval]
+application returns [Block eval]
   : 'application' IDENT {$eval = new BlockEvaluator();}
     '{'
       setup {$eval.add($setup.eval);}
@@ -26,7 +26,7 @@ application returns [BlockEvaluator eval]
     '}'
   ;
 
-setup returns [BlockEvaluator eval] 
+setup returns [Block eval] 
   : 'setup' '{' {$eval = new BlockEvaluator(false);}
       ( constant {$eval.add($constant.eval);} )*     
       ( variable {$eval.add($variable.eval);} 
@@ -35,7 +35,7 @@ setup returns [BlockEvaluator eval]
     '}'
   ;
 
-main returns [BlockEvaluator eval]
+main returns [Block eval]
   : 'main' '{' {$eval = new BlockEvaluator();}
       (statement {$eval.add($statement.eval);})*
     '}'
@@ -77,7 +77,7 @@ arguments returns [ArgumentListEvaluator eval]
   )* 
   ;
 
-parameters returns [ParameterListEvaluator eval]
+parameters returns [ParameterList eval]
   : {$eval = new ParameterListEvaluator();}
   firstParam=parameter {$eval.addParam($firstParam.eval);}
   (',' 

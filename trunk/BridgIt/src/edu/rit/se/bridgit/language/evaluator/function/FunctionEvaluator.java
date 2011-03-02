@@ -1,13 +1,13 @@
 package edu.rit.se.bridgit.language.evaluator.function;
 
-import edu.rit.se.bridgit.language.evaluator.BlockEvaluator;
+import edu.rit.se.bridgit.language.evaluator.Block;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class FunctionEvaluator extends Evaluator
+public class FunctionEvaluator implements Evaluator
 {
 	private Function function;
 	
@@ -26,12 +26,12 @@ public class FunctionEvaluator extends Evaluator
 		function.setReturnValue(e);
 	}
 
-	public void setFunctionBlock(BlockEvaluator block)
+	public void setFunctionBlock(Block block)
 	{
 		function.setFunctionBlock(block);
 	}
 	
-	public void setParameters(ParameterListEvaluator params)
+	public void setParameters(ParameterList params)
 	{
 		function.setParameters(params);
 	}
@@ -46,7 +46,7 @@ public class FunctionEvaluator extends Evaluator
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException 
+	public void validateType(Type t) throws InvalidTypeException 
 	{}
 }
 

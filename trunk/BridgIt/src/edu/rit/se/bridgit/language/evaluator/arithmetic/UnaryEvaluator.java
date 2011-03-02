@@ -6,7 +6,7 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class UnaryEvaluator extends Evaluator {
+public class UnaryEvaluator implements Evaluator {
 
 	private Evaluator e;
 	protected String operation;
@@ -36,7 +36,7 @@ public class UnaryEvaluator extends Evaluator {
 	}
 
 	@Override
-	protected void validateType(Type t) throws InvalidTypeException {
+	public void validateType(Type t) throws InvalidTypeException {
 		if(!t.getType().equals(Integer.class) &&
 				!t.getType().equals(Double.class))
 			throw new InvalidTypeException(t.getType(), operation);
