@@ -9,7 +9,10 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class Function{
+public class Function
+{
+	public static final String VOID_TYPE = "void";
+	
 	private ParameterListEvaluator parameters;
 	private BlockEvaluator functionBlock;
 	private String returnType;
@@ -19,8 +22,14 @@ public class Function{
 	
 	public Type apply(List<Type> args) throws InvalidTypeException, NameConflictException 
 	{
-		parameters.setArgs(args);
-		return returnValue.evaluate(definitionScope);
+		Scope executionScope = new Scope(definitionScope);
+		if(parameters != null) 
+		{
+			parameters.setArgs(args);
+			parameters.evaluate(executionScope);
+		}
+		functionBlock.evaluate(executionScope);
+		return returnValue.evaluate(executionScope);
 	}
 	
 	public void setDefinitionScope(Scope definitionScope)

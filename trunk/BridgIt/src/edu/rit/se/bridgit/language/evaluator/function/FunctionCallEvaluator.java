@@ -13,18 +13,28 @@ public class FunctionCallEvaluator extends Evaluator {
 	private String name;
 	private ArgumentListEvaluator arguments;
 
-	public FunctionCallEvaluator(String name, ArgumentListEvaluator arguments) 
+	public FunctionCallEvaluator(String name)
 	{
 		this.name = name;
-		this.arguments = arguments;
 	}
 
+	public void setArgumentsList(ArgumentListEvaluator arguments)
+	{
+		this.arguments = arguments;
+	}
+	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException,
-			NameConflictException {
-		arguments.evaluate(scope);
-		List<Type> argVals = arguments.getArgValues();
-		return scope.getFunction(name).apply(argVals);
+	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException
+	{
+		List<Type> argVals = null;
+		if(arguments != null)
+		{
+			arguments.evaluate(scope);
+			argVals = arguments.getArgValues();
+		}
+		Function f = scope.getFunction(name);
+		if(f.getReturnType().contains(Function.VOID_TYPE)) return f.apply(argVals);
+		else return new Type(null, Function.VOID_TYPE);
 	}
 
 	@Override
