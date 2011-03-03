@@ -1,6 +1,8 @@
 package edu.rit.se.bridgit.language.evaluator.function;
 
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class FunctionTest
 	
 	private Scope scope;
 	private Function function;
+	private FunctionEvaluator fnEval;
 	
 	@Before
 	public void createFunction()
@@ -37,6 +40,12 @@ public class FunctionTest
 		function.setDefinitionScope(scope);
 		function.setFunctionBlock(block);
 		function.setReturnValue(returnExpr);
+	}
+	
+	@Before
+	public void createEvaluator()
+	{
+		fnEval = new FunctionEvaluator("test");
 	}
 	
 	@Test
@@ -66,13 +75,26 @@ public class FunctionTest
 	}
 	
 	@Test
-	public void typeOfFunctionReturnsSameType() throws InvalidTypeException, NameConflictException
-	{
-		function.setReturnType("Integer");
+	public void functionDoesNotCareAboutReturnType() throws InvalidTypeException, NameConflictException
+	{//the executing evaluator must check this
+		function.setReturnType("String");
 		context.checking(new Expectations() {{
 			oneOf(block).evaluate(with(any(Scope.class)));
 			oneOf(returnExpr).evaluate(with(any(Scope.class))); will(returnValue(new Type(1, "Integer")));
 		}});
-		assertEquals("Type should have Pseudo type of \"Integer\".", "Integer", function.apply(null).getPseudoType());
+		assertEquals("Type should have Pseudo type of \"Integer\" " +
+				"even though function declares \"String\".", "Integer", 
+				function.apply(null).getPseudoType());
+	}
+	
+	@Test
+	public void functionIsAddedToScopeWithDefinitionScopeSet() throws InvalidTypeException, NameConflictException
+	{
+		function.setReturnType("Function:" + Function.VOID_TYPE);
+		fnEval.setFunction(function);
+		assertEquals("Type should be \"void\".", "Function:" + Function.VOID_TYPE,
+				fnEval.evaluate(scope).getPseudoType());
+		assertThat("Function must be same.", function, sameInstance(scope.getFunction("test")));
+		assertThat("Scope must be same.", scope, sameInstance(function.getDefinitionScope()));
 	}
 }

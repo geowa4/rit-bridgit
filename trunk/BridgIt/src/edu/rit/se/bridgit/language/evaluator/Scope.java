@@ -40,20 +40,18 @@ public class Scope
 		return parent;
 	}
 
-	public Type addVariable(String name, Type type) throws NameConflictException 
+	public void addVariable(String name, Type type) throws NameConflictException 
 	{
 		if(isVariable(name) || isConstant(name))
 			throw new NameConflictException(name);
 		variables.put(name, type);
-		return type;
 	}
 	
-	public Type addFunction(Function function, Type type)throws NameConflictException 
+	public void addFunction(Function function)throws NameConflictException 
 	{
 		if(isFunction(function.getFunctionName()))
 			throw new NameConflictException(function.getFunctionName());
 		functions.put(function.getFunctionName(), function);
-		return type;
 	}
 	
 	public int getFunctionParameterSize(String functionName){
@@ -107,12 +105,11 @@ public class Scope
 			return false;
 	}
 	
-	public Type addConstant(String name, Type type) throws NameConflictException 
+	public void addConstant(String name, Type type) throws NameConflictException 
 	{
 		if(isVariable(name) || isConstant(name))
 			throw new NameConflictException(name);
 		constants.put(name, type);
-		return type;
 	}
 	
 	public boolean isConstant(String name)
