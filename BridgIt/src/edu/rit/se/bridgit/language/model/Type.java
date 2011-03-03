@@ -8,15 +8,14 @@ public class Type
 	
 	public Type(Object value, String pseudoType) throws InvalidTypeException 
 	{
-		super();
 		this.value = value;
 		this.type = value == null ? null : value.getClass();
 		this.pseudoType = pseudoType;
 		validateTypes();
 	}
 	
-	public Type(Type in_type) throws InvalidTypeException{
-		super();
+	public Type(Type in_type) throws InvalidTypeException
+	{
 		this.value = in_type.value;
 		this.type = value == null ? null : value.getClass();
 		this.pseudoType = in_type.pseudoType;
@@ -26,8 +25,9 @@ public class Type
 
 	private void validateTypes() throws InvalidTypeException
 	{
-		//This method will likely need to change
-		if(type != null && !type.getName().contains(pseudoType))
+		int index = pseudoType.indexOf(":");
+		String finalPseudoType = index < 0 ? pseudoType : pseudoType.substring(0, index);
+		if(type != null && !type.getName().contains(finalPseudoType))
 			throw new InvalidTypeException(type, "Assignment");
 	}
 	

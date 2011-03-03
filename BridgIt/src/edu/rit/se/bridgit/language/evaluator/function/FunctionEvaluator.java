@@ -17,6 +17,11 @@ public class FunctionEvaluator implements Evaluator
 		function.setFunctionName(name);
 	}
 	
+	public void setFunction(Function function)
+	{
+		this.function = function;
+	}
+	
 	public void setPseudoType(String pseudoType)
 	{
 		function.setReturnType("Function:" + pseudoType);
@@ -39,10 +44,9 @@ public class FunctionEvaluator implements Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException,
 			NameConflictException {
-		Type type = new Type(function, function.getReturnType());
 		function.setDefinitionScope(scope);
-		scope.addFunction(function, type);
-		return type;
+		scope.addFunction(function);
+		return new Type(function, function.getReturnType());
 	}
 
 	@Override

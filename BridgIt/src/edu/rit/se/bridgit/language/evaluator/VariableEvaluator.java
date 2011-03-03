@@ -1,7 +1,5 @@
 package edu.rit.se.bridgit.language.evaluator;
 
-import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
-import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;

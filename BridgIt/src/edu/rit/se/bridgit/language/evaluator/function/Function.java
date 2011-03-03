@@ -39,6 +39,11 @@ public class Function
 		}
 	}
 	
+	public Scope getDefinitionScope()
+	{
+		return this.definitionScope;
+	}
+	
 	public void setDefinitionScope(Scope definitionScope)
 	{
 		this.definitionScope = definitionScope;
@@ -83,6 +88,5 @@ public class Function
 	{
 		this.returnValue = returnValue;
 	}
-	
 }
 
