@@ -42,11 +42,12 @@ public class FunctionCallEvaluator implements Evaluator {
 	@Override
 	public void validateType(Type t) throws InvalidTypeException 
 	{
-		if(!function.getReturnType().equals(t.getPseudoType()))
-		{
+		String pseudoType = function.getReturnType();
+		int index = pseudoType.indexOf(":");
+		String finalPseudoType = index < 0 ? pseudoType : pseudoType.substring(index + 1);
+		if(!t.getPseudoType().contains(finalPseudoType))
 			throw new InvalidTypeException(Function.class, "Return type of " + 
 					function.getFunctionName() + " does not match declared return type.");
-		}
 	}
 
 }
