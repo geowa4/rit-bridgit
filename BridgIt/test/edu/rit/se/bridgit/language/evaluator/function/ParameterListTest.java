@@ -79,6 +79,6 @@ public class ParameterListTest
 			add(new Type("hi", "String"));
 		}});
 		ple.evaluate(scope);
-		assertEquals("", scope.getVariableValue("test").getValue(), "hi");
+		assertEquals("Parameter must be added as a variable.", scope.getVariableValue("test").getValue(), "hi");
 	}
 }
