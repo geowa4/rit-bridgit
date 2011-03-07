@@ -29,11 +29,11 @@ public class ParameterListEvaluator implements ParameterList
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
-		if((params == null && args != null) || 
-				(params != null && args == null) || 
+		if((params.size() == 0 && args != null) || 
+				(params.size() != 0 && args == null) || 
 				(params.size() != args.size()))
 		{
-			throw new InvalidTypeException(null, "The number of parameters and arguments do not match.");
+			throw new InvalidTypeException("The number of parameters and arguments do not match.");
 		}
 		else
 		{
@@ -58,7 +58,7 @@ public class ParameterListEvaluator implements ParameterList
 			}
 			else
 			{
-				throw new InvalidTypeException(null, "The types of parameters and arguments do not match.");
+				throw new InvalidTypeException("The types of parameters and arguments do not match.");
 			}
 		}
 	}
