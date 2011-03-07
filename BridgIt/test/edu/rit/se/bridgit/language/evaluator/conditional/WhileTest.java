@@ -1,22 +1,26 @@
 package edu.rit.se.bridgit.language.evaluator.conditional;
 
-import static org.junit.Assert.assertEquals;
-
+import org.jmock.Expectations;
+import org.jmock.auto.Mock;
+import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import edu.rit.se.bridgit.language.evaluator.Block;
 import edu.rit.se.bridgit.language.evaluator.BlockEvaluator;
 import edu.rit.se.bridgit.language.evaluator.MemberLoadEvaluator;
-import edu.rit.se.bridgit.language.evaluator.MockBlockEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.VariableEvaluator;
-import edu.rit.se.bridgit.language.evaluator.conditional.WhileEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 
 public class WhileTest
 {
+	@Rule public JUnitRuleMockery context = new JUnitRuleMockery();
+	@Mock private Block block;
+	
 	private Scope scope;
 	
 	@Before
@@ -29,13 +33,13 @@ public class WhileTest
 	public void neverExecutesWhenConditionalIsFalse() 
 	throws InvalidTypeException, NameConflictException
 	{
+		context.checking(new Expectations() {{
+			never(block).evaluate(scope);
+		}});
 		WhileEvaluator evaluator = new WhileEvaluator();
 		BooleanEvaluator conditional = new BooleanEvaluator(false);
-		MockBlockEvaluator block = new MockBlockEvaluator();
 		evaluator.setConditional(conditional, block);
 		evaluator.evaluate(scope);
-		assertEquals("The block of a while loop with a false conditional must never execute.", 
-				0, block.getNumTimesEvaluated());
 	}
 	
 	@Test
