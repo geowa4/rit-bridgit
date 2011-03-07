@@ -1,12 +1,15 @@
 package edu.rit.se.bridgit.language.evaluator.conditional;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import org.jmock.Expectations;
+import org.jmock.auto.Mock;
+import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import edu.rit.se.bridgit.language.evaluator.MockBlockEvaluator;
+import edu.rit.se.bridgit.language.evaluator.Block;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
@@ -15,6 +18,12 @@ import edu.rit.se.bridgit.language.model.NameConflictException;
 
 public class IfTest
 {
+	@Rule public JUnitRuleMockery context = new JUnitRuleMockery();
+	@Mock private Block block;
+	@Mock private Block ifBlock;
+	@Mock private Block elseIfBlock;
+	@Mock private Block elseBlock;
+	
 	private IfEvaluator evaluator;
 	private Scope scope;
 	
@@ -29,27 +38,31 @@ public class IfTest
 	public void singleIfWithTrueConditional() 
 	throws InvalidTypeException, NameConflictException
 	{
-		MockBlockEvaluator block = new MockBlockEvaluator();
+		context.checking(new Expectations() {{
+			oneOf(block).evaluate(scope);
+		}});
 		evaluator.addConditional(new BooleanEvaluator(true), block);
 		evaluator.evaluate(scope);
-		assertEquals(1, block.getNumTimesEvaluated());
 	}
 	
 	@Test
 	public void singleIfWithFalseConditional() 
 	throws InvalidTypeException, NameConflictException
 	{
-		MockBlockEvaluator block = new MockBlockEvaluator();
+		context.checking(new Expectations() {{
+			never(block).evaluate(scope);
+		}});
 		evaluator.addConditional(new BooleanEvaluator(false), block);
 		evaluator.evaluate(scope);
-		assertEquals(0, block.getNumTimesEvaluated());
 	}
 	
 	@Test(expected=InvalidTypeException.class)
 	public void singleIfWithInvalidConditional() 
 	throws InvalidTypeException, NameConflictException
 	{
-		MockBlockEvaluator block = new MockBlockEvaluator();
+		context.checking(new Expectations() {{
+			never(block).evaluate(scope);
+		}});
 		evaluator.addConditional(new IntegerEvaluator(0), block);
 		evaluator.evaluate(scope);
 		fail("Integer is not valid for a conditional.");
@@ -59,54 +72,53 @@ public class IfTest
 	public void ifElseWhereIfIsTrue() 
 	throws InvalidTypeException, NameConflictException
 	{
-		MockBlockEvaluator ifBlock = new MockBlockEvaluator();
-		MockBlockEvaluator elseBlock = new MockBlockEvaluator();
+		context.checking(new Expectations() {{
+			oneOf(ifBlock).evaluate(scope);
+			never(elseBlock).evaluate(scope);
+		}});
 		evaluator.addConditional(new BooleanEvaluator(true), ifBlock);
 		evaluator.addConditional(new BooleanEvaluator(true), elseBlock);
 		evaluator.evaluate(scope);
-		assertEquals(1, ifBlock.getNumTimesEvaluated());
-		assertEquals(0, elseBlock.getNumTimesEvaluated());
 	}
 	
 	@Test
 	public void ifElseWhereIfIsFalse() 
 	throws InvalidTypeException, NameConflictException
 	{
-		MockBlockEvaluator ifBlock = new MockBlockEvaluator();
-		MockBlockEvaluator elseBlock = new MockBlockEvaluator();
+		context.checking(new Expectations() {{
+			never(ifBlock).evaluate(scope);
+			oneOf(elseBlock).evaluate(scope);
+		}});
 		evaluator.addConditional(new BooleanEvaluator(false), ifBlock);
 		evaluator.addConditional(new BooleanEvaluator(true), elseBlock);
 		evaluator.evaluate(scope);
-		assertEquals(0, ifBlock.getNumTimesEvaluated());
-		assertEquals(1, elseBlock.getNumTimesEvaluated());
 	}
 	
 	@Test
 	public void ifElseIfWhereBothAreFalse() 
 	throws InvalidTypeException, NameConflictException
 	{
-		MockBlockEvaluator ifBlock = new MockBlockEvaluator();
-		MockBlockEvaluator elseIfBlock = new MockBlockEvaluator();
+		context.checking(new Expectations() {{
+			never(ifBlock).evaluate(scope);
+			never(elseIfBlock).evaluate(scope);
+		}});
 		evaluator.addConditional(new BooleanEvaluator(false), ifBlock);
 		evaluator.addConditional(new BooleanEvaluator(false), elseIfBlock);
 		evaluator.evaluate(scope);
-		assertEquals(0, ifBlock.getNumTimesEvaluated());
-		assertEquals(0, elseIfBlock.getNumTimesEvaluated());
 	}
 	
 	@Test
 	public void ifElseIfElseWhereAllButLastAreFalse() 
 	throws InvalidTypeException, NameConflictException
 	{
-		MockBlockEvaluator ifBlock = new MockBlockEvaluator();
-		MockBlockEvaluator elseIfBlock = new MockBlockEvaluator();
-		MockBlockEvaluator elseBlock = new MockBlockEvaluator();
+		context.checking(new Expectations() {{
+			never(ifBlock).evaluate(scope);
+			never(elseIfBlock).evaluate(scope);
+			oneOf(elseBlock).evaluate(scope);
+		}});
 		evaluator.addConditional(new BooleanEvaluator(false), ifBlock);
 		evaluator.addConditional(new BooleanEvaluator(false), elseIfBlock);
 		evaluator.addConditional(new BooleanEvaluator(true), elseBlock);
 		evaluator.evaluate(scope);
-		assertEquals(0, ifBlock.getNumTimesEvaluated());
-		assertEquals(0, elseIfBlock.getNumTimesEvaluated());
-		assertEquals(1, elseBlock.getNumTimesEvaluated());
 	}
 }

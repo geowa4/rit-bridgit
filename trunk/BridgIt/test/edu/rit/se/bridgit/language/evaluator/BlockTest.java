@@ -3,7 +3,11 @@ package edu.rit.se.bridgit.language.evaluator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import org.jmock.Expectations;
+import org.jmock.auto.Mock;
+import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
@@ -12,6 +16,11 @@ import edu.rit.se.bridgit.language.model.NameConflictException;
 
 public class BlockTest
 {
+	@Rule public JUnitRuleMockery context = new JUnitRuleMockery();
+	@Mock private Block block1;
+	@Mock private Block block2;
+	@Mock private Block block3;
+	
 	private BlockEvaluator evaluator;
 	private Scope scope;
 	
@@ -26,30 +35,26 @@ public class BlockTest
 	public void executeSingleNestedEvaluator() 
 	throws InvalidTypeException, NameConflictException
 	{
-		MockBlockEvaluator mock = new MockBlockEvaluator();
-		evaluator.add(mock);
+		context.checking(new Expectations() {{
+			oneOf(block1).evaluate(scope);
+		}});
+		evaluator.add(block1);
 		evaluator.evaluate(scope);
-		assertEquals("The contained Evaluator must be evaluated exactly once.", 
-				1, mock.getNumTimesEvaluated());
 	}
 	
 	@Test
 	public void executeNNestedEvaluators() 
 	throws InvalidTypeException, NameConflictException 
 	{
-		MockBlockEvaluator mock1 = new MockBlockEvaluator();
-		MockBlockEvaluator mock2 = new MockBlockEvaluator();
-		MockBlockEvaluator mock3 = new MockBlockEvaluator();
-		evaluator.add(mock1);
-		evaluator.add(mock2);
-		evaluator.add(mock3);
+		context.checking(new Expectations() {{
+			oneOf(block1).evaluate(scope);
+			oneOf(block2).evaluate(scope);
+			oneOf(block3).evaluate(scope);
+		}});
+		evaluator.add(block1);
+		evaluator.add(block2);
+		evaluator.add(block3);
 		evaluator.evaluate(scope);
-		assertEquals("The contained Evaluators must be evaluated exactly once.", 
-				1, mock1.getNumTimesEvaluated());
-		assertEquals("The contained Evaluators must be evaluated exactly once.", 
-				1, mock2.getNumTimesEvaluated());
-		assertEquals("The contained Evaluators must be evaluated exactly once.", 
-				1, mock3.getNumTimesEvaluated());
 	}
 	
 	@Test
