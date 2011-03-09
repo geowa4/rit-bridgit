@@ -1,6 +1,8 @@
 package edu.rit.se.bridgit.language.evaluator.function;
 
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.util.LinkedList;
@@ -9,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.rit.se.bridgit.language.evaluator.Scope;
+import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -80,5 +83,18 @@ public class ParameterListTest
 		}});
 		ple.evaluate(scope);
 		assertEquals("Parameter must be added as a variable.", scope.getVariableValue("test").getValue(), "hi");
+	}
+	
+	@Test
+	public void parameterCanBeSetToNullValue() throws InvalidTypeException, NameConflictException
+	{
+		ple.addParam(new ParameterEvaluator("test", "String"));
+		ple.setArgs(new LinkedList<Type>() {
+			private static final long serialVersionUID = -1267528789248589583L;
+		{
+			add(new Type(Type.NULL, NullEvaluator.NULL_TYPE));
+		}});
+		ple.evaluate(scope);
+		assertThat("Parameter must be set to Null.", scope.getVariableValue("test").getValue(), sameInstance(Type.NULL));
 	}
 }
