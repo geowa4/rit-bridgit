@@ -91,14 +91,14 @@ parameter returns [ParameterEvaluator eval]
   ; 
 
 statement returns [Evaluator eval]
-  : assignment   {$eval = $assignment.eval;}
-  | conditional  {$eval = $conditional.eval;}
-  | loop         {$eval = $loop.eval;}
-  | functionCall {$eval = $functionCall.eval;}
+  : assignment   ';' {$eval = $assignment.eval;}
+  | conditional      {$eval = $conditional.eval;}
+  | loop             {$eval = $loop.eval;}
+  | functionCall ';' {$eval = $functionCall.eval;}
   ;
 
 assignment returns [Evaluator eval]
-  : IDENT '=' expression ';' {$eval = new VariableEvaluator($IDENT.text, $expression.eval);}
+  : IDENT '=' expression {$eval = new VariableEvaluator($IDENT.text, $expression.eval);}
   ;
 
 conditional returns [IfEvaluator eval]
@@ -139,7 +139,7 @@ loop returns [WhileEvaluator eval]
 
 functionCall returns [FunctionCallEvaluator eval]
   : IDENT {$eval = new FunctionCallEvaluator($IDENT.text);}
-    '(' (arguments {$eval.setArgumentsList($arguments.eval);})? ')' ';'
+    '(' (arguments {$eval.setArgumentsList($arguments.eval);})? ')'
   ;
 
 newObject returns [Evaluator eval]
