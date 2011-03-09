@@ -1,6 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator.arithmetic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.term.DoubleEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
+import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -67,5 +69,14 @@ public class UnaryTest
 		Type t = evaluator.evaluate(scope);
 		assertEquals("Double-negation of a positive must be positive.", 
 				1.0, (Double) t.getValue(), 0.01);
+	}
+	
+	@Test(expected=InvalidTypeException.class)
+	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	{
+		NullEvaluator op1 = new NullEvaluator();
+		UnaryEvaluator evaluator = new UnaryEvaluator(op1);
+		evaluator.evaluate(scope);
+		fail("Cannot perform arithmetic on Null.");
 	}
 }
