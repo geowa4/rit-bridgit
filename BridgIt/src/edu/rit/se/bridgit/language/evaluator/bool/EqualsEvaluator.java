@@ -20,8 +20,6 @@ public class EqualsEvaluator extends BinaryEvaluator
 	{
 		Type result1 = op1.evaluate(scope);
 		Type result2= op2.evaluate(scope);
-		validateType(result1);
-		validateType(result2);
 		Object r1Val = result1.getValue();
 		Object r2Val = result2.getValue();
 		return new Type(r1Val.equals(r2Val), "Boolean");
