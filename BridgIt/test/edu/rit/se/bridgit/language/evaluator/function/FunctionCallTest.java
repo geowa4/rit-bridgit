@@ -1,10 +1,10 @@
 package edu.rit.se.bridgit.language.evaluator.function;
 
 import static org.hamcrest.core.IsNull.nullValue;
-
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +15,7 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.VariableEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
+import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -112,5 +113,16 @@ public class FunctionCallTest
 		fnCallEval.setArgumentsList(arguments);
 		fnCallEval.evaluate(callScope);
 		assertThat("\"arg0\" must not be accessible.", callScope.getVariableValue("arg0"), nullValue());
+	}
+	
+	@Test
+	public void functionCanReturnNull() throws InvalidTypeException, NameConflictException
+	{
+		fnEval.setPseudoType("Integer");
+		fnEval.addReturnValue(new NullEvaluator());
+		fnEval.evaluate(definitionScope);
+		Type t = fnCallEval.evaluate(callScope);
+		assertThat("Value must be Null.", t.getValue(), sameInstance(Type.NULL));
+		assertEquals("Pseudo Type must be the same as the function.", "Integer", t.getPseudoType());
 	}
 }

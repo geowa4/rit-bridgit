@@ -11,7 +11,7 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class Function
 {
-	public static final String VOID_TYPE = "void";
+	public static final String VOID_TYPE = "Void";
 	
 	private ParameterList parameters;
 	private Block functionBlock;

@@ -156,7 +156,7 @@ type returns [String name]
 
 functionType returns [String name]
   : type   {$name = $type.name;}
-  | 'void' {$name = "void";}
+  | 'Void' {$name = "void";}
   ;
 
 term returns [Evaluator eval]
@@ -167,6 +167,7 @@ term returns [Evaluator eval]
   | bool                     {$eval = $bool.eval;}
   | functionCall             {$eval = $functionCall.eval;}
   | newObject                {$eval = $newObject.eval;}
+  | 'Null'                   {$eval = new NullEvaluator();}
   ;
 
 bool returns[Evaluator eval]
