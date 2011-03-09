@@ -15,8 +15,8 @@ public class NullTest
 	{
 		NullEvaluator evaluator = new NullEvaluator();
 		Type ret = evaluator.evaluate(null);
-		assertEquals("Value must be null.", null, ret.getValue());
+		assertEquals("Value must be null.", Type.NULL, ret.getValue());
 		assertEquals("Pseudo type must be Null.", "Null", ret.getPseudoType());
-		assertEquals("Java type must be null", null, ret.getType());
+		assertEquals("Java type must be Object as null is not allowed.", Object.class, ret.getType());
 	}
 }

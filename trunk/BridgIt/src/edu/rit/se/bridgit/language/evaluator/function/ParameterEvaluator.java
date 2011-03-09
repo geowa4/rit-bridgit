@@ -25,7 +25,7 @@ public class ParameterEvaluator implements Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
-		return new Type(null, pseudoType);
+		return new Type(Type.NULL, pseudoType);
 	}
 
 	@Override

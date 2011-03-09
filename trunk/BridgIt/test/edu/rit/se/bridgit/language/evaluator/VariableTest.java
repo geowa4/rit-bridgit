@@ -1,6 +1,6 @@
 package edu.rit.se.bridgit.language.evaluator;
 
-import static org.hamcrest.core.IsNull.nullValue;
+import static org.hamcrest.core.IsSame.sameInstance;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -52,8 +52,8 @@ public class VariableTest
 				"x", "Integer", null);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
-		assertThat("Variable must be set to 7.",
-				scope.getVariableValue("x").getValue(), nullValue());
+		assertThat("Variable value must be null.",
+				scope.getVariableValue("x").getValue(), sameInstance(Type.NULL));
 	}
 	
 	@Test
@@ -106,7 +106,7 @@ public class VariableTest
 		assignment.evaluate(scope);
 		
 		assertEquals("Variable must be changed to null.",
-				new Type(null, "Integer").getValue(), scope.getVariableValue("x").getValue());
+				new Type(Type.NULL, "").getValue(), scope.getVariableValue("x").getValue());
 	}
 	
 	@Test
@@ -156,11 +156,12 @@ public class VariableTest
 		assignment.evaluate(scope);
 		
 		assertEquals("Variable must be changed to null.",
-				new Type(null, "Integer").getValue(), scope.getVariableValue("x").getValue());
+				new Type(Type.NULL, "").getValue(), scope.getVariableValue("x").getValue());
 	}
 	
 	@Test
-	public void checkStringVariableDefinition() throws InvalidTypeException, NameConflictException{
+	public void checkStringVariableDefinition() throws InvalidTypeException, NameConflictException
+	{
 		
 		Evaluator e = new StringEvaluator("Test");
 		VariableEvaluator evaluator = new VariableEvaluator("a", "String", e);
@@ -170,4 +171,23 @@ public class VariableTest
 				e.evaluate(scope).getValue(), scope.getVariableValue("a").getValue());
 	}
 	
+	@Test(expected=InvalidTypeException.class)
+	public void cannotDeclareWithNullPseudoType() throws InvalidTypeException, NameConflictException
+	{
+		Evaluator evaluator = new VariableEvaluator(
+				"x", null, null);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		fail("Variable cannot be declared with null Pseudo Type.");
+	}
+	
+	@Test(expected=InvalidTypeException.class)
+	public void cannotDeclareWithEmptyPseudoType() throws InvalidTypeException, NameConflictException
+	{
+		Evaluator evaluator = new VariableEvaluator(
+				"x", "", null);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		fail("Variable cannot be declared with null Pseudo Type.");
+	}
 }

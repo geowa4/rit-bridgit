@@ -2,6 +2,9 @@ package edu.rit.se.bridgit.language.model;
 
 public class Type 
 {
+	public static final Object VOID = new Object();
+	public static final Object NULL = new Object();
+	
 	private Class<?> type;
 	private Object value;
 	private String pseudoType;
@@ -14,19 +17,13 @@ public class Type
 		validateTypes();
 	}
 	
-	public Type(Type in_type) throws InvalidTypeException
-	{
-		this.value = in_type.value;
-		this.type = value == null ? null : value.getClass();
-		this.pseudoType = in_type.pseudoType;
-		validateTypes();
-	}
-
-
 	private void validateTypes() throws InvalidTypeException
 	{
+		if(value == null) throw new InvalidTypeException("Value of a Type cannot be null.");
 		int index = pseudoType.indexOf(":");
 		String finalPseudoType = index < 0 ? pseudoType : pseudoType.substring(0, index);
+		if(value == NULL || value == VOID)
+			return;
 		if(type != null && !type.getName().contains(finalPseudoType))
 			throw new InvalidTypeException(type, "Assignment");
 	}

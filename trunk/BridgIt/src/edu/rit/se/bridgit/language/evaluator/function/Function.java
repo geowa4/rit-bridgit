@@ -31,7 +31,7 @@ public class Function
 		functionBlock.evaluate(executionScope);
 		if(getReturnType().contains(Function.VOID_TYPE))
 		{
-			return new Type(null, Function.VOID_TYPE);
+			return new Type(Type.VOID, Function.VOID_TYPE);
 		}
 		else 
 		{
