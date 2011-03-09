@@ -1,5 +1,6 @@
 package edu.rit.se.bridgit.edit.views;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.eclipse.jface.viewers.ListViewer;
@@ -15,9 +16,15 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 
 public class ScopeView extends ViewPart 
 {
+	// The viewers used to view the current scope values
 	private ListViewer varList;
 	private ListViewer constList;
 	private ListViewer functionList;
+	
+	// The model values used to update the viewers
+	private ArrayList<String> variableModelList = new ArrayList<String>();
+	private ArrayList<String> constantModelList = new ArrayList<String>();
+	private ArrayList<String> functionModelList = new ArrayList<String>();
 	
 	public ScopeView() 
 	{
@@ -44,6 +51,7 @@ public class ScopeView extends ViewPart
 		varList = new ListViewer(parent);
 		varList.setContentProvider(new StructuredCollectionContentProvider());
 		varList.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		varList.setInput(variableModelList);
 		if(currentScope != null)
 		{
 			Set<String> vars = currentScope.getVariables();
@@ -59,6 +67,7 @@ public class ScopeView extends ViewPart
 		constList = new ListViewer(parent);
 		constList.setContentProvider(new StructuredCollectionContentProvider());
 		constList.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		constList.setInput(constantModelList);
 		if(currentScope != null)
 		{
 			Set<String> cons = currentScope.getConstants();
@@ -74,6 +83,7 @@ public class ScopeView extends ViewPart
 		functionList = new ListViewer(parent);
 		functionList.setContentProvider(new StructuredCollectionContentProvider());
 		functionList.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+		functionList.setInput(functionModelList);
 		if(currentScope != null)
 		{
 			Set<String> funcs = currentScope.getFunctions();
@@ -85,5 +95,32 @@ public class ScopeView extends ViewPart
 	public void setFocus() 
 	{
 		varList.getControl().setFocus();
+	}
+	
+	/**
+	 * Used to set the scope components directly for the scope.
+	 * 
+	 * @param variables - The variables in scope
+	 * @param constants - The constants in scope
+	 * @param functions - The functions in scope
+	 */
+	public void setScopeComponents(ArrayList<String> variables,
+								   ArrayList<String> constants,
+								   ArrayList<String> functions)
+	{
+		// Clear the model lists
+		variableModelList.clear();
+		constantModelList.clear();
+		functionModelList.clear();
+		
+		// Set the values
+		variableModelList.addAll(variables);
+		constantModelList.addAll(constants);
+		functionModelList.addAll(functions);
+		
+		// Refresh the views
+		varList.refresh(false);
+		constList.refresh(false);
+		functionList.refresh(false);
 	}
 }
