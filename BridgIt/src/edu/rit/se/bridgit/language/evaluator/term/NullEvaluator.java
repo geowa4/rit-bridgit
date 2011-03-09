@@ -12,7 +12,7 @@ public class NullEvaluator implements Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException
 	{
-		return new Type(null, NULL_TYPE);
+		return new Type(Type.NULL, NULL_TYPE);
 	}
 
 	@Override

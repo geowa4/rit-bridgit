@@ -23,13 +23,13 @@ public class GraphicalModelBridgeFactoryTest {
 		GraphicalModelBridgeFactory.addPossibleClass(testBridge);
 	}
 	
-	@Test
-	public void acquireGraphicalBridgeInstance()
-	{
-		GraphicalBridge ballerina = GraphicalModelBridgeFactory.buildBridge("Ballerina");
-		assertEquals("The Pseudo-type of the newly created bridge must be Ballerina", 
-				"Ballerina", ballerina.getPseudoType());
-		assertEquals("The factory must reflect that one instance has been created.", 
-				1, GraphicalModelBridgeFactory.getNumberInstances("Ballerina"));
-	}
+//	@Test
+//	public void acquireGraphicalBridgeInstance()
+//	{
+//		GraphicalBridge ballerina = GraphicalModelBridgeFactory.buildBridge("Ballerina");
+//		assertEquals("The Pseudo-type of the newly created bridge must be Ballerina", 
+//				"Ballerina", ballerina.getPseudoType());
+//		assertEquals("The factory must reflect that one instance has been created.", 
+//				1, GraphicalModelBridgeFactory.getNumberInstances("Ballerina"));
+//	}
 }

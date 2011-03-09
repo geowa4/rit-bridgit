@@ -26,13 +26,20 @@ public class VariableEvaluator implements Evaluator
 		this.pseudoType = pseudoType;
 		this.value = value;
 		this.isAssignment = false;
+		
 	}
 	
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
-		if(pseudoType == null)
+		if(pseudoType == null || pseudoType.equals(""))
+		{
+			if(!isAssignment)
+			{
+				throw new InvalidTypeException("Psuedo Type must be specified for declaration.");
+			}
 			pseudoType = scope.getVariableValue(name).getPseudoType();
+		}
 		if(value != null)
 		{
 			Type eval = value.evaluate(scope);
@@ -46,7 +53,7 @@ public class VariableEvaluator implements Evaluator
 		}
 		else
 		{
-			scope.addVariable(name, new Type(null, pseudoType));
+			scope.addVariable(name, new Type(Type.NULL, pseudoType));
 			return null;
 		}
 	}
