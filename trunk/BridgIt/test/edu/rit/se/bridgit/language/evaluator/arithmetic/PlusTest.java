@@ -1,6 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator.arithmetic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.term.DoubleEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
+import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
@@ -91,5 +93,15 @@ public class PlusTest
 				new StringEvaluator("hello"), new StringEvaluator("3"));
 		Type ret = evaluator.evaluate(scope);
 		assertEquals("\"hello\"+\"3\" must be \"hello3\".", "hello3", ret.getValue());
+	}
+	
+	@Test(expected=InvalidTypeException.class)
+	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	{
+		NullEvaluator op1 = new NullEvaluator();
+		IntegerEvaluator op2 = new IntegerEvaluator(0);
+		PlusEvaluator evaluator = new PlusEvaluator(op1, op2);
+		evaluator.evaluate(scope);
+		fail("Cannot perform arithmetic on Null.");
 	}
 }

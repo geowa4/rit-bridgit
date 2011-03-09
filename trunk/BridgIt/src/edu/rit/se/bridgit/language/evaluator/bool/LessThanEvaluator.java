@@ -26,16 +26,17 @@ public class LessThanEvaluator extends BinaryEvaluator
 		Object r1Val = result1.getValue();
 		Object r2Val = result2.getValue();
 		Type ret;
-		if(r1Val instanceof Integer &&
-				r2Val instanceof Integer)
-			ret = new Type((Integer) r1Val < (Integer) r2Val, "Boolean");
+		if(r1Val instanceof Number &&
+				r2Val instanceof Number)
+			ret = new Type(((Number) r1Val).doubleValue() < ((Number) r2Val).doubleValue(), "Boolean");
 		
-		else if(r1Val instanceof Double &&
-				r2Val instanceof Double)
-			ret = new Type((Double) r1Val < (Double) r2Val, "Boolean");
+		else if(r1Val instanceof String &&
+				r2Val instanceof String)
+			ret = new Type(((String) r1Val).compareTo((String) r2Val) < 0, "Boolean");
 		
 		else
-			ret = new Type(((String) r1Val).compareTo((String) r2Val) < 0, "Boolean");
+			throw new InvalidTypeException("Both Pseudo Types must be a " +
+					"Number or Boolean to perform " + operation);
 		
 		return ret;
 	}

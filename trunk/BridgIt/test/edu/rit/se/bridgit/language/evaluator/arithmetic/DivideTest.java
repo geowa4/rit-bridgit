@@ -9,6 +9,7 @@ import org.junit.Test;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.term.DoubleEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
+import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
@@ -102,5 +103,15 @@ public class DivideTest
 				new StringEvaluator("9"), new StringEvaluator("3"));
 		evaluator.evaluate(scope);
 		fail("A string cannot be used in division.");
+	}
+	
+	@Test(expected=InvalidTypeException.class)
+	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	{
+		NullEvaluator op1 = new NullEvaluator();
+		IntegerEvaluator op2 = new IntegerEvaluator(0);
+		DivideEvaluator evaluator = new DivideEvaluator(op1, op2);
+		evaluator.evaluate(scope);
+		fail("Cannot perform arithmetic on Null.");
 	}
 }
