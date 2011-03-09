@@ -20,9 +20,7 @@ public abstract class BinaryEvaluator implements Evaluator {
 
 	public void validateType(Type op) throws InvalidTypeException 
 	{
-		if(!(	op == null
-			||	op.getValue() == Type.NULL
-			||	op.getType().equals(Integer.class) 
+		if(!(	op.getType().equals(Integer.class) 
 			||	op.getType().equals(Double.class) 
 			||	op.getType().equals(String.class)
 			||	op.getType().equals(Boolean.class)
