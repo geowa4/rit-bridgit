@@ -33,8 +33,12 @@ public class GreaterThanEvaluator extends BinaryEvaluator
 				r2Val instanceof Double)
 			ret = new Type((Double) r1Val > (Double) r2Val, "Boolean");
 		
-		else
+		else if(r1Val instanceof String &&
+				r2Val instanceof String)
 			ret = new Type(((String) r1Val).compareTo((String) r2Val) > 0, "Boolean");
+		else
+			throw new InvalidTypeException("Cannot compare values that are not " +
+					"Double, Integer, or String for operation: " + operation);
 		
 		return ret;
 	}
