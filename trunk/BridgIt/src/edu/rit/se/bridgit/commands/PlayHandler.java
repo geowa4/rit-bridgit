@@ -3,12 +3,21 @@ package edu.rit.se.bridgit.commands;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import antlr.RecognitionException;
+
 import edu.rit.se.bridgit.edit.editors.ProgramEditor;
+import edu.rit.se.bridgit.language.model.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 public class PlayHandler extends AbstractHandler {
 	// The ID of the play perspective
@@ -24,21 +33,26 @@ public class PlayHandler extends AbstractHandler {
 		// Now, if we're in the edit perspective
 		if(activePerspective.getId().equals(EDIT_PERSPECTIVE_ID)) {
 			// Reset the calling button's tooltip
+			if(event.getTrigger() instanceof Event) {
+				Event ev = (Event) event.getTrigger();
+				
+				// If it's a tool item
+//				if(ev.widget instanceof ToolItem) {
+//					ToolItem ti = (ToolItem) ev.widget;
+//					String imagePath = 
+//						GraphicalModelBridgeFactory.getThumbnailForType(selection.toString());
+//					if(!imagePath.equals(""))
+//					{
+//						imagePreview.setImage(new Image(parent.getDisplay(), imagePath));
+//					}
+//				}
+			}
 			
 			// Now, show the right perspective
 			try {
 				workbenchWindow.getWorkbench().showPerspective(EXECUTION_PERSPECTIVE_ID, workbenchWindow);
 			} catch (WorkbenchException e) {
 				e.printStackTrace();
-			}
-			String programText = ProgramEditor.text.getText();
-			if(!programText.equals(""))
-			{
-				System.out.println(LanguageHandler.evaluateProgram(programText));
-			}
-			else 
-			{
-				System.err.println("You have nothing in the program editor.");
 			}
 		}
 		// Otherwise, if we're in the execution perspective

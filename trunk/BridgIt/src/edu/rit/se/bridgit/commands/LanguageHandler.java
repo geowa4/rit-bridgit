@@ -11,25 +11,35 @@ import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 
-public class LanguageHandler {
+public class LanguageHandler
+{
 	
-	public static String evaluateProgram(String program) {
+	public static String evaluateProgram(String program)
+	{
 		String retVal = null;
 		CharStream stream = new ANTLRStringStream(program);
 		PseudoLexer lexer = new PseudoLexer(stream);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		PseudoParser parser = new PseudoParser(tokens);
 		Evaluator result;
-		try {
+		try
+		{
 			result = parser.application();
 			retVal = new String("" + result.evaluate(null));
-		} catch (RecognitionException e) {
+		}
+		catch (RecognitionException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InvalidTypeException e) {
+			
+		}
+		catch (InvalidTypeException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NameConflictException e) {
+		}
+		catch (NameConflictException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
