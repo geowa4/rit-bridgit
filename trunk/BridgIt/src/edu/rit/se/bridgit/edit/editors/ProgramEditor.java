@@ -95,17 +95,28 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 			private EditScopeParser m_Parser = new EditScopeParser();
 			
 			@Override
-			public void caretMoved(CaretEvent event) {						
-				// Parse the text
-				ArrayList<ArrayList<String>> parsedValues = m_Parser.parseScope(text.getText());
+			public void caretMoved(CaretEvent event) {
+				// Attempt to move the caret and parse the text
+				try
+				{
+					// Parse the text
+					ArrayList<ArrayList<String>> parsedValues = m_Parser.parseScope(text.getText());
 				
-				// Set the values of the scope view
-				ScopeView scopeView = (ScopeView) PlatformUI.getWorkbench().
-					getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.edit.views.objectsView");
+					// Set the values of the scope view
+					ScopeView scopeView = (ScopeView) PlatformUI.getWorkbench().
+						getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.edit.views.objectsView");
 				
-				// If the values parsed are correct, set the values
-				if(parsedValues.size() >= 3)
-					scopeView.setScopeComponents(parsedValues.get(0), parsedValues.get(1), parsedValues.get(2));
+					// If the values parsed are correct, set the values
+					if(parsedValues.size() >= 3)
+						scopeView.setScopeComponents(parsedValues.get(0), parsedValues.get(1), parsedValues.get(2));
+				}
+				// We failed
+				catch(Exception e)
+				{
+					// Print the error and stack tract
+					System.err.println("Failed parsing the program text editor. Details below: ");
+					e.printStackTrace();
+				}
 			}
 			
 		};
