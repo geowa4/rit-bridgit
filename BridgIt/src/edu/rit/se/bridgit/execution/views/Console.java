@@ -1,16 +1,12 @@
 package edu.rit.se.bridgit.execution.views;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
-
-import edu.rit.se.bridgit.language.evaluator.Scope;
 
 public class Console extends ViewPart
 {
