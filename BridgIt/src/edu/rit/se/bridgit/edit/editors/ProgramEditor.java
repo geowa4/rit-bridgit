@@ -126,7 +126,7 @@ public class ProgramEditor extends AbstractTextEditor
 					// Highlight the current line we're on
 					m_Text.setLineBackground(0, m_Text.getLineCount(), m_Text.getBackground());
 					m_Text.setLineBackground(m_Text.getLineAtOffset(event.caretOffset), 1,
-							new Color(Display.getCurrent(), 220, 255, 255));
+							new Color(Display.getCurrent(), 235, 235, 255));
 				}
 				// We failed
 				catch(Exception e)
