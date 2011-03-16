@@ -6,8 +6,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 
 public class ProgramEditorInput implements IEditorInput {
-	private final String inputString = new String();
-	
 	@Override
 	public Object getAdapter(Class adapter) {
 		// TODO Auto-generated method stub
@@ -45,3 +43,12 @@ public class ProgramEditorInput implements IEditorInput {
 	}
 
 }
+
+//public class ProgramEditorInput extends FileEditorInput {
+//
+//	public ProgramEditorInput(String fullPath) {
+//		super(fullPath);
+//		// TODO Auto-generated constructor stub
+//	}
+//
+//}

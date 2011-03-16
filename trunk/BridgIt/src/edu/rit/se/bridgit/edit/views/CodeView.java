@@ -1,16 +1,11 @@
 package edu.rit.se.bridgit.edit.views;
 
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 import edu.rit.bridgit.edit.editors.model.ProgramEditorInput;
-import edu.rit.bridgit.edit.editors.model.ProgramEditorModel;
-import edu.rit.se.bridgit.edit.editors.ProgramEditor;
 
 public class CodeView extends ViewPart {
 

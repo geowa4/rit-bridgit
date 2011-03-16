@@ -10,7 +10,6 @@ import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import edu.rit.se.bridgit.edit.editors.ProgramEditor;
-
 public class PlayHandler extends AbstractHandler {
 	// The ID of the play perspective
 	public static final String EDIT_PERSPECTIVE_ID = "edu.rit.se.bridgit.edit.perspectives.editPerspective";
@@ -43,7 +42,7 @@ public class PlayHandler extends AbstractHandler {
 			// Now, show the right perspective
 			try {
 				workbenchWindow.getWorkbench().showPerspective(EXECUTION_PERSPECTIVE_ID, workbenchWindow);
-				LanguageHandler.evaluateProgram(ProgramEditor.text.getText());
+				LanguageHandler.evaluateProgram(ProgramEditor.m_Text.getText());
 			} catch (WorkbenchException e) {
 				e.printStackTrace();
 			}

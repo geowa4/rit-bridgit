@@ -293,3 +293,11 @@ public class ProgramDocument implements IDocument {
 	}
 
 }
+
+//package edu.rit.bridgit.edit.editors.model;
+//
+//import org.eclipse.jface.text.AbstractDocument;
+//
+//public class ProgramDocument extends AbstractDocument {
+//
+//}

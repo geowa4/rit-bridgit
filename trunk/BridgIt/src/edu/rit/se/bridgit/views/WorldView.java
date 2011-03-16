@@ -9,7 +9,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.monklypse.core.JMEComposite;
 
-
 import edu.rit.bridgit.edit.editors.model.ProgramEditorInput;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
