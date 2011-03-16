@@ -17,6 +17,10 @@ public class BuiltInFunctionFactory
 	{
 		functions = new LinkedList<Function>();
 		functions.add(new PrintFunction());
+		functions.add(new StringFunction());
+		functions.add(new DoubleFunction());
+		functions.add(new IntegerFunction());
+		functions.add(new TypeOfFunction());
 	}
 	
 	public static List<Function> getFunctions()

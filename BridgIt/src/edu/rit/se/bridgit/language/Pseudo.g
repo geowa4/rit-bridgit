@@ -151,6 +151,7 @@ type returns [String name]
   | 'Boolean' {$name = "Boolean";}
   | 'String'  {$name = "String";}
   | 'List'    {$name = "List";}
+  | 'Any'     {$name = "Any";}
   | IDENT     {$name = $IDENT.text;}
   ;
 

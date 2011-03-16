@@ -11,8 +11,7 @@ import edu.rit.se.bridgit.language.model.Type;
 public class StringTest
 {
 	@Test
-	public void onlyReturnsStringTypesWhenGivenStringValues() 
-	throws InvalidTypeException
+	public void onlyReturnsStringTypesWhenGivenStringValues() throws InvalidTypeException
 	{
 		StringEvaluator evaluator = new StringEvaluator("not empty");
 		Type ret = evaluator.evaluate(null);
@@ -27,5 +26,13 @@ public class StringTest
 		StringEvaluator evaluator = new StringEvaluator(null);
 		evaluator.evaluate(null);
 		fail("Null is not allowed in a String evaluator.");
+	}
+	
+	@Test
+	public void quotesAreStripped() throws InvalidTypeException
+	{
+		StringEvaluator evaluator = new StringEvaluator("\"I'm a bunch of \"text\".\"");
+		Type ret = evaluator.evaluate(null);
+		assertEquals("Beginning and ending quotes must be removed.", "I'm a bunch of \"text\".", ret.getValue());
 	}
 }
