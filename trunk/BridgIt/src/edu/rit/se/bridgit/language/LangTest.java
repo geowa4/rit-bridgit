@@ -26,7 +26,7 @@ public class LangTest
 				"   }\n" +
 				"\n" + 
 				"	main {\n" +
-				"		print(1);" +
+				"		print(typeOf(1));" +
 				"		a = 7;" +
 				"		a = test(a);" + 
 				"		if a == 0 {\n" + 

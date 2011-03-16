@@ -26,7 +26,10 @@ public class Function
 			parameters.setArgs(args);
 			parameters.evaluate(executionScope);
 		}
-		functionBlock.evaluate(executionScope);
+		if(functionBlock != null)
+		{
+			functionBlock.evaluate(executionScope);
+		}
 		if(getReturnType().contains(Type.VOID_TYPE))
 		{
 			return new Type(Type.VOID, Type.VOID_TYPE);

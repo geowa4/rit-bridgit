@@ -4,8 +4,12 @@ public class Type
 {
 	public static final Object VOID = new Object();
 	public static final Object NULL = new Object();
+	
 	public static final String ANY_TYPE = "Any";
 	public static final String VOID_TYPE = "Void";
+	public static final String STRING_TYPE = "String";
+	public static final String INTEGER_TYPE = "Integer";
+	public static final String DOUBLE_TYPE = "Double";
 	
 	private Class<?> type;
 	private Object value;
