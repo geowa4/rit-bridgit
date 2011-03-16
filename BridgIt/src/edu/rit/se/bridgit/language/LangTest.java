@@ -21,17 +21,18 @@ public class LangTest
 				"		function test(x:Integer):Integer {\n" + 
 				"			constant d:Integer = 2;\n" + 
 				"			var one:Integer = x;\n" + 
-				"			one = a + one;\n" +
-				"			return 1;\n" + 
-				"		}" +
-				"   }\n" + 
+				"			return a + one;\n" +
+				"		}\n" +
+				"   }\n" +
+				"\n" + 
 				"	main {\n" +
-				"		test(1);" +
+				"		print(1);" +
 				"		a = 7;" +
 				"		a = test(a);" + 
 				"		if a == 0 {\n" + 
 				"			a = test(6);\n" +
-				"		}\n" + 
+				"		}\n" +
+				"		print(a);" + 
 				"	}\n" + 
 				"}"
 		);
@@ -39,6 +40,6 @@ public class LangTest
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		PseudoParser parser = new PseudoParser(tokens);
 		Evaluator result = parser.application();
-		System.out.println(result.evaluate(null));
+		result.evaluate(null);
 	}
 }

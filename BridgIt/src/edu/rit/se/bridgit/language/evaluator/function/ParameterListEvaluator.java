@@ -56,7 +56,8 @@ public class ParameterListEvaluator implements ParameterList
 			{
 				argType.setPseudoType(paramType.getPseudoType());
 			}
-			if(paramType.getPseudoType().equals(argType.getPseudoType()))
+			if(paramType.getPseudoType().equals(Type.ANY_TYPE) || 
+					paramType.getPseudoType().equals(argType.getPseudoType()))
 			{
 				scope.addVariable(param.getName(), argType);
 			}

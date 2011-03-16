@@ -13,7 +13,7 @@ public class StringEvaluator implements Evaluator
 	public StringEvaluator(String value) 
 	{
 		super();
-		this.value = value;
+		this.value = value == null ? value : value.replaceAll("^\"|\"$", "");
 	}
 
 	@Override

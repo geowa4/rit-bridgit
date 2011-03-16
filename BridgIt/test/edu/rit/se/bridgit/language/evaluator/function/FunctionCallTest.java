@@ -45,7 +45,7 @@ public class FunctionCallTest
 	{
 		definitionScope.addVariable("variable", new Type(1, "Integer"));
 		fnBlock.add(new VariableEvaluator("variable", new IntegerEvaluator(2)));
-		fnEval.setPseudoType(Function.VOID_TYPE);
+		fnEval.setPseudoType(Type.VOID_TYPE);
 		fnEval.evaluate(definitionScope);
 		fnCallEval.evaluate(callScope);
 		assertEquals("\"variable\" must be changed to 2.", 2, definitionScope.getVariableValue("variable").getValue());
@@ -56,7 +56,7 @@ public class FunctionCallTest
 	{
 		callScope.addVariable("variable", new Type(1, "Integer"));
 		fnBlock.add(new VariableEvaluator("variable", new IntegerEvaluator(2)));
-		fnEval.setPseudoType(Function.VOID_TYPE);
+		fnEval.setPseudoType(Type.VOID_TYPE);
 		fnEval.evaluate(definitionScope);
 		fnCallEval.evaluate(callScope);
 		fail("\"variable\" cannot be accesible.");
@@ -66,7 +66,7 @@ public class FunctionCallTest
 	public void variableCannotBeAssignedToVoidReturnValue() throws InvalidTypeException, NameConflictException
 	{
 		definitionScope.addVariable("variable", new Type(1, "Integer"));
-		fnEval.setPseudoType(Function.VOID_TYPE);
+		fnEval.setPseudoType(Type.VOID_TYPE);
 		fnEval.evaluate(definitionScope);
 		fnCallEval.evaluate(callScope);
 		VariableEvaluator assigner = new VariableEvaluator("variable", fnCallEval);
@@ -103,7 +103,7 @@ public class FunctionCallTest
 	@Test
 	public void parametersAreNotVisibleOutsideOfFunction() throws NameConflictException, InvalidTypeException
 	{
-		fnEval.setPseudoType(Function.VOID_TYPE);
+		fnEval.setPseudoType(Type.VOID_TYPE);
 		ParameterList params = new ParameterListEvaluator();
 		params.addParam(new ParameterEvaluator("arg0", "Integer"));
 		fnEval.setParameters(params);

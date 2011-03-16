@@ -19,8 +19,6 @@ public class MemberLoadEvaluator implements Evaluator
 			return scope.getVariableValue(name);
 		else if(scope.isConstant(name))
 			return scope.getConstantValue(name);
-		else if(scope.isParameter(name))
-			return scope.getParameterValue(name);
 		else if(scope.isFunction(name))
 			return scope.getFunctionValue(name);
 		else
