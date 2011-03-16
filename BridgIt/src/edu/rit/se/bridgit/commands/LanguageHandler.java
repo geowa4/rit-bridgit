@@ -11,9 +11,22 @@ import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 
+/**
+ * Special handler which is used by the play command to execute the given
+ * program text.
+ * 
+ * @author Bradley R. Blankenship
+ *
+ */
 public class LanguageHandler
 {
-	
+	/**
+	 * Evaluates the program.
+	 * 
+	 * @param program - The actual text of the program to evaluate.
+	 * 
+	 * @return Output from the evaluater.
+	 */
 	public static String evaluateProgram(String program)
 	{
 		String retVal = null;

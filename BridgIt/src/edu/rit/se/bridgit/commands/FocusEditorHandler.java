@@ -8,6 +8,12 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
+/**
+ * Focuses the top editor of the application.
+ * 
+ * @author Bradley R. Blankenship
+ *
+ */
 public class FocusEditorHandler extends AbstractHandler {
 
 	@Override
