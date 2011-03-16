@@ -1,5 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator.term;
 
+import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -17,6 +19,6 @@ public class NullTest
 		Type ret = evaluator.evaluate(null);
 		assertEquals("Value must be null.", Type.NULL, ret.getValue());
 		assertEquals("Pseudo type must be Null.", "Null", ret.getPseudoType());
-		assertEquals("Java type must be Object as null is not allowed.", Object.class, ret.getType());
+		assertThat("Java type must not be \"null\"", ret.getType(), notNullValue());
 	}
 }

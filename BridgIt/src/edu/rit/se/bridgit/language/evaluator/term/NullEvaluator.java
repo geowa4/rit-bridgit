@@ -7,12 +7,10 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class NullEvaluator implements Evaluator
 {
-	public static String NULL_TYPE = "Null";
-	
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException
 	{
-		return new Type(Type.NULL, NULL_TYPE);
+		return new Type(Type.NULL, Type.NULL_TYPE);
 	}
 
 	@Override
