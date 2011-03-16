@@ -91,56 +91,26 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 		// Create a simple listener to handle when the caret changes in text
 		CaretListener caretListener = new CaretListener()
 		{
+			// The parser we use
+			private EditScopeParser m_Parser = new EditScopeParser();
+			
 			@Override
-			public void caretMoved(CaretEvent event) {			
-				// Get the s position and set the values
+			public void caretMoved(CaretEvent event) {						
+				// Parse the text
+				ArrayList<ArrayList<String>> parsedValues = m_Parser.parseScope(text.getText());
 				
-				// Get the text of the field
-				String programText = text.getText();
-				
-				// Clear out comments
-				programText = programText.replaceAll("//.*\n*", "");
-				programText = programText.replaceAll("/\\*(.|\\s)*?\\*/", "");
-				
-				// Declare the pattern and matcher for regex parsing
-				Pattern variablePattern = Pattern.compile("\\s*var\\s*\\w*:\\w*");
-				Pattern constantPattern = Pattern.compile("\\s*constant\\s*\\w*:\\w*");
-				Pattern functionPattern = Pattern.compile("\\s*function\\s*\\w*(.*):\\w*");
-				
-				// Declare the matches for each
-				Matcher variableMatcher = variablePattern.matcher(programText);
-				Matcher constantMatcher = constantPattern.matcher(programText);
-				Matcher functionMatcher = functionPattern.matcher(programText);
-				
-				// The lists for the values
-				ArrayList<String> variables = new ArrayList<String>();
-				ArrayList<String> constants = new ArrayList<String>();
-				ArrayList<String> functions = new ArrayList<String>();
-				
-				// Add all the variables
-				while(variableMatcher.find())
-					for(int i = 0; i < variableMatcher.groupCount(); ++i)
-						variables.add(variableMatcher.group(i).replaceAll("\\s*var\\s*", "").trim());
-				
-				// Add all the constants
-				while(constantMatcher.find())
-					for(int i = 0; i < constantMatcher.groupCount(); ++i)
-						constants.add(constantMatcher.group(i).replaceAll("\\s*constant\\s*", "").trim());
-				
-				// Add all the functions
-				while(functionMatcher.find())
-					for(int i = 0; i < functionMatcher.groupCount(); ++i)
-						functions.add(functionMatcher.group(i).replaceAll("\\s*function\\s*", "").trim());
-				
-				// Set the values of the 
+				// Set the values of the scope view
 				ScopeView scopeView = (ScopeView) PlatformUI.getWorkbench().
 					getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.edit.views.objectsView");
 				
-				// Set the model components
-				scopeView.setScopeComponents(variables, constants, functions);
+				// If the values parsed are correct, set the values
+				if(parsedValues.size() >= 3)
+					scopeView.setScopeComponents(parsedValues.get(0), parsedValues.get(1), parsedValues.get(2));
 			}
 			
 		};
+		
+		// Add it to the text area
 		text.addCaretListener(caretListener);
 	}
 }
