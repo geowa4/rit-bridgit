@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.rit.se.bridgit.language.evaluator.Scope;
-import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -92,7 +91,7 @@ public class ParameterListTest
 		ple.setArgs(new LinkedList<Type>() {
 			private static final long serialVersionUID = -1267528789248589583L;
 		{
-			add(new Type(Type.NULL, NullEvaluator.NULL_TYPE));
+			add(new Type(Type.NULL, Type.NULL_TYPE));
 		}});
 		ple.evaluate(scope);
 		assertThat("Parameter must be set to Null.", scope.getVariableValue("test").getValue(), sameInstance(Type.NULL));

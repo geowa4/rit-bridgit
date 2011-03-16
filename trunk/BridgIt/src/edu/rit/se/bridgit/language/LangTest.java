@@ -16,23 +16,12 @@ public class LangTest
 	{
 		CharStream stream = new ANTLRStringStream(
 				"application Awesome {\n" + 
-				"	setup {" +
-				"		var a:Integer = 0;" +
-				"		function test(x:Integer):Integer {\n" + 
-				"			constant d:Integer = 2;\n" + 
-				"			var one:Integer = x;\n" + 
-				"			return a + one;\n" +
-				"		}\n" +
+				"	setup {\n" +
+				"\n" +
 				"   }\n" +
 				"\n" + 
 				"	main {\n" +
-				"		print(typeOf(1));" +
-				"		a = 7;" +
-				"		a = test(a);" + 
-				"		if a == 0 {\n" + 
-				"			a = test(6);\n" +
-				"		}\n" +
-				"		print(a);" + 
+				"		print(typeOf(1) == \"Integer\" != false);\n" +
 				"	}\n" + 
 				"}"
 		);

@@ -30,7 +30,7 @@ public class FunctionCallTest
 	private FunctionCallEvaluator fnCallEval;
 	
 	@Before
-	public void buildEssentials()
+	public void setUp()
 	{
 		definitionScope = new Scope(null);
 		callScope = new Scope(definitionScope);

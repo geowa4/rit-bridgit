@@ -4,7 +4,6 @@ import java.util.List;
 
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
-import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -46,7 +45,7 @@ public class FunctionCallEvaluator implements Evaluator {
 		String pseudoType = function.getReturnType();
 		int index = pseudoType.indexOf(":");
 		String finalPseudoType = index < 0 ? pseudoType : pseudoType.substring(index + 1);
-		if(t.getPseudoType().equals(NullEvaluator.NULL_TYPE))
+		if(t.getPseudoType().equals(Type.NULL_TYPE))
 		{
 			t.setPseudoType(finalPseudoType);
 		}
