@@ -11,8 +11,6 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class Function
 {
-	public static final String VOID_TYPE = "Void";
-	
 	private ParameterList parameters;
 	private Block functionBlock;
 	private String returnType;
@@ -29,9 +27,9 @@ public class Function
 			parameters.evaluate(executionScope);
 		}
 		functionBlock.evaluate(executionScope);
-		if(getReturnType().contains(Function.VOID_TYPE))
+		if(getReturnType().contains(Type.VOID_TYPE))
 		{
-			return new Type(Type.VOID, Function.VOID_TYPE);
+			return new Type(Type.VOID, Type.VOID_TYPE);
 		}
 		else 
 		{

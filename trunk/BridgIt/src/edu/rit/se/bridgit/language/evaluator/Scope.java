@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import edu.rit.se.bridgit.language.builtin.function.BuiltInFunctionFactory;
 import edu.rit.se.bridgit.language.evaluator.function.Function;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
@@ -27,12 +28,28 @@ public class Scope
 	
 	private Map<String, Type> variables = new HashMap<String, Type>();
 	private Map<String, Type> constants = new HashMap<String, Type>();
-	private Map<String, Type> parameters = new HashMap<String, Type>();
 	private Map<String, Function> functions = new HashMap<String, Function>();
 	
 	public Scope(Scope parent) 
 	{
 		this.parent = parent;
+		if(parent == null) loadBuiltInFunctions();
+	}
+	
+	private void loadBuiltInFunctions()
+	{
+		for(Function f : BuiltInFunctionFactory.getFunctions())
+		{
+			try
+			{
+				addFunction(f);
+			} 
+			catch (NameConflictException e)
+			{
+				System.err.println("Skipped function " + f.getFunctionName() + 
+						" as it has already been added.");
+			}
+		}
 	}
 	
 	public Scope getParent()
@@ -54,27 +71,6 @@ public class Scope
 		functions.put(function.getFunctionName(), function);
 	}
 	
-	public int getFunctionParameterSize(String functionName){
-				
-		return 0;
-	}
-	
-	public Type addParameter(String name, Type type) throws NameConflictException, InvalidTypeException{
-		if(isParameter(name))
-			throw new NameConflictException(name);
-		parameters.put(name, type);
-		return type;
-	}
-	
-	public Boolean removeParameter(String name){
-		if(isParameter(name)){
-			parameters.remove(name);
-			return true;
-		}
-		else 
-			return false;
-	}
-	
 	public boolean isVariable(String name)
 	{
 		if(variables.containsKey(name))
@@ -91,16 +87,6 @@ public class Scope
 			return true;
 		else if(parent != null)
 			return parent.isFunction(name);
-		else
-			return false;
-	}
-	
-	public boolean isParameter(String name)
-	{
-		if(parameters.containsKey(name))
-			return true;
-		else if(parent != null)
-			return parent.isParameter(name);
 		else
 			return false;
 	}
@@ -148,16 +134,6 @@ public class Scope
 			return variables.get(name);
 		else if(parent != null)
 			return parent.getVariableValue(name);
-		else
-			return null;
-	}
-	
-	public Type getParameterValue(String name) 
-	{
-		if(parameters.containsKey(name))
-			return parameters.get(name);
-		else if(parent != null)
-			return parent.getParameterValue(name);
 		else
 			return null;
 	}

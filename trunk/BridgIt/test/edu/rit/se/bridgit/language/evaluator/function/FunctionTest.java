@@ -51,19 +51,19 @@ public class FunctionTest
 	@Test
 	public void voidFunctionReturnsVoidType() throws InvalidTypeException, NameConflictException
 	{
-		function.setReturnType(Function.VOID_TYPE);
+		function.setReturnType(Type.VOID_TYPE);
 		context.checking(new Expectations() {{
 			oneOf(block).evaluate(with(any(Scope.class)));
 			never(returnExpr).evaluate(with(any(Scope.class)));
 		}});
-		assertEquals("Type must be void.", Function.VOID_TYPE, function.apply(null).getPseudoType());
+		assertEquals("Type must be void.", Type.VOID_TYPE, function.apply(null).getPseudoType());
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
 	public void nonNullParameterListIsEvaluated() throws InvalidTypeException, NameConflictException
 	{
-		function.setReturnType(Function.VOID_TYPE);
+		function.setReturnType(Type.VOID_TYPE);
 		function.setParameters(params);
 		context.checking(new Expectations() {{
 			oneOf(params).setArgs(with(aNull(List.class)));
@@ -90,9 +90,9 @@ public class FunctionTest
 	@Test
 	public void functionIsAddedToScopeWithDefinitionScopeSet() throws InvalidTypeException, NameConflictException
 	{
-		function.setReturnType("Function:" + Function.VOID_TYPE);
+		function.setReturnType("Function:" + Type.VOID_TYPE);
 		fnEval.setFunction(function);
-		assertEquals("Type should be \"void\".", "Function:" + Function.VOID_TYPE,
+		assertEquals("Type should be \"void\".", "Function:" + Type.VOID_TYPE,
 				fnEval.evaluate(scope).getPseudoType());
 		assertThat("Function must be same.", function, sameInstance(scope.getFunction("test")));
 		assertThat("Scope must be same.", scope, sameInstance(function.getDefinitionScope()));

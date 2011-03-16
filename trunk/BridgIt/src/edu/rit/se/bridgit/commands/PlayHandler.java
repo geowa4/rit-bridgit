@@ -3,21 +3,13 @@ package edu.rit.se.bridgit.commands;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.handlers.HandlerUtil;
 
-import antlr.RecognitionException;
-
 import edu.rit.se.bridgit.edit.editors.ProgramEditor;
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.NameConflictException;
-import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 public class PlayHandler extends AbstractHandler {
 	// The ID of the play perspective
@@ -34,7 +26,7 @@ public class PlayHandler extends AbstractHandler {
 		if(activePerspective.getId().equals(EDIT_PERSPECTIVE_ID)) {
 			// Reset the calling button's tooltip
 			if(event.getTrigger() instanceof Event) {
-				Event ev = (Event) event.getTrigger();
+//				Event ev = (Event) event.getTrigger();
 				
 				// If it's a tool item
 //				if(ev.widget instanceof ToolItem) {
@@ -51,6 +43,7 @@ public class PlayHandler extends AbstractHandler {
 			// Now, show the right perspective
 			try {
 				workbenchWindow.getWorkbench().showPerspective(EXECUTION_PERSPECTIVE_ID, workbenchWindow);
+				LanguageHandler.evaluateProgram(ProgramEditor.text.getText());
 			} catch (WorkbenchException e) {
 				e.printStackTrace();
 			}

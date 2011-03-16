@@ -1,8 +1,6 @@
 package edu.rit.se.bridgit.edit.editors;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CaretEvent;
@@ -18,8 +16,6 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditor;
-
-import com.sun.source.tree.Scope;
 
 import edu.rit.bridgit.edit.editors.model.ProgramDocumentProvider;
 import edu.rit.bridgit.edit.editors.model.ProgramEditorModel;
@@ -74,7 +70,7 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 		
 		// Set the default text for a simple application
 		text.setText(
-				"application\n" +
+				"application ProgramTitle\n" +
 				"{\n" +
 				"\tsetup\n" +
 				"\t{\n" +
