@@ -3,8 +3,11 @@ package edu.rit.se.bridgit.commands;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
  * Focuses the types view of the application.
@@ -14,6 +17,9 @@ import org.eclipse.ui.PlatformUI;
  */
 public class FocusTypesViewHandler extends AbstractHandler
 {
+	// The ID of the play perspective
+	public static final String EDIT_PERSPECTIVE_ID = "edu.rit.se.bridgit.edit.perspectives.editPerspective";
+	public static final String EXECUTION_PERSPECTIVE_ID = "edu.rit.se.bridgit.execution.perspectives.executionPerspective";
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException
@@ -21,14 +27,36 @@ public class FocusTypesViewHandler extends AbstractHandler
 		// Attempt to perform the following
 		try
 		{
-			// Get the view
-			IViewPart view = PlatformUI.getWorkbench().
-				getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.edit.views.typesView");
+			// Get the workbench window and current perspective
+			IWorkbenchWindow workbenchWindow = HandlerUtil.getActiveWorkbenchWindow(event);
+			IPerspectiveDescriptor activePerspective = workbenchWindow.getActivePage().getPerspective();
 			
-			// Focus the scope
-			if(view != null && view.getSite().getPage().isPartVisible(view))
-				view.getSite().getPage().activate(view);
+			// If we're in the edit perspective
+			if(activePerspective.getId().equals(EDIT_PERSPECTIVE_ID))
+			{
+				// Get the view
+				IViewPart view = PlatformUI.getWorkbench().
+					getActiveWorkbenchWindow().getActivePage().findView(
+							"edu.rit.se.bridgit.edit.views.typesView");
+			
+				// Focus the scope
+				if(view != null && view.getSite().getPage().isPartVisible(view))
+					view.getSite().getPage().activate(view);
+			}
+			// Otherwise, if we're in the execution perspective
+			else if(activePerspective.getId().equals(EXECUTION_PERSPECTIVE_ID))
+			{
+				// Get the view
+				IViewPart view = PlatformUI.getWorkbench().
+					getActiveWorkbenchWindow().getActivePage().findView(
+							"edu.rit.se.bridgit.execution.views.Console");
+			
+				// Focus the scope
+				if(view != null && view.getSite().getPage().isPartVisible(view))
+					view.getSite().getPage().activate(view);
+			}
 		}
+		// Print the errors
 		catch(Exception e)
 		{
 			// Print the error

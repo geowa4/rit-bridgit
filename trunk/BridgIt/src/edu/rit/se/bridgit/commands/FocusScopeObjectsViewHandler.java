@@ -25,7 +25,7 @@ public class FocusScopeObjectsViewHandler extends AbstractHandler
 		{
 			// Get the view
 			IViewPart view = PlatformUI.getWorkbench().
-				getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.execution.views.Console");
+				getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.edit.views.objectsView");
 			
 			// Focus the scope
 			if(view != null && view.getSite().getPage().isPartVisible(view))
@@ -34,7 +34,7 @@ public class FocusScopeObjectsViewHandler extends AbstractHandler
 		catch(Exception e)
 		{
 			// Print the error
-			System.err.println("Could not focus the console view: ");
+			System.err.println("Could not focus the scope objects view: ");
 			e.printStackTrace();
 		}
 
