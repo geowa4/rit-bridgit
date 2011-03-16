@@ -15,6 +15,9 @@ import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 public class WorldView extends ViewPart {
 
+	// The JME composite container to use
+	private JMEComposite composite;
+	
 	public WorldView() {
 		// TODO Auto-generated constructor stub
 	}
@@ -24,7 +27,7 @@ public class WorldView extends ViewPart {
 		Composite container = new Composite(parent, SWT.None);
         container.setLayout(new GridLayout(1, true));
         
-        JMEComposite composite = new JMEComposite(container,
+        composite = new JMEComposite(container,
                        GraphicalModelBridgeFactory.jme_canvas);
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
         
@@ -41,8 +44,7 @@ public class WorldView extends ViewPart {
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
-
+		composite.setFocus();
 	}
 
 }

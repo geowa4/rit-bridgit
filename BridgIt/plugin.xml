@@ -194,6 +194,59 @@
             id="edu.rit.se.bridgit.commands.play"
             name="Play">
       </command>
+      <command
+            defaultHandler="edu.rit.se.bridgit.commands.FocusScopeObjectsViewHandler"
+            id="edu.rit.se.bridgit.commands.focusScopeObjectsView"
+            name="Focus Scope Objects View">
+      </command>
+      <command
+            defaultHandler="edu.rit.se.bridgit.commands.FocusWorldViewHandler"
+            id="edu.rit.se.bridgit.commands.focusWorldView"
+            name="Focus World View">
+      </command>
+      <command
+            defaultHandler="edu.rit.se.bridgit.commands.FocusEditorHandler"
+            id="edu.rit.se.bridgit.commands.focusEditor"
+            name="Focus Editor">
+      </command>
+      <command
+            defaultHandler="edu.rit.se.bridgit.commands.FocusTypesViewHandler"
+            id="edu.rit.se.bridgit.commands.focusTypesView"
+            name="Focus Types View">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="edu.rit.se.bridgit.commands.play"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+ENTER">
+      </key>
+      <key
+            commandId="edu.rit.se.bridgit.commands.focusScopeObjectsView"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+ARROW_LEFT">
+      </key>
+      <key
+            commandId="edu.rit.se.bridgit.commands.focusTypesView"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+ARROW_DOWN">
+      </key>
+      <key
+            commandId="edu.rit.se.bridgit.commands.focusWorldView"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+ARROW_UP">
+      </key>
+      <key
+            commandId="edu.rit.se.bridgit.commands.focusEditor"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+ARROW_RIGHT">
+      </key>
    </extension>
 
 </plugin>
