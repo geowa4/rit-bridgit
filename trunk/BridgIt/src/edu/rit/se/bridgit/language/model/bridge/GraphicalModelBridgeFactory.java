@@ -1,6 +1,5 @@
 package edu.rit.se.bridgit.language.model.bridge;
 
-import java.util.List;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,12 +10,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
-import com.jme.renderer.Renderer;
 import com.jme.scene.Node;
-import com.jme.system.DisplaySystem;
 import com.jme.util.export.binary.BinaryImporter;
 import com.jmex.model.converters.FormatConverter;
 import com.jmex.model.converters.ObjToJme;
@@ -56,7 +54,7 @@ public class GraphicalModelBridgeFactory
 			return null;
 	}
 	
-	public static void loadAvailableClasses() throws FileNotFoundException
+	public static void loadContent() throws FileNotFoundException
 	{
 		
 		File content_folder = new File(System.getProperty("user.home") + File.separator + "Models");

@@ -1,7 +1,6 @@
 package edu.rit.se.bridgit.monklypse;
 
 import java.io.FileNotFoundException;
-import java.util.logging.Logger;
 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
@@ -20,8 +19,7 @@ import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 public class RenderCanvas extends SWTDefaultImplementor {
 
-        private static final Logger logger = Logger.getLogger(RenderCanvas.class
-                        .getName());
+        //private static final Logger logger = Logger.getLogger(RenderCanvas.class);
 
         private Vector3f axis;
         //private Box box;
@@ -90,7 +88,7 @@ public class RenderCanvas extends SWTDefaultImplementor {
                 
                 try
         		{
-        			GraphicalModelBridgeFactory.loadAvailableClasses();
+        			GraphicalModelBridgeFactory.loadContent();
         		}
         		catch(FileNotFoundException fnfe)
         		{
