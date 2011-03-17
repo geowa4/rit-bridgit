@@ -165,6 +165,7 @@ term returns [Evaluator eval]
   | IDENT                    {$eval = new MemberLoadEvaluator($IDENT.text);}
   | '(' expression ')'       {$eval = $expression.eval;}
   | INTEGER                  {$eval = new IntegerEvaluator(Integer.parseInt($INTEGER.text));}
+  | DOUBLE                   {$eval = new DoubleEvaluator(Double.parseDouble($DOUBLE.text));}
   | bool                     {$eval = $bool.eval;}
   | functionCall             {$eval = $functionCall.eval;}
   | newObject                {$eval = $newObject.eval;}
@@ -240,6 +241,7 @@ STRING_LITERAL
     '"'
   ;
 INTEGER : DIGIT+;
+DOUBLE: DIGIT+ '\.' DIGIT+;
 IDENT : LETTER(LETTER | DIGIT)*;
 WS : (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
 COMMENT : '//' .* ('\r' | '\n')         {$channel = HIDDEN;};

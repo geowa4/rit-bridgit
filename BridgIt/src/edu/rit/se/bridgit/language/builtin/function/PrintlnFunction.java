@@ -11,11 +11,11 @@ import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 
-public class PrintFunction extends Function
+public class PrintlnFunction extends Function
 {
 	private static final String parameterName = "object";
 	
-	public PrintFunction()
+	public PrintlnFunction()
 	{
 		setFunctionName("print");
 		setReturnType(Type.VOID_TYPE);
@@ -31,7 +31,7 @@ public class PrintFunction extends Function
 		public Type evaluate(Scope scope) throws InvalidTypeException,
 				NameConflictException
 		{
-			System.out.print(scope.getVariableValue(parameterName).getValue());
+			System.out.println(scope.getVariableValue(parameterName).getValue());
 			return new Type(Type.VOID, Type.VOID_TYPE);
 		}
 
