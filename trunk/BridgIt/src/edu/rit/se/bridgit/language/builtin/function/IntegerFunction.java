@@ -49,6 +49,10 @@ public class IntegerFunction extends Function
 				if((Boolean) value) return new Type(1, Type.INTEGER_TYPE); 
 				else return new Type(0, Type.INTEGER_TYPE);
 			}
+			else if(value instanceof Double)
+			{
+				return new Type(((Double) value).intValue(), Type.INTEGER_TYPE);
+			}
 			else
 			{
 				throw new InvalidTypeException("Parameter of type " + t.getPseudoType() + 

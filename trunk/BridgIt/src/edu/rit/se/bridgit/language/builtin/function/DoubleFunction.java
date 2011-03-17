@@ -50,7 +50,7 @@ public class DoubleFunction extends Function
 			}
 			else if(value instanceof Boolean)
 			{
-				if((Boolean) value) return new Type(1.0d, Type.INTEGER_TYPE); 
+				if((Boolean) value) return new Type(1.0d, Type.DOUBLE_TYPE); 
 				else return new Type(0.0d, Type.INTEGER_TYPE);
 			}
 			else
