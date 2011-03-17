@@ -14,6 +14,7 @@ import edu.rit.se.bridgit.language.model.Type;
 public class PrintFunction extends Function
 {
 	private static final String parameterName = "object";
+	public static final String functionName = "println";
 	
 	public PrintFunction()
 	{

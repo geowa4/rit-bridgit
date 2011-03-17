@@ -14,10 +14,11 @@ import edu.rit.se.bridgit.language.model.Type;
 public class PrintlnFunction extends Function
 {
 	private static final String parameterName = "object";
+	public static final String functionName = "println";
 	
 	public PrintlnFunction()
 	{
-		setFunctionName("print");
+		setFunctionName("println");
 		setReturnType(Type.VOID_TYPE);
 		ParameterList params = new ParameterListEvaluator();
 		params.addParam(new ParameterEvaluator(parameterName, Type.ANY_TYPE));
