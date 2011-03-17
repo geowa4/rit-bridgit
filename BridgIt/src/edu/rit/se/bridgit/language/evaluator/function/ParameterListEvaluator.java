@@ -52,7 +52,7 @@ public class ParameterListEvaluator implements ParameterList
 			ParameterEvaluator param = paramsIter.next();
 			Type argType = argsIter.next();
 			Type paramType = param.evaluate(scope);
-			if(argType.getValue() == Type.NULL)
+			if(argType.getValue() == Type.NULL && !paramType.getPseudoType().equals(Type.ANY_TYPE))
 			{
 				argType.setPseudoType(paramType.getPseudoType());
 			}
