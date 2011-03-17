@@ -27,6 +27,7 @@ public class ArgumentListEvaluator implements Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
+		argValues.clear();
 		for(Evaluator e : args)
 		{
 			argValues.add(e.evaluate(scope));
