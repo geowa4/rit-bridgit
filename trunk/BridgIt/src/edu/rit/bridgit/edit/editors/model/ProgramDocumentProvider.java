@@ -47,7 +47,7 @@ public class ProgramDocumentProvider implements IDocumentProvider, IDocumentProv
 	public void saveDocument(IProgressMonitor monitor, Object element,
 			IDocument document, boolean overwrite) throws CoreException {
 		try {
-			FileWriter writer = new FileWriter("Output Program.txt");
+			FileWriter writer = new FileWriter("OutputProgram.txt");
 			monitor.beginTask("Saving file...", 0);
 			writer.write(document.get());
 			monitor.done();
