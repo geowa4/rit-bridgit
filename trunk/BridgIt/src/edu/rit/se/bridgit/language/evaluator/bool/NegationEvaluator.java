@@ -29,8 +29,7 @@ public class NegationEvaluator implements Evaluator {
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException {
 		Type result = e.evaluate(scope);
 		validateType(result);
-		result = new Type(! (Boolean) result.getValue(), "Boolean");
-		return result;
+		return result.negation(); 
 	}
 
 }

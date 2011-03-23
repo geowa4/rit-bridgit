@@ -28,11 +28,7 @@ public class UnaryEvaluator implements Evaluator {
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException {
 		Type result = e.evaluate(scope);
 		validateType(result);
-		Object value = result.getValue();
-		if(value instanceof Integer)
-			return new Type(- (Integer) value, "Integer");
-		else
-			return new Type(- (Double) value, "Double");
+		return result.unary();
 	}
 
 	@Override
