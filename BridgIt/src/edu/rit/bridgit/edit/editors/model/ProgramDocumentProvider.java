@@ -2,17 +2,24 @@ package edu.rit.bridgit.edit.editors.model;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.source.AnnotationModel;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.eclipse.ui.texteditor.IDocumentProviderExtension;
 import org.eclipse.ui.texteditor.IElementStateListener;
 
-public class ProgramDocumentProvider implements IDocumentProvider {
-
+public class ProgramDocumentProvider implements IDocumentProvider, IDocumentProviderExtension {
+	// The internal document of the provider
+	Document m_Document = new Document();
+	AnnotationModel m_AnnotationModel = new AnnotationModel();
+	
+	
 	@Override
 	public void connect(Object element) throws CoreException {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -24,7 +31,7 @@ public class ProgramDocumentProvider implements IDocumentProvider {
 	@Override
 	public IDocument getDocument(Object element) {
 		// TODO Auto-generated method stub
-		return new ProgramDocument();
+		return m_Document;
 	}
 
 	@Override
@@ -66,13 +73,13 @@ public class ProgramDocumentProvider implements IDocumentProvider {
 	@Override
 	public boolean canSaveDocument(Object element) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public IAnnotationModel getAnnotationModel(Object element) {
 		// TODO Auto-generated method stub
-		return null;
+		return m_AnnotationModel;
 	}
 
 	@Override
@@ -90,13 +97,61 @@ public class ProgramDocumentProvider implements IDocumentProvider {
 	@Override
 	public void addElementStateListener(IElementStateListener listener) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void removeElementStateListener(IElementStateListener listener) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean isReadOnly(Object element) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isModifiable(Object element) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public void validateState(Object element, Object computationContext)
+			throws CoreException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isStateValidated(Object element) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public void updateStateCache(Object element) throws CoreException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setCanSaveDocument(Object element) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public IStatus getStatus(Object element) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void synchronize(Object element) throws CoreException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

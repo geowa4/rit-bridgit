@@ -18,13 +18,14 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.texteditor.AbstractTextEditor;
+import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditor;
 
 import edu.rit.bridgit.edit.editors.model.ProgramDocumentProvider;
 import edu.rit.bridgit.edit.editors.model.ProgramEditorModel;
 import edu.rit.se.bridgit.edit.views.ScopeView;
 
-public class ProgramEditor extends AbstractTextEditor
+public class ProgramEditor extends AbstractDecoratedTextEditor
 {
 	// The editor model of the program
 	ProgramEditorModel m_EditorModel = null;
@@ -49,40 +50,31 @@ public class ProgramEditor extends AbstractTextEditor
 		// Create a new editor model, which can be used for processing the program
 		m_EditorModel = new ProgramEditorModel();
 		this.setDocumentProvider(new ProgramDocumentProvider());
+		configureInsertMode(SMART_INSERT, false);
+	    this.enableOverwriteMode(true);
 	}
 	
 	@Override
-	public void init(final IEditorSite site, final IEditorInput input) throws PartInitException
-	{
-		super.init(site, input);
-	}
+	protected boolean isLineNumberRulerVisible() {
+	     return true;
+	 }
 	
 	@ Override 
 	public void createPartControl(Composite parent)
 	{
-		//super.createPartControl(parent);
-		//this.showChangeInformation(true);
-		
-		// Create the ruler
-		m_VerticalBar = this.createVerticalRuler();
-		
+		// Super call
+		super.createPartControl(parent);
+	
 		// Create the source viewer
-		m_SourceViewer = this.createSourceViewer(parent, m_VerticalBar,
-				SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL);
+		m_SourceViewer = getSourceViewer();
 		m_SourceViewer.setEditable(true);
 		m_SourceViewer.showAnnotations(true);
 		m_SourceViewer.setDocument(new Document());
-		
+
 		// Set the text object
 		m_Text = m_SourceViewer.getTextWidget();
 		
-		// Create and set the layout
-		FillLayout layout = new FillLayout();
-		parent.setLayout(layout);
-		parent.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		
-		// Create the text component and required objects for setup
-		Color bg = Display.getDefault().getSystemColor(SWT.COLOR_WHITE);
+		// Set the initial text of the program
 		m_SourceViewer.getDocument().set(
 				"application Program\n" +
 				"{\n" +
@@ -96,10 +88,6 @@ public class ProgramEditor extends AbstractTextEditor
 				"\t\t\n" +
 				"\t}\n" +
 				"}\n");
-		
-		// Set the text values
-		m_Text.setEditable(true);
-		m_Text.setBackground(bg);
 
 		// Create a simple listener to handle when the caret changes in text
 		CaretListener caretListener = new CaretListener()
@@ -122,11 +110,6 @@ public class ProgramEditor extends AbstractTextEditor
 					// If the values parsed are correct, set the values
 					if(parsedValues.size() >= 3)
 						scopeView.setScopeComponents(parsedValues.get(0), parsedValues.get(1), parsedValues.get(2));
-					
-					// Highlight the current line we're on
-					m_Text.setLineBackground(0, m_Text.getLineCount(), m_Text.getBackground());
-					m_Text.setLineBackground(m_Text.getLineAtOffset(event.caretOffset), 1,
-							new Color(Display.getCurrent(), 235, 235, 255));
 				}
 				// We failed
 				catch(Exception e)

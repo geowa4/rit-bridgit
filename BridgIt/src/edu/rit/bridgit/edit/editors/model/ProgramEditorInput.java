@@ -15,7 +15,7 @@ public class ProgramEditorInput implements IEditorInput {
 	@Override
 	public boolean exists() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
