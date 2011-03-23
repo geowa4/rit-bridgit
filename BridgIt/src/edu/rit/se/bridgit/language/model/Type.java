@@ -11,6 +11,7 @@ public class Type
 	public static final String STRING_TYPE = "String";
 	public static final String INTEGER_TYPE = "Integer";
 	public static final String DOUBLE_TYPE = "Double";
+	public static final String LIST_TYPE = "List";
 	
 	private Class<?> type;
 	private Object value;
@@ -24,7 +25,7 @@ public class Type
 		validateTypes();
 	}
 	
-	private void validateTypes() throws InvalidTypeException
+	protected void validateTypes() throws InvalidTypeException
 	{
 		if(value == null) throw new InvalidTypeException("Value of a Type cannot be null.");
 		int index = pseudoType.indexOf(":");
@@ -40,21 +41,9 @@ public class Type
 		return type;
 	}
 
-	public void setType(Class<?> type) throws InvalidTypeException 
-	{
-		this.type = type;
-		validateTypes();
-	}
-	
 	public Object getValue() 
 	{
 		return value;
-	}
-	
-	public void setValue(Object value) throws InvalidTypeException 
-	{
-		this.value = value;
-		setType(value.getClass());
 	}
 
 	public String getPseudoType() {
@@ -65,6 +54,12 @@ public class Type
 	{
 		this.pseudoType = pseudoType;
 		validateTypes();
+	}
+	
+	@Override
+	public String toString()
+	{
+		return value.toString();
 	}
 	
 	public Type add(Type other) throws InvalidTypeException 
@@ -105,7 +100,7 @@ public class Type
 			ret = new Type((String) r1Val + (Double) r2Val, "String");
 		
 		else
-			ret = new Type((String) r1Val + (String) r2Val, "String");
+			ret = new Type(this.toString() + other.toString(), "String");
 		
 		return ret;
 	}

@@ -170,11 +170,23 @@ term returns [Evaluator eval]
   | functionCall             {$eval = $functionCall.eval;}
   | newObject                {$eval = $newObject.eval;}
   | 'Null'                   {$eval = new NullEvaluator();}
+  | list                     {$eval = $list.eval;}
   ;
 
 bool returns[Evaluator eval]
   : 'true'  {$eval = new BooleanEvaluator(true);}
   | 'false' {$eval = new BooleanEvaluator(false);}
+  ;
+
+list returns[ListEvaluator eval]
+  : {$eval = new ListEvaluator();}
+    '[' 
+      (firstTerm=term             {$eval.addTerm($firstTerm.eval);}
+        (
+          ',' optionalTerm=term   {$eval.addTerm($optionalTerm.eval);}
+        )*
+      )? 
+    ']'
   ;
 
 negation returns [Evaluator eval]
