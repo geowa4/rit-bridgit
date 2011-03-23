@@ -229,32 +229,37 @@
             commandId="edu.rit.se.bridgit.commands.play"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+ENTER">
+            sequence="M1+M2+ENTER">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusScopeObjectsView"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+ARROW_LEFT">
+            sequence="M1+M2+A">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusTypesView"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+ARROW_DOWN">
+            sequence="M1+M2+S">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusWorldView"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+ARROW_UP">
+            sequence="M1+M2+W">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusEditor"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="M1+ARROW_RIGHT">
+            sequence="M1+M2+D">
       </key>
+      <scheme
+            id="edu.rit.se.bridgit.bindings.BridgitBindings"
+            name="BridgitBindings"
+            parentId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </scheme>
    </extension>
 
 </plugin>
