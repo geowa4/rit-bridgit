@@ -1,5 +1,8 @@
 package edu.rit.bridgit.edit.editors.model;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -43,7 +46,16 @@ public class ProgramDocumentProvider implements IDocumentProvider, IDocumentProv
 	@Override
 	public void saveDocument(IProgressMonitor monitor, Object element,
 			IDocument document, boolean overwrite) throws CoreException {
-		// TODO Auto-generated method stuff
+		try {
+			FileWriter writer = new FileWriter("Output Program.txt");
+			monitor.beginTask("Saving file...", 0);
+			writer.write(document.get());
+			monitor.done();
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -73,7 +85,7 @@ public class ProgramDocumentProvider implements IDocumentProvider, IDocumentProv
 	@Override
 	public boolean canSaveDocument(Object element) {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override
