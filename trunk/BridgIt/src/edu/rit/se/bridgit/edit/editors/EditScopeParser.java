@@ -24,11 +24,11 @@ public class EditScopeParser
 
 		// Declare the pattern and matcher for regex parsing
 		Pattern variablePattern = Pattern
-				.compile("\\s*var\\s+\\w*\\s*:\\s*\\w*\\s*");
+				.compile("\\s*var\\s+\\w+\\s*:\\s*\\w+\\s*");
 		Pattern constantPattern = Pattern
-				.compile("\\s*constant\\s+\\w*\\s*:\\s*\\w*\\s*");
+				.compile("\\s*constant\\s+\\w+\\s*:\\s*\\w+\\s*");
 		Pattern functionPattern = Pattern
-				.compile("\\s*function\\s+\\w*\\s*(.*)\\s*:\\s*\\w*\\s*");
+				.compile("\\s*function\\s+\\w+\\s*(.*)\\s*:\\s*\\w+\\s*");
 
 		// Declare the matches for each
 		Matcher variableMatcher = variablePattern.matcher(p_ProgramText);
