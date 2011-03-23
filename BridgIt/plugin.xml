@@ -40,10 +40,6 @@
          		name="preferenceCustomization"
          		value="plugin_customization.ini">
          </property>
-         <property
-               name="BridgIt.property1"
-               value="BridgIt.property1">
-         </property>
       </product>
    </extension>
    <extension
@@ -86,7 +82,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="edu.rit.se.bridgit.edit.editors.ProgramEditor"
-            default="false"
+            default="true"
             id="edu.rit.se.bridgit.edit.editors.programeditor"
             name="ProgramEditor">
       </editor>
@@ -228,37 +224,36 @@
       <key
             commandId="edu.rit.se.bridgit.commands.play"
             contextId="org.eclipse.ui.contexts.window"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            schemeId="edu.rit.se.bridgit.bindings.BridgitBindings"
             sequence="M1+M2+ENTER">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusScopeObjectsView"
             contextId="org.eclipse.ui.contexts.window"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            schemeId="edu.rit.se.bridgit.bindings.BridgitBindings"
             sequence="M1+M2+A">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusTypesView"
             contextId="org.eclipse.ui.contexts.window"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            schemeId="edu.rit.se.bridgit.bindings.BridgitBindings"
             sequence="M1+M2+S">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusWorldView"
             contextId="org.eclipse.ui.contexts.window"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            schemeId="edu.rit.se.bridgit.bindings.BridgitBindings"
             sequence="M1+M2+W">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusEditor"
             contextId="org.eclipse.ui.contexts.window"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            schemeId="edu.rit.se.bridgit.bindings.BridgitBindings"
             sequence="M1+M2+D">
       </key>
       <scheme
             id="edu.rit.se.bridgit.bindings.BridgitBindings"
-            name="BridgitBindings"
-            parentId="org.eclipse.ui.defaultAcceleratorConfiguration">
+            name="BridgitBindings">
       </scheme>
    </extension>
 
