@@ -22,6 +22,7 @@ public class BuiltInFunctionFactory
 		functions.add(new DoubleFunction());
 		functions.add(new IntegerFunction());
 		functions.add(new TypeOfFunction());
+		functions.add(new LenFunction());
 	}
 	
 	public static List<Function> getFunctions()

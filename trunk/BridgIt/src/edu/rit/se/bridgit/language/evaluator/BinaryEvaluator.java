@@ -1,5 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator;
 
+import java.util.List;
+
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -24,6 +26,7 @@ public abstract class BinaryEvaluator implements Evaluator {
 			||	op.getType().equals(Double.class) 
 			||	op.getType().equals(String.class)
 			||	op.getType().equals(Boolean.class)
+			||  op.getValue() instanceof List
 			)
 		) 
 		{
