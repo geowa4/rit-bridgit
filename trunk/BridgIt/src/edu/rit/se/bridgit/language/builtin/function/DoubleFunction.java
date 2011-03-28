@@ -56,7 +56,7 @@ public class DoubleFunction extends Function
 			}
 			else if(value instanceof Double)
 			{
-				return new DoubleType((Double) value);
+				return t;
 			}
 			else
 			{

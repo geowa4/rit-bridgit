@@ -32,7 +32,11 @@ public class StringFunction extends Function
 		public Type evaluate(Scope scope) throws InvalidTypeException,
 				NameConflictException
 		{
-			return new StringType(scope.getVariableValue(parameterName).toString());
+			Type t = scope.getVariableValue(parameterName);
+			if(t.getPseudoType().equals(Type.STRING_TYPE))
+				return t;
+			else
+				return new StringType(scope.getVariableValue(parameterName).toString());
 		}
 
 		@Override

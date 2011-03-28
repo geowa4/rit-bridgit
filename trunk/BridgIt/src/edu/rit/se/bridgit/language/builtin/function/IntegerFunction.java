@@ -56,7 +56,7 @@ public class IntegerFunction extends Function
 			}
 			else if(value instanceof Integer)
 			{
-				return new IntegerType((Integer) value);
+				return t;
 			}
 			else
 			{
