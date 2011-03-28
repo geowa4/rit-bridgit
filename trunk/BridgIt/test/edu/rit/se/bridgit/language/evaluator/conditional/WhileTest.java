@@ -15,6 +15,7 @@ import edu.rit.se.bridgit.language.evaluator.VariableEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.Type;
 
 public class WhileTest
 {
@@ -48,7 +49,7 @@ public class WhileTest
 	{
 		WhileEvaluator evaluator = new WhileEvaluator();
 		VariableEvaluator conditionalValue = new VariableEvaluator(
-				"conditional", "Boolean", new BooleanEvaluator(true));
+				"conditional", Type.BOOLEAN_TYPE, new BooleanEvaluator(true));
 		conditionalValue.evaluate(scope);
 		MemberLoadEvaluator conditional = new MemberLoadEvaluator("conditional");
 		BlockEvaluator block = new BlockEvaluator() {{

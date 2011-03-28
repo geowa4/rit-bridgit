@@ -107,7 +107,7 @@ public class ListType extends Type
 	{
 		List<Type> r1Val = (List<Type>) this.getValue();
 		List<Type> r2Val = (List<Type>) other.getValue();
-		return new Type(r1Val.equals(r2Val), "Boolean");
+		return new BooleanType(r1Val.equals(r2Val));
 	}
 
 	@Override

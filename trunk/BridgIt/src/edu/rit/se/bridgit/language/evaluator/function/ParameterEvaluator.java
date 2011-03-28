@@ -2,6 +2,7 @@ package edu.rit.se.bridgit.language.evaluator.function;
 
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
+import edu.rit.se.bridgit.language.model.EmptyType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -25,7 +26,7 @@ public class ParameterEvaluator implements Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
-		return new Type(Type.NULL, pseudoType);
+		return new EmptyType(pseudoType);
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
+import edu.rit.se.bridgit.language.model.VoidType;
 
 public class Function
 {
@@ -32,7 +33,7 @@ public class Function
 		}
 		if(getReturnType().contains(Type.VOID_TYPE))
 		{
-			return new Type(Type.VOID, Type.VOID_TYPE);
+			return new VoidType();
 		}
 		else 
 		{
@@ -88,6 +89,12 @@ public class Function
 	public void setReturnValue(Evaluator returnValue) 
 	{
 		this.returnValue = returnValue;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return this.functionName + ":" + this.returnType;
 	}
 }
 

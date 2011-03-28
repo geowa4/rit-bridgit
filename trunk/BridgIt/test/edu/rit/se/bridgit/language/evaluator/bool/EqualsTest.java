@@ -31,6 +31,6 @@ public class EqualsTest
 		EqualsEvaluator evaluator = new EqualsEvaluator(op1, op2);
 		Type t = evaluator.evaluate(scope);
 		assertEquals("Java type must be Boolean.", Boolean.class, t.getType());
-		assertEquals("Pseudo Type must be \"Boolean\"", "Boolean", t.getPseudoType());
+		assertEquals("Pseudo Type must be \"Boolean\"", Type.BOOLEAN_TYPE, t.getPseudoType());
 	}
 }

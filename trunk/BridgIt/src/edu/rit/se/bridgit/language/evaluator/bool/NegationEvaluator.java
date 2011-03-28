@@ -19,7 +19,7 @@ public class NegationEvaluator implements Evaluator {
 	
 	public void validateType(Type t) throws InvalidTypeException 
 	{
-		if(!(t.getPseudoType().equals("Boolean"))) 
+		if(!(t.getPseudoType().equals(Type.BOOLEAN_TYPE))) 
 		{
 			throw new InvalidTypeException(t.getType(), operation);
 		}

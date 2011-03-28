@@ -8,6 +8,7 @@ import edu.rit.se.bridgit.language.evaluator.function.Function;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterEvaluator;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterList;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterListEvaluator;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -37,10 +38,10 @@ public class LenFunction extends Function
 			Type type = scope.getVariableValue(parameterName);
 			String pseudoType = type.getPseudoType();
 			if(pseudoType.equals(Type.STRING_TYPE))
-				return new Type(((String) type.getValue()).length(), Type.INTEGER_TYPE);
+				return new IntegerType(((String) type.getValue()).length());
 			
 			else if(pseudoType.equals(Type.LIST_TYPE))
-				return new Type(((List<Type>) type.getValue()).size(), Type.INTEGER_TYPE);
+				return new IntegerType(((List<Type>) type.getValue()).size());
 			
 			else
 				throw new InvalidTypeException("Length of " + pseudoType + " cannot be determined.");

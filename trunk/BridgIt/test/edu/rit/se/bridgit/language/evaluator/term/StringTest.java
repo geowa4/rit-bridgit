@@ -16,7 +16,7 @@ public class StringTest
 		StringEvaluator evaluator = new StringEvaluator("not empty");
 		Type ret = evaluator.evaluate(null);
 		assertEquals("Value must be \"not empty\".", "not empty", ret.getValue());
-		assertEquals("Pseudo type must be String.", "String", ret.getPseudoType());
+		assertEquals("Pseudo type must be String.", Type.STRING_TYPE, ret.getPseudoType());
 		assertEquals("Java type must be String", String.class, ret.getType());
 	}
 	

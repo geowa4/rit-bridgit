@@ -8,6 +8,7 @@ import edu.rit.se.bridgit.language.evaluator.function.ParameterList;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterListEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.StringType;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class StringFunction extends Function
@@ -31,7 +32,7 @@ public class StringFunction extends Function
 		public Type evaluate(Scope scope) throws InvalidTypeException,
 				NameConflictException
 		{
-			return new Type(scope.getVariableValue(parameterName).getValue().toString(), Type.STRING_TYPE);
+			return new StringType(scope.getVariableValue(parameterName).toString());
 		}
 
 		@Override

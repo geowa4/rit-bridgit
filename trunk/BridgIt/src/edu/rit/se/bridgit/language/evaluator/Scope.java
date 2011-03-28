@@ -6,6 +6,7 @@ import java.util.Set;
 
 import edu.rit.se.bridgit.language.builtin.function.BuiltInFunctionFactory;
 import edu.rit.se.bridgit.language.evaluator.function.Function;
+import edu.rit.se.bridgit.language.model.FunctionType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -141,9 +142,9 @@ public class Scope
 	public Type getFunctionValue(String name) throws InvalidTypeException 
 	{
 		if(functions.containsKey(name))
-			return new Type(functions.get(name), "Function");
+			return new FunctionType(functions.get(name));
 		else if(parent != null)
-			return new Type(parent.getFunctionValue(name), "Function");
+			return parent.getFunctionValue(name);
 		else
 			return null;
 	}

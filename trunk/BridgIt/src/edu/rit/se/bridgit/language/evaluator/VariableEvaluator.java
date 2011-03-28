@@ -1,7 +1,9 @@
 package edu.rit.se.bridgit.language.evaluator;
 
+import edu.rit.se.bridgit.language.model.EmptyType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class VariableEvaluator implements Evaluator 
@@ -45,14 +47,18 @@ public class VariableEvaluator implements Evaluator
 			if(eval.getPseudoType().equals(Type.NULL_TYPE)) eval.setPseudoType(pseudoType);
 			validateType(eval);
 			if(!isAssignment)
+			{
 				scope.addVariable(name, eval);
+			}
 			else
+			{
 				scope.modifyVariableValue(name, eval);
+			}
 			return eval;
 		}
 		else
 		{
-			scope.addVariable(name, new Type(Type.NULL, pseudoType));
+			scope.addVariable(name, new EmptyType(pseudoType));
 			return null;
 		}
 	}
@@ -60,7 +66,7 @@ public class VariableEvaluator implements Evaluator
 	@Override
 	public void validateType(Type t) throws InvalidTypeException 
 	{
-		if(!t.getPseudoType().equals(pseudoType))
+		if(!(t instanceof NullType) && !t.getPseudoType().equals(pseudoType))
 		{
 			throw new InvalidTypeException(t.getType(), 
 					"Variable Assignment to " + pseudoType);

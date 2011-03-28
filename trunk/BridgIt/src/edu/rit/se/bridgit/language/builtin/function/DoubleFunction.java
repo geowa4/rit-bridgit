@@ -6,6 +6,7 @@ import edu.rit.se.bridgit.language.evaluator.function.Function;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterEvaluator;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterList;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterListEvaluator;
+import edu.rit.se.bridgit.language.model.DoubleType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -37,7 +38,7 @@ public class DoubleFunction extends Function
 			{
 				try
 				{ 
-					return new Type(Double.parseDouble(value.toString()), Type.DOUBLE_TYPE);
+					return new DoubleType(Double.parseDouble(value.toString()));
 				}
 				catch(NumberFormatException e)
 				{
@@ -46,12 +47,16 @@ public class DoubleFunction extends Function
 			}
 			else if(value instanceof Integer)
 			{
-				return new Type(((Integer) value).doubleValue(), Type.DOUBLE_TYPE);
+				return new DoubleType(((Integer) value).doubleValue());
 			}
 			else if(value instanceof Boolean)
 			{
-				if((Boolean) value) return new Type(1.0d, Type.DOUBLE_TYPE); 
-				else return new Type(0.0d, Type.INTEGER_TYPE);
+				if((Boolean) value) return new DoubleType(1.0d); 
+				else return new DoubleType(0.0d);
+			}
+			else if(value instanceof Double)
+			{
+				return new DoubleType((Double) value);
 			}
 			else
 			{

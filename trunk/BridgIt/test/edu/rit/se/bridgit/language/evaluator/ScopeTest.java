@@ -9,8 +9,12 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import edu.rit.se.bridgit.language.model.BooleanType;
+import edu.rit.se.bridgit.language.model.DoubleType;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.StringType;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class ScopeTest
@@ -36,7 +40,7 @@ public class ScopeTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
-		Type type = new Type(7, "Integer");
+		Type type = new IntegerType(7);
 		scope.addVariable("test", type);
 		assertEquals("The \"test\" variable should be set in the current scope.", 
 				type, scope.getVariableValue("test"));
@@ -48,7 +52,7 @@ public class ScopeTest
 	public void addConstant() throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
-		Type type = new Type(7, "Integer");
+		Type type = new IntegerType(7);
 		scope.addConstant("test", type);
 		assertEquals("The \"test\" constant should be set in the current scope.", 
 				type, scope.getConstantValue("test"));
@@ -61,8 +65,8 @@ public class ScopeTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
-		Type type1 = new Type(8d, "Double");
-		Type type2 = new Type(8, "Integer");
+		Type type1 = new DoubleType(8d);
+		Type type2 = new IntegerType(8);
 		scope.addConstant("x", type1);
 		scope.addVariable("x", type2);
 		fail("Declaring the same variable twice must generate an Exception.");
@@ -73,8 +77,8 @@ public class ScopeTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
-		Type type1 = new Type(8d, "Double");
-		Type type2 = new Type(8, "Integer");
+		Type type1 = new DoubleType(8d);
+		Type type2 = new IntegerType(8);
 		scope.addVariable("x", type1);
 		scope.addConstant("x", type2);
 		fail("Declaring the same variable twice must generate an Exception.");
@@ -86,8 +90,8 @@ public class ScopeTest
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
-		Type type1 = new Type(8d, "Double");
-		Type type2 = new Type(8, "Integer");
+		Type type1 = new DoubleType(8d);
+		Type type2 = new IntegerType(8);
 		parent.addConstant("x", type1);
 		scope.addVariable("x", type2);
 		fail("Declaring the same variable twice must generate an Exception.");
@@ -99,8 +103,8 @@ public class ScopeTest
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
-		Type type1 = new Type(8d, "Double");
-		Type type2 = new Type(8, "Integer");
+		Type type1 = new DoubleType(8d);
+		Type type2 = new IntegerType(8);
 		parent.addVariable("x", type1);
 		scope.addConstant("x", type2);
 		fail("Declaring the same variable twice must generate an Exception.");
@@ -111,7 +115,7 @@ public class ScopeTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
-		Type type = new Type(7, "Integer");
+		Type type = new IntegerType(7);
 		scope.addVariable("var", type);
 		assertThat("\"var\" should not be accessible as a constant.", 
 				scope.getConstantValue("var"), nullValue());
@@ -122,7 +126,7 @@ public class ScopeTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
-		Type type = new Type(7, "Integer");
+		Type type = new IntegerType(7);
 		scope.addConstant("const", type);
 		assertThat("\"const\" should not be accessible as a constant.", 
 				scope.getVariableValue("const"), nullValue());
@@ -133,10 +137,8 @@ public class ScopeTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
-		Type original = new Type("value", "String");
-		Type modified = new Type("modified", "String");
-		original.setPseudoType("String");
-		modified.setPseudoType("String");
+		Type original = new StringType("value");
+		Type modified = new StringType("modified");
 		scope.addVariable("test", original);
 		scope.modifyVariableValue("test", modified);
 		assertThat("Variable \"test\" must not equal its original value.",
@@ -150,10 +152,8 @@ public class ScopeTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Scope scope = new Scope(null);
-		Type original = new Type("value", "String");
-		Type modified = new Type(true, "String");
-		original.setPseudoType("String");
-		original.setPseudoType("Boolean");
+		Type original = new StringType("value");
+		Type modified = new BooleanType(true);
 		scope.addVariable("test", original);
 		scope.modifyVariableValue("test", modified);
 		fail("Modifying a variable to a different type is not allowed.");
@@ -165,10 +165,8 @@ public class ScopeTest
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
-		Type original = new Type("value", "String");
-		Type modified = new Type("modified", "String");
-		original.setPseudoType("String");
-		modified.setPseudoType("String");
+		Type original = new StringType("value");
+		Type modified = new StringType("modified");
 		parent.addVariable("test", original);
 		scope.modifyVariableValue("test", modified);
 		assertThat("Variable \"test\" (acessed from child) must not equal its original value.",
@@ -187,10 +185,8 @@ public class ScopeTest
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
-		Type original = new Type("value", "String");
-		Type modified = new Type(true, "String");
-		original.setPseudoType("String");
-		original.setPseudoType("Boolean");
+		Type original = new StringType("value");
+		Type modified = new BooleanType(true);
 		parent.addVariable("test", original);
 		scope.modifyVariableValue("test", modified);
 		fail("Modifying a variable to a different type is not allowed.");
