@@ -1,17 +1,11 @@
 package edu.rit.se.bridgit.language.model.bridge;
 
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Vector;
 
 import org.junit.Before;
-import org.junit.Test;
 
 public class GraphicalBridgeTest
 {

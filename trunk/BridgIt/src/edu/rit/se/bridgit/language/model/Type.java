@@ -1,6 +1,6 @@
 package edu.rit.se.bridgit.language.model;
 
-public abstract class Type 
+public abstract class Type
 {
 	public static final String ANY_TYPE = "Any";
 	public static final String VOID_TYPE = "Void";
@@ -62,39 +62,27 @@ public abstract class Type
 		return value.toString();
 	}
 	
-	public Type add(Type other) throws InvalidTypeException 
-	{return null;}
+	public abstract Type add(Type other) throws InvalidTypeException;
 
-	public Type subtract(Type other) throws InvalidTypeException 
-	{return null;}
+	public abstract Type subtract(Type other) throws InvalidTypeException;
 
-	public Type multiply(Type other) throws InvalidTypeException 
-	{return null;}
+	public abstract Type multiply(Type other) throws InvalidTypeException;
 	
-	public Type divide(Type other) throws InvalidTypeException 
-	{return null;}
+	public abstract Type divide(Type other) throws InvalidTypeException;
 	
-	public Type mod(Type other) throws InvalidTypeException 
-	{return null;}
+	public abstract Type mod(Type other) throws InvalidTypeException;
 	
-	public Type unary() throws InvalidTypeException 
-	{return null;}
+	public abstract Type unary() throws InvalidTypeException;
 
-	public Type and(Type other) throws InvalidTypeException 
-	{return null;}
+	public abstract Type and(Type other) throws InvalidTypeException;
 	
-	public Type eq(Type other) throws InvalidTypeException 
-	{return null;}
+	public abstract Type eq(Type other) throws InvalidTypeException;
 
-	public Type gt(Type other) throws InvalidTypeException 
-	{return null;}
+	public abstract Type gt(Type other) throws InvalidTypeException;
 
-	public Type lt(Type other) throws InvalidTypeException
-	{return null;}
+	public abstract Type lt(Type other) throws InvalidTypeException;
 
-	public Type negation() throws InvalidTypeException
-	{return null;}
+	public abstract Type negation() throws InvalidTypeException;
 
-	public Type or(Type other) throws InvalidTypeException
-	{return null;}
+	public abstract Type or(Type other) throws InvalidTypeException;
 }
