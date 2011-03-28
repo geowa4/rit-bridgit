@@ -1,12 +1,9 @@
 package edu.rit.se.bridgit.language.model.bridge;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.List;
 import java.util.Vector;
 
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 public class GraphicalModelBridgeFactoryTest {
 	
