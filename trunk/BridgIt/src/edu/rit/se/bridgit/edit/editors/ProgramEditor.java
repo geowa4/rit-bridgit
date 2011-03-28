@@ -3,18 +3,36 @@ package edu.rit.se.bridgit.edit.editors;
 import java.util.ArrayList;
 
 import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.TextAttribute;
+import org.eclipse.jface.text.presentation.PresentationReconciler;
+import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
+import org.eclipse.jface.text.rules.IRule;
+import org.eclipse.jface.text.rules.IWordDetector;
+import org.eclipse.jface.text.rules.MultiLineRule;
+import org.eclipse.jface.text.rules.NumberRule;
+import org.eclipse.jface.text.rules.PatternRule;
+import org.eclipse.jface.text.rules.RuleBasedScanner;
+import org.eclipse.jface.text.rules.SingleLineRule;
+import org.eclipse.jface.text.rules.Token;
+import org.eclipse.jface.text.rules.WordRule;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CaretEvent;
 import org.eclipse.swt.custom.CaretListener;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditor;
 
 import edu.rit.bridgit.edit.editors.model.ProgramDocumentProvider;
 import edu.rit.bridgit.edit.editors.model.ProgramEditorModel;
 import edu.rit.se.bridgit.edit.views.ScopeView;
+import edu.rit.se.bridgit.language.PseudoParser;
 
 public class ProgramEditor extends AbstractDecoratedTextEditor
 {
@@ -112,6 +130,81 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 			}
 			
 		};
+		
+		// Create the reconciler for the document
+		PresentationReconciler reconciler = new PresentationReconciler();
+		
+		// Create the keyword detector
+		IWordDetector keywordDetector = new IWordDetector()
+		{
+			@Override
+			public boolean isWordStart(char c)
+			{			
+				// Return
+				return Character.isLetter(c);
+			}
+
+			@Override
+			public boolean isWordPart(char c)
+			{		
+				// Return
+				return Character.isLetter(c);
+			}
+			
+		};
+		
+		// The rules for the whole document
+		IRule[] documentRules = new IRule[4];
+		
+		// Create the rules for keyword scanning
+		WordRule keywordRule = new WordRule(keywordDetector);
+		TextAttribute keywordAttribute = new TextAttribute(new Color(Display.getCurrent(), new RGB(171, 0, 85)), null, SWT.BOLD);
+		Token keywordToken = new Token(keywordAttribute);
+		for(int i = 0; i < PseudoParser.tokenNames.length; ++i)
+		{
+			// Get the string
+			String parserValue = PseudoParser.tokenNames[i];
+			
+			// If it is in single quotes
+			if(parserValue.matches("'.+'"))
+			{
+				// Extract the internal string
+				parserValue = parserValue.substring(parserValue.indexOf('\'') + 1, parserValue.lastIndexOf('\''));
+				
+				// If the length is greater than 0
+				if(parserValue.length() > 0)
+				{
+					// See if it's a keyword
+					if(Character.isLetter(parserValue.charAt(0)))
+						keywordRule.addWord(parserValue, keywordToken);
+				}
+			}
+		}
+		documentRules[0] = keywordRule;
+		
+		// Create the rules for number scanning
+		NumberRule numberRule = new NumberRule(new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(190, 0, 0)))));
+		documentRules[1] = numberRule;
+		
+		
+		// Create the rules for multiline comment scanning
+		documentRules[2] = new MultiLineRule("/*", "*/", new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 95, 191)))));
+		
+		// Create the rules for single-line comment scanning
+		documentRules[3] = new SingleLineRule("//", null, new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 127, 95)))), ';', true, true);
+		
+		// Create the keyword evaluators for the document
+		RuleBasedScanner rulesScanner = new RuleBasedScanner();
+		rulesScanner.setRules(documentRules);
+		DefaultDamagerRepairer rulesDR = new DefaultDamagerRepairer(rulesScanner);
+		reconciler.setDamager(rulesDR, IDocument.DEFAULT_CONTENT_TYPE);
+		reconciler.setRepairer(rulesDR, IDocument.DEFAULT_CONTENT_TYPE);
+		
+		// Add the repairers to the reconciler
+		
+		// Add the reconciler to the source viewer
+		reconciler.install(m_SourceViewer);
+		m_SourceViewer.invalidateTextPresentation();
 		
 		// Add it to the text area
 		m_Text.addCaretListener(caretListener);
