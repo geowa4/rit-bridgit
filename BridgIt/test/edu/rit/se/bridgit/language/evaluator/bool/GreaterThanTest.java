@@ -33,7 +33,7 @@ public class GreaterThanTest
 		GreaterThanEvaluator evaluator = new GreaterThanEvaluator(op1, op2);
 		Type t = evaluator.evaluate(scope);
 		assertEquals("Java type must be Boolean.", false, t.getValue());
-		assertEquals("Pseudo Type must be \"Boolean\"", "Boolean", t.getPseudoType());
+		assertEquals("Pseudo Type must be \"Boolean\"", Type.BOOLEAN_TYPE, t.getPseudoType());
 	}
 	
 	@Test
@@ -44,7 +44,7 @@ public class GreaterThanTest
 		GreaterThanEvaluator evaluator = new GreaterThanEvaluator(op1, op2);
 		Type t = evaluator.evaluate(scope);
 		assertEquals("Java type must be Boolean.", true, t.getValue());
-		assertEquals("Pseudo Type must be \"Boolean\"", "Boolean", t.getPseudoType());
+		assertEquals("Pseudo Type must be \"Boolean\"", Type.BOOLEAN_TYPE, t.getPseudoType());
 	}
 	
 	@Test(expected=InvalidTypeException.class)

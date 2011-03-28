@@ -6,6 +6,8 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.rit.se.bridgit.language.model.BooleanType;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -20,8 +22,8 @@ public class MemberLoadTest
 	public void createScope() throws InvalidTypeException, NameConflictException
 	{
 		this.scope = new Scope(null);
-		this.varType = new Type(7, "Integer");
-		this.constType = new Type(true, "Boolean");
+		this.varType = new IntegerType(7);
+		this.constType = new BooleanType(true);
 		this.scope.addVariable("x", this.varType);
 		this.scope.addConstant("y", this.constType);
 	}

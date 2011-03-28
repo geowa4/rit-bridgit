@@ -11,8 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.rit.se.bridgit.language.evaluator.Scope;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.NullType;
+import edu.rit.se.bridgit.language.model.StringType;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class ParameterListTest
@@ -30,7 +33,7 @@ public class ParameterListTest
 	@Test(expected=InvalidTypeException.class)
 	public void nullArgsWhenExpectingParamsIsNotAllowed() throws InvalidTypeException, NameConflictException
 	{
-		ple.addParam(new ParameterEvaluator("test", "String"));
+		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.evaluate(scope);
 		fail("Arguments are null when at least one parameter is expected.");
 	}
@@ -41,7 +44,7 @@ public class ParameterListTest
 		ple.setArgs(new LinkedList<Type>() {
 			private static final long serialVersionUID = 4920464986871390479L;
 		{
-			add(new Type(null, "Null"));
+			add(new NullType());
 		}});
 		ple.evaluate(scope);
 	}
@@ -49,12 +52,12 @@ public class ParameterListTest
 	@Test(expected=InvalidTypeException.class)
 	public void argsLenAndParamsLenCannotBeDifferent() throws InvalidTypeException, NameConflictException
 	{
-		ple.addParam(new ParameterEvaluator("test", "String"));
+		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.setArgs(new LinkedList<Type>() {
 			private static final long serialVersionUID = -1267528789248589583L;
 		{
-			add(new Type("hi", "String"));
-			add(new Type("hi", "String"));
+			add(new StringType("hi"));
+			add(new StringType("hi"));
 		}});
 		ple.evaluate(scope);
 	}
@@ -62,11 +65,11 @@ public class ParameterListTest
 	@Test(expected=InvalidTypeException.class)
 	public void pseudoTypesOfArgsAndParamsMustMatch() throws InvalidTypeException, NameConflictException
 	{
-		ple.addParam(new ParameterEvaluator("test", "String"));
+		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.setArgs(new LinkedList<Type>() {
 			private static final long serialVersionUID = -1267528789248589583L;
 		{
-			add(new Type(1, "Integer"));
+			add(new IntegerType(1));
 		}});
 		ple.evaluate(scope);
 	}
@@ -74,11 +77,11 @@ public class ParameterListTest
 	@Test
 	public void parametersAreAddedAsVariablesToScope() throws InvalidTypeException, NameConflictException
 	{
-		ple.addParam(new ParameterEvaluator("test", "String"));
+		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.setArgs(new LinkedList<Type>() {
 			private static final long serialVersionUID = -1267528789248589583L;
 		{
-			add(new Type("hi", "String"));
+			add(new StringType("hi"));
 		}});
 		ple.evaluate(scope);
 		assertEquals("Parameter must be added as a variable.", scope.getVariableValue("test").getValue(), "hi");
@@ -87,13 +90,13 @@ public class ParameterListTest
 	@Test
 	public void parameterCanBeSetToNullValue() throws InvalidTypeException, NameConflictException
 	{
-		ple.addParam(new ParameterEvaluator("test", "String"));
+		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.setArgs(new LinkedList<Type>() {
 			private static final long serialVersionUID = -1267528789248589583L;
 		{
-			add(new Type(Type.NULL, Type.NULL_TYPE));
+			add(new NullType());
 		}});
 		ple.evaluate(scope);
-		assertThat("Parameter must be set to Null.", scope.getVariableValue("test").getValue(), sameInstance(Type.NULL));
+		assertThat("Parameter must be set to Null.", scope.getVariableValue("test").getValue(), sameInstance(NullType.NULL_VALUE));
 	}
 }

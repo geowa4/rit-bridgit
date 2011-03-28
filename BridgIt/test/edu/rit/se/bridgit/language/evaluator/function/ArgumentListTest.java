@@ -17,6 +17,8 @@ import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.conditional.WhileEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
+import edu.rit.se.bridgit.language.model.BooleanType;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -66,15 +68,15 @@ public class ArgumentListTest
 		whileEval.setConditional(whileCond, whileBlock);
 		context.checking(new Expectations() {{
 			oneOf(whileCond).evaluate(with(any(Scope.class))); 
-				will(returnValue(new Type(true, "Boolean")));
+				will(returnValue(new BooleanType(true)));
 				when(execCount.is("1"));
 				then(execCount.is("2"));
 			oneOf(whileCond).evaluate(with(any(Scope.class))); 
-				will(returnValue(new Type(true, "Boolean")));
+				will(returnValue(new BooleanType(true)));
 				when(execCount.is("2"));
 				then(execCount.is("3"));
 			oneOf(whileCond).evaluate(with(any(Scope.class))); 
-				will(returnValue(new Type(false, "Boolean")));
+				will(returnValue(new BooleanType(false)));
 				when(execCount.is("3"));
 		}});
 		whileEval.evaluate(scope);
@@ -83,7 +85,7 @@ public class ArgumentListTest
 	@Test
 	public void executesAllArguments() throws InvalidTypeException, NameConflictException
 	{
-		final Type t = new Type(1, "Integer");
+		final Type t = new IntegerType(1);
 		context.checking(new Expectations() {{
 			oneOf(arg0).evaluate(scope); will(returnValue(t));
 			oneOf(arg1).evaluate(scope); will(returnValue(t));

@@ -12,8 +12,10 @@ import edu.rit.se.bridgit.language.evaluator.term.DoubleEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class VariableTest 
@@ -24,7 +26,7 @@ public class VariableTest
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		Evaluator evaluator = new VariableEvaluator(
-				"x", "Integer", value);
+				"x", Type.INTEGER_TYPE, value);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		assertEquals("Variable must be set to 7.",
@@ -38,7 +40,7 @@ public class VariableTest
 	{
 		Evaluator value = new BooleanEvaluator(true);
 		Evaluator evaluator = new VariableEvaluator(
-				"x", "Integer", value);
+				"x", Type.INTEGER_TYPE, value);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		fail("Variable cannot be declared as one type and set to another.");
@@ -49,11 +51,11 @@ public class VariableTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Evaluator evaluator = new VariableEvaluator(
-				"x", "Integer", null);
+				"x", Type.INTEGER_TYPE, null);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		assertThat("Variable value must be null.",
-				scope.getVariableValue("x").getValue(), sameInstance(Type.NULL));
+				scope.getVariableValue("x").getValue(), sameInstance(NullType.NULL_VALUE));
 	}
 	
 	@Test
@@ -62,7 +64,7 @@ public class VariableTest
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
-				"x", "Integer", value);
+				"x", Type.INTEGER_TYPE, value);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		
@@ -71,7 +73,7 @@ public class VariableTest
 		assignment.evaluate(scope);
 		
 		assertEquals("Variable must be changed to 8.",
-				new Type(8, "Integer").getValue(), scope.getVariableValue("x").getValue());
+				new IntegerType(8).getValue(), scope.getVariableValue("x").getValue());
 	}
 	
 	@Test(expected=InvalidTypeException.class)
@@ -80,7 +82,7 @@ public class VariableTest
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
-				"x", "Integer", value);
+				"x", Type.INTEGER_TYPE, value);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		
@@ -97,7 +99,7 @@ public class VariableTest
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
-				"x", "Integer", value);
+				"x", Type.INTEGER_TYPE, value);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		
@@ -106,7 +108,7 @@ public class VariableTest
 		assignment.evaluate(scope);
 		
 		assertEquals("Variable must be changed to null.",
-				new Type(Type.NULL, "").getValue(), scope.getVariableValue("x").getValue());
+				new NullType().getValue(), scope.getVariableValue("x").getValue());
 	}
 	
 	@Test
@@ -114,7 +116,7 @@ public class VariableTest
 	throws InvalidTypeException, NameConflictException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
-				"x", "Integer", null);
+				"x", Type.INTEGER_TYPE, null);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		
@@ -123,7 +125,7 @@ public class VariableTest
 		assignment.evaluate(scope);
 		
 		assertEquals("Variable must be changed to 8.",
-				new Type(8, "Integer").getValue(), scope.getVariableValue("x").getValue());
+				new IntegerType(8).getValue(), scope.getVariableValue("x").getValue());
 	}
 	
 	@Test(expected=InvalidTypeException.class)
@@ -131,7 +133,7 @@ public class VariableTest
 	throws InvalidTypeException, NameConflictException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
-				"x", "Integer", null);
+				"x", Type.INTEGER_TYPE, null);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		
@@ -147,7 +149,7 @@ public class VariableTest
 	throws InvalidTypeException, NameConflictException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
-				"x", "Integer", null);
+				"x", Type.INTEGER_TYPE, null);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		
@@ -156,7 +158,7 @@ public class VariableTest
 		assignment.evaluate(scope);
 		
 		assertEquals("Variable must be changed to null.",
-				new Type(Type.NULL, "").getValue(), scope.getVariableValue("x").getValue());
+				new NullType().getValue(), scope.getVariableValue("x").getValue());
 	}
 	
 	@Test
@@ -164,7 +166,7 @@ public class VariableTest
 	{
 		
 		Evaluator e = new StringEvaluator("Test");
-		VariableEvaluator evaluator = new VariableEvaluator("a", "String", e);
+		VariableEvaluator evaluator = new VariableEvaluator("a", Type.STRING_TYPE, e);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		assertEquals("Variable must be equal to Test.",

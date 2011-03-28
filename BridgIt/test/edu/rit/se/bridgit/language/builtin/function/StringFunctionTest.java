@@ -32,7 +32,7 @@ public class StringFunctionTest
 		arguments.addArg(new NullEvaluator());
 		fnCallEval.setArgumentsList(arguments);
 		Type str = fnCallEval.evaluate(scope);
-		assertEquals("The return type must be \"String\" regardless of input", "String", str.getPseudoType());
-		assertEquals("The return value must be \"Null\"", "Null", str.getValue());
+		assertEquals("The return type must be \"String\" regardless of input", Type.STRING_TYPE, str.getPseudoType());
+		assertEquals("The return value must be \"Null\"", Type.NULL_TYPE, str.getValue());
 	}
 }

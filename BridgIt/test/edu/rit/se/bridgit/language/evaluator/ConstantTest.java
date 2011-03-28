@@ -11,6 +11,7 @@ import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.Type;
 
 public class ConstantTest
 {
@@ -20,7 +21,7 @@ public class ConstantTest
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		Evaluator evaluator = new ConstantEvaluator(
-				"x", "Integer", value);
+				"x", Type.INTEGER_TYPE, value);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		assertEquals("Constant must be set to 7.",
@@ -34,7 +35,7 @@ public class ConstantTest
 	{
 		Evaluator value = new BooleanEvaluator(true);
 		Evaluator evaluator = new ConstantEvaluator(
-				"x", "Integer", value);
+				"x", Type.INTEGER_TYPE, value);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		fail("Constant cannot be declared as one type and set to another.");
@@ -45,7 +46,7 @@ public class ConstantTest
 	throws InvalidTypeException, NameConflictException
 	{
 		Evaluator evaluator = new ConstantEvaluator(
-				"x", "Integer", null);
+				"x", Type.INTEGER_TYPE, null);
 		Scope scope = new Scope(null);
 		evaluator.evaluate(scope);
 		assertThat("Variable must be set to 7.",

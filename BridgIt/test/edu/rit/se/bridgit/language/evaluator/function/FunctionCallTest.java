@@ -16,8 +16,10 @@ import edu.rit.se.bridgit.language.evaluator.VariableEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class FunctionCallTest
@@ -43,7 +45,7 @@ public class FunctionCallTest
 	@Test
 	public void functionBlockCanAlterVariablesInDefinitionScope() throws NameConflictException, InvalidTypeException
 	{
-		definitionScope.addVariable("variable", new Type(1, "Integer"));
+		definitionScope.addVariable("variable", new IntegerType(1));
 		fnBlock.add(new VariableEvaluator("variable", new IntegerEvaluator(2)));
 		fnEval.setPseudoType(Type.VOID_TYPE);
 		fnEval.evaluate(definitionScope);
@@ -54,7 +56,7 @@ public class FunctionCallTest
 	@Test(expected=NullPointerException.class)
 	public void functionBlockCannotAlterVariablesInCallScope() throws NameConflictException, InvalidTypeException
 	{
-		callScope.addVariable("variable", new Type(1, "Integer"));
+		callScope.addVariable("variable", new IntegerType(1));
 		fnBlock.add(new VariableEvaluator("variable", new IntegerEvaluator(2)));
 		fnEval.setPseudoType(Type.VOID_TYPE);
 		fnEval.evaluate(definitionScope);
@@ -65,7 +67,7 @@ public class FunctionCallTest
 	@Test(expected=InvalidTypeException.class)
 	public void variableCannotBeAssignedToVoidReturnValue() throws InvalidTypeException, NameConflictException
 	{
-		definitionScope.addVariable("variable", new Type(1, "Integer"));
+		definitionScope.addVariable("variable", new IntegerType(1));
 		fnEval.setPseudoType(Type.VOID_TYPE);
 		fnEval.evaluate(definitionScope);
 		fnCallEval.evaluate(callScope);
@@ -77,7 +79,7 @@ public class FunctionCallTest
 	@Test
 	public void variableCanBeAssignedMatchingFunctionReturnValue() throws InvalidTypeException, NameConflictException
 	{
-		definitionScope.addVariable("variable", new Type(1, "Integer"));
+		definitionScope.addVariable("variable", new IntegerType(1));
 		fnEval.setPseudoType("Integer");
 		fnEval.addReturnValue(new IntegerEvaluator(2));
 		fnEval.evaluate(definitionScope);
@@ -90,8 +92,8 @@ public class FunctionCallTest
 	@Test(expected=InvalidTypeException.class)
 	public void variableCannotBeAssignedMismatchedFunctionReturnValue() throws InvalidTypeException, NameConflictException
 	{
-		definitionScope.addVariable("variable", new Type(1, "Integer"));
-		fnEval.setPseudoType("Boolean");
+		definitionScope.addVariable("variable", new IntegerType(1));
+		fnEval.setPseudoType(Type.BOOLEAN_TYPE);
 		fnEval.addReturnValue(new BooleanEvaluator(true));
 		fnEval.evaluate(definitionScope);
 		fnCallEval.evaluate(callScope);
@@ -105,7 +107,7 @@ public class FunctionCallTest
 	{
 		fnEval.setPseudoType(Type.VOID_TYPE);
 		ParameterList params = new ParameterListEvaluator();
-		params.addParam(new ParameterEvaluator("arg0", "Integer"));
+		params.addParam(new ParameterEvaluator("arg0", Type.INTEGER_TYPE));
 		fnEval.setParameters(params);
 		fnEval.evaluate(definitionScope);
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
@@ -118,11 +120,11 @@ public class FunctionCallTest
 	@Test
 	public void functionCanReturnNull() throws InvalidTypeException, NameConflictException
 	{
-		fnEval.setPseudoType("Integer");
+		fnEval.setPseudoType(Type.INTEGER_TYPE);
 		fnEval.addReturnValue(new NullEvaluator());
 		fnEval.evaluate(definitionScope);
 		Type t = fnCallEval.evaluate(callScope);
-		assertThat("Value must be Null.", t.getValue(), sameInstance(Type.NULL));
-		assertEquals("Pseudo Type must be the same as the function.", "Integer", t.getPseudoType());
+		assertThat("Value must be Null.", t.getValue(), sameInstance(NullType.NULL_VALUE));
+		assertEquals("Pseudo Type must be the same as the function.", Type.INTEGER_TYPE, t.getPseudoType());
 	}
 }

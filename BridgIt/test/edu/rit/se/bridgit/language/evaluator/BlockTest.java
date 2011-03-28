@@ -13,6 +13,7 @@ import org.junit.Test;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.Type;
 
 public class BlockTest
 {
@@ -63,7 +64,7 @@ public class BlockTest
 	{
 		BlockEvaluator setup = new BlockEvaluator(false);
 		setup.add(
-				new ConstantEvaluator("a", "Integer", 
+				new ConstantEvaluator("a", Type.INTEGER_TYPE, 
 						new IntegerEvaluator(1)
 				));
 		BlockEvaluator main = new BlockEvaluator();
@@ -83,7 +84,7 @@ public class BlockTest
 	{
 		BlockEvaluator setup = new BlockEvaluator();
 		setup.add(
-				new ConstantEvaluator("a", "Integer", 
+				new ConstantEvaluator("a", Type.INTEGER_TYPE, 
 						new IntegerEvaluator(1)
 				));
 		BlockEvaluator main = new BlockEvaluator();

@@ -7,6 +7,7 @@ import java.util.List;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
 
 public class ParameterListEvaluator implements ParameterList
@@ -52,7 +53,7 @@ public class ParameterListEvaluator implements ParameterList
 			ParameterEvaluator param = paramsIter.next();
 			Type argType = argsIter.next();
 			Type paramType = param.evaluate(scope);
-			if(argType.getValue() == Type.NULL && !paramType.getPseudoType().equals(Type.ANY_TYPE))
+			if(argType.getValue() == NullType.NULL_VALUE && !paramType.getPseudoType().equals(Type.ANY_TYPE))
 			{
 				argType.setPseudoType(paramType.getPseudoType());
 			}

@@ -17,7 +17,7 @@ public class BooleanTest
 		BooleanEvaluator evaluator = new BooleanEvaluator(true);
 		Type ret = evaluator.evaluate(null);
 		assertEquals("Value must be true.", true, ret.getValue());
-		assertEquals("Pseudo type must be Boolean.", "Boolean", ret.getPseudoType());
+		assertEquals("Pseudo type must be Boolean.", Type.BOOLEAN_TYPE, ret.getPseudoType());
 		assertEquals("Java type must be Boolean", Boolean.class, ret.getType());
 	}
 	

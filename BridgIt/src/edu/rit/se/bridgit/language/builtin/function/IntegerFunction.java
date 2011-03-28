@@ -6,6 +6,7 @@ import edu.rit.se.bridgit.language.evaluator.function.Function;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterEvaluator;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterList;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterListEvaluator;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -37,7 +38,7 @@ public class IntegerFunction extends Function
 			{
 				try
 				{ 
-					return new Type(Integer.parseInt(value.toString()), Type.INTEGER_TYPE);
+					return new IntegerType(Integer.parseInt(value.toString()));
 				}
 				catch(NumberFormatException e)
 				{
@@ -46,17 +47,21 @@ public class IntegerFunction extends Function
 			}
 			else if(value instanceof Boolean)
 			{
-				if((Boolean) value) return new Type(1, Type.INTEGER_TYPE); 
-				else return new Type(0, Type.INTEGER_TYPE);
+				if((Boolean) value) return new IntegerType(1); 
+				else return new IntegerType(0);
 			}
 			else if(value instanceof Double)
 			{
-				return new Type(((Double) value).intValue(), Type.INTEGER_TYPE);
+				return new IntegerType(((Double) value).intValue());
+			}
+			else if(value instanceof Integer)
+			{
+				return new IntegerType((Integer) value);
 			}
 			else
 			{
 				throw new InvalidTypeException("Parameter of type " + t.getPseudoType() + 
-						" to " + functionName + "() could not be cast to an " + 
+						" passed to function " + functionName + "() could not be cast to an " + 
 						Type.INTEGER_TYPE + ".");
 			}
 		}

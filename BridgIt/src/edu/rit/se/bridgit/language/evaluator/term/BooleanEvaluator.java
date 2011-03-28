@@ -2,6 +2,7 @@ package edu.rit.se.bridgit.language.evaluator.term;
 
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
+import edu.rit.se.bridgit.language.model.BooleanType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.Type;
 
@@ -19,7 +20,7 @@ public class BooleanEvaluator implements Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException 
 	{
-		Type t = new Type(value, "Boolean");
+		Type t = new BooleanType(value);
 		validateType(t);
 		return t;
 	}
@@ -28,7 +29,7 @@ public class BooleanEvaluator implements Evaluator
 	public void validateType(Type t) throws InvalidTypeException 
 	{
 		if(t.getType() == null || !t.getType().equals(Boolean.class))
-			throw new InvalidTypeException(t.getType(), "Boolean");
+			throw new InvalidTypeException(t.getType(), Type.BOOLEAN_TYPE);
 	}
 
 }

@@ -10,6 +10,7 @@ import edu.rit.se.bridgit.language.evaluator.function.ParameterListEvaluator;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
+import edu.rit.se.bridgit.language.model.VoidType;
 
 public class PrintlnFunction extends Function
 {
@@ -33,7 +34,7 @@ public class PrintlnFunction extends Function
 				NameConflictException
 		{
 			System.out.println(scope.getVariableValue(parameterName).getValue());
-			return new Type(Type.VOID, Type.VOID_TYPE);
+			return new VoidType();
 		}
 
 		@Override

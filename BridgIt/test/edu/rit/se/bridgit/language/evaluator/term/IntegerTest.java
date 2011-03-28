@@ -17,7 +17,7 @@ public class IntegerTest
 		IntegerEvaluator evaluator = new IntegerEvaluator(1);
 		Type ret = evaluator.evaluate(null);
 		assertEquals("Value must be 1.", 1, ret.getValue());
-		assertEquals("Pseudo type must be Integer.", "Integer", ret.getPseudoType());
+		assertEquals("Pseudo type must be Integer.", Type.INTEGER_TYPE, ret.getPseudoType());
 		assertEquals("Java type must be Integer", Integer.class, ret.getType());
 	}
 	

@@ -16,6 +16,7 @@ import org.junit.Test;
 import edu.rit.se.bridgit.language.evaluator.Block;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
@@ -77,13 +78,13 @@ public class FunctionTest
 	@Test
 	public void functionDoesNotCareAboutReturnType() throws InvalidTypeException, NameConflictException
 	{//the executing evaluator must check this
-		function.setReturnType("String");
+		function.setReturnType(Type.STRING_TYPE);
 		context.checking(new Expectations() {{
 			oneOf(block).evaluate(with(any(Scope.class)));
-			oneOf(returnExpr).evaluate(with(any(Scope.class))); will(returnValue(new Type(1, "Integer")));
+			oneOf(returnExpr).evaluate(with(any(Scope.class))); will(returnValue(new IntegerType(1)));
 		}});
 		assertEquals("Type should have Pseudo type of \"Integer\" " +
-				"even though function declares \"String\".", "Integer", 
+				"even though function declares \"String\".", Type.INTEGER_TYPE, 
 				function.apply(null).getPseudoType());
 	}
 	
