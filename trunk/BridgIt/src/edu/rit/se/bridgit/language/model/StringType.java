@@ -22,7 +22,7 @@ public class StringType extends Type
 	@Override
 	public Type add(Type other) throws InvalidTypeException 
 	{
-		return new StringType(value.toString() + other.getValue());
+		return new StringType(value.toString().concat(other.getValue().toString()));
 	}
 
 	@Override
