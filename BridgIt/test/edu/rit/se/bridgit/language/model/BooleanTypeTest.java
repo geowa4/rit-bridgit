@@ -72,19 +72,19 @@ public class BooleanTypeTest
 		assertTrue("True must equal true.", (Boolean) type.eq(new BooleanType(true)).getValue());
 	}
 	
-	@Test()
+	@Test
 	public void booleansCanBeNegated() throws InvalidTypeException
 	{
 		assertEquals("Resultant value must be false.", false, type.negation().getValue());
 	}
 	
-	@Test()
+	@Test
 	public void booleansCanBeAnded() throws InvalidTypeException
 	{
 		assertEquals("Resultant value must be false.", false, type.and(new BooleanType(false)).getValue());
 	}
 	
-	@Test()
+	@Test
 	public void booleansCanBeOred() throws InvalidTypeException
 	{
 		assertEquals("Resultant value must be true.", true, type.or(new BooleanType(false)).getValue());
