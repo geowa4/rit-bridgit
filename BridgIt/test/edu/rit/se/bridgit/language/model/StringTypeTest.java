@@ -25,6 +25,20 @@ public class StringTypeTest
 				baseWord.concat(testWord), type.add(new StringType("world")).getValue());
 	}
 	
+	@Test
+	public void integersCanBeAddedToStrings() throws InvalidTypeException
+	{
+		assertEquals("Resultant value should be the two operands concatenated.", 
+				baseWord.concat("1"), type.add(new IntegerType(1)).getValue());
+	}
+	
+	@Test
+	public void doublesCanBeAddedToStrings() throws InvalidTypeException
+	{
+		assertEquals("Resultant value should be the two operands concatenated.", 
+				baseWord.concat("1.0"), type.add(new DoubleType(1d)).getValue());
+	}
+	
 	@Test(expected=InvalidTypeException.class)
 	public void stringsCannotBeSubtracted() throws InvalidTypeException
 	{
