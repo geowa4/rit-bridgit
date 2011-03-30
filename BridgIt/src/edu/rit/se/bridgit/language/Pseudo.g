@@ -152,6 +152,7 @@ type returns [String name]
   | 'String'  {$name = "String";}
   | 'List'    {$name = "List";}
   | 'Any'     {$name = "Any";}
+  | 'Double'  {$name = "Double";}
   | IDENT     {$name = $IDENT.text;}
   ;
 
