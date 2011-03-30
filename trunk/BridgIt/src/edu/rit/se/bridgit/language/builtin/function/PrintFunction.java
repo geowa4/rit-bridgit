@@ -15,11 +15,11 @@ import edu.rit.se.bridgit.language.model.VoidType;
 public class PrintFunction extends Function
 {
 	private static final String parameterName = "object";
-	public static final String functionName = "println";
+	public static final String functionName = "print";
 	
 	public PrintFunction()
 	{
-		setFunctionName("print");
+		setFunctionName(functionName);
 		setReturnType(Type.VOID_TYPE);
 		ParameterList params = new ParameterListEvaluator();
 		params.addParam(new ParameterEvaluator(parameterName, Type.ANY_TYPE));
