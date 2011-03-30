@@ -19,8 +19,8 @@ public class EditScopeParser
 		ArrayList<ArrayList<String>> retVal = new ArrayList<ArrayList<String>>();
 
 		// Clear out comments
-		p_ProgramText = p_ProgramText.replaceAll("//.*\n*", "");
-		p_ProgramText = p_ProgramText.replaceAll("/\\*(.|\\s)*?\\*/", "");
+		p_ProgramText = p_ProgramText.replaceAll("//.*\n*", " ");
+		p_ProgramText = p_ProgramText.replaceAll("/\\*(.|\\s)*?\\*/", " ");
 
 		// Declare the pattern and matcher for regex parsing
 		Pattern variablePattern = Pattern
@@ -42,7 +42,7 @@ public class EditScopeParser
 
 		// Add all the variables
 		while (variableMatcher.find())
-			variables.add(variableMatcher.group().replaceAll("\\s*var\\s*", "")
+			variables.add(variableMatcher.group().replaceAll("\\s*variable\\s*", "")
 					.trim());
 
 		// Add all the constants
