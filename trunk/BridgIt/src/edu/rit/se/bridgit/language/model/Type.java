@@ -62,6 +62,27 @@ public abstract class Type
 		return value.toString();
 	}
 	
+	@Override
+	public boolean equals(Object other)
+	{
+		if(other instanceof Type)
+		{
+			Type o = (Type) other;
+			return o.pseudoType.equals(this.pseudoType) && 
+				o.value.equals(this.value);
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return this.value.hashCode() * this.pseudoType.hashCode();
+	}
+	
 	public abstract Type add(Type other) throws InvalidTypeException;
 
 	public abstract Type subtract(Type other) throws InvalidTypeException;
