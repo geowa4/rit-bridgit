@@ -183,15 +183,18 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 		documentRules[0] = keywordRule;
 		
 		// Create the rules for number scanning
-		NumberRule numberRule = new NumberRule(new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(190, 0, 0)))));
+		NumberRule numberRule = new NumberRule(
+				new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(190, 0, 0)))));
 		documentRules[1] = numberRule;
 		
 		
 		// Create the rules for multiline comment scanning
-		documentRules[2] = new MultiLineRule("/*", "*/", new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 95, 191)))));
+		documentRules[2] = new MultiLineRule("/*", "*/",
+				new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 95, 191)))), '\uFFFC', true);
 		
 		// Create the rules for single-line comment scanning
-		documentRules[3] = new SingleLineRule("//", null, new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 127, 95)))), ';', true, true);
+		documentRules[3] = new SingleLineRule("//", null,
+				new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 127, 95)))), ';', true, true);
 		
 		// Create the keyword evaluators for the document
 		RuleBasedScanner rulesScanner = new RuleBasedScanner();

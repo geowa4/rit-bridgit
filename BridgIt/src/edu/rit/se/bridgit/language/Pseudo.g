@@ -47,7 +47,7 @@ constant returns [Evaluator eval]
   ;
 
 variable returns [Evaluator eval]
-  : 'var'IDENT ':' type ('=' expression)? ';'
+  : 'variable'IDENT ':' type ('=' expression)? ';'
     {$eval = new VariableEvaluator($IDENT.text, $type.text, $expression.eval);}
   ;
 
