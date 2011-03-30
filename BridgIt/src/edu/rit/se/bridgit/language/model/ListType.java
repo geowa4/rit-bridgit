@@ -1,14 +1,17 @@
 package edu.rit.se.bridgit.language.model;
 
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ListType extends Type
 {
+	private List<Type> value;
+	
 	public ListType(List<Type> list) throws InvalidTypeException
 	{
 		super(list, Type.LIST_TYPE);
+		value = list;
 		validateTypes();
 	}
 	
@@ -47,14 +50,19 @@ public class ListType extends Type
 		return new ListType(list);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Type subtract(Type other) throws InvalidTypeException 
 	{
-		Object val = this.getValue();
 		List<Type> list = new ArrayList<Type>();
-		list.addAll((List<Type>) val);
-		list.remove(other);
+		list.addAll(this.value);
+		if(other instanceof ListType)
+		{
+			list.removeAll((List<?>)other.getValue());
+		}
+		else
+		{
+			list.remove(other);
+		}
 		return new ListType(list);
 	}
 
@@ -101,13 +109,10 @@ public class ListType extends Type
 		throw new InvalidTypeException("List cannot be used as a term in and operation.");
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Type eq(Type other) throws InvalidTypeException 
 	{
-		List<Type> r1Val = (List<Type>) this.getValue();
-		List<Type> r2Val = (List<Type>) other.getValue();
-		return new BooleanType(r1Val.equals(r2Val));
+		return new BooleanType(this.equals(other));
 	}
 
 	@Override
