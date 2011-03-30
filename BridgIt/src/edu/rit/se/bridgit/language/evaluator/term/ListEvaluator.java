@@ -1,6 +1,6 @@
 package edu.rit.se.bridgit.language.evaluator.term;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
@@ -12,7 +12,7 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class ListEvaluator implements Evaluator 
 {
-	List<Evaluator> terms = new LinkedList<Evaluator>();
+	List<Evaluator> terms = new ArrayList<Evaluator>();
 	
 	public ListEvaluator() 
 	{
@@ -27,7 +27,7 @@ public class ListEvaluator implements Evaluator
 	@Override
 	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
 	{
-		List<Type> types = new LinkedList<Type>();
+		List<Type> types = new ArrayList<Type>();
 		for(Evaluator e : terms)
 		{
 			types.add(e.evaluate(scope));

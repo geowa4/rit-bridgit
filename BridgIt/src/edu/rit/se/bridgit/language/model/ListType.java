@@ -1,7 +1,7 @@
 package edu.rit.se.bridgit.language.model;
 
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListType extends Type
@@ -38,7 +38,7 @@ public class ListType extends Type
 	public Type add(Type other) throws InvalidTypeException 
 	{
 		Object val = this.getValue();
-		List<Type> list = new LinkedList<Type>();
+		List<Type> list = new ArrayList<Type>();
 		if(val instanceof List<?>)
 		{
 			list.addAll((List<Type>) val);
@@ -52,7 +52,7 @@ public class ListType extends Type
 	public Type subtract(Type other) throws InvalidTypeException 
 	{
 		Object val = this.getValue();
-		List<Type> list = new LinkedList<Type>();
+		List<Type> list = new ArrayList<Type>();
 		list.addAll((List<Type>) val);
 		list.remove(other);
 		return new ListType(list);
@@ -68,7 +68,7 @@ public class ListType extends Type
 			throw new InvalidTypeException("List can only be multiplied by an Integer.");
 		}
 		Object val = this.getValue();
-		List<Type> list = new LinkedList<Type>();
+		List<Type> list = new ArrayList<Type>();
 		Integer times = (Integer) otherVal;
 		for(int i = 0; i < times; ++i)
 		{
