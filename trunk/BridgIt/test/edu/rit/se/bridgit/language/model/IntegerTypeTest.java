@@ -46,6 +46,13 @@ public class IntegerTypeTest
 	}
 	
 	@Test
+	public void integersCanBeSubtractedFromIntegers() throws InvalidTypeException
+	{
+		assertEquals("Resultatnt value should be a double.", 
+				baseInt - testInt, type.subtract(new IntegerType(testInt)).getValue());
+	}
+	
+	@Test
 	public void doublesCanBeSubtractedFromIntegers() throws InvalidTypeException
 	{
 		assertEquals("Resultatnt value should be a double.", 
@@ -125,30 +132,30 @@ public class IntegerTypeTest
 	}
 	
 	@Test
-	public void integersCannotBeUnaryNegated() throws InvalidTypeException
+	public void integersCanBeUnaryNegated() throws InvalidTypeException
 	{
 		assertEquals("Resultant value must be the two operands multiplied together",
 				-baseInt, type.unary().getValue());
 	}
 	
 	@Test
-	public void integersCanBeGreaterThanOtherStrings() throws InvalidTypeException
+	public void integersCanBeGreaterThanOtherIntegers() throws InvalidTypeException
 	{
 		assertEquals("Comparison should allow another Integer.", 
 				((Integer) baseInt).compareTo(testInt) > 0, type.gt(new IntegerType(testInt)).getValue());
 	}
 	
 	@Test
-	public void integersCanBeLessThanOtherStrings() throws InvalidTypeException
+	public void integersCanBeLessThanOtherIntegers() throws InvalidTypeException
 	{
 		assertEquals("Comparison should allow another Integer.", 
 				((Integer) baseInt).compareTo(testInt) < 0, type.lt(new IntegerType(testInt)).getValue());
 	}
 	
 	@Test
-	public void integersCanBeEqualToOtherStringOfSameValue() throws InvalidTypeException
+	public void integersCanBeEqualToOtherIntegerOfSameValue() throws InvalidTypeException
 	{
-		assertTrue("", (Boolean) type.eq(new IntegerType(baseInt)).getValue());
+		assertTrue("Resultant value must be true.", (Boolean) type.eq(new IntegerType(baseInt)).getValue());
 	}
 	
 	@Test(expected=InvalidTypeException.class)
@@ -160,12 +167,12 @@ public class IntegerTypeTest
 	@Test(expected=InvalidTypeException.class)
 	public void integersCannotBeAnded() throws InvalidTypeException
 	{
-		type.and(new StringType("world"));
+		type.and(new IntegerType(testInt));
 	}
 	
 	@Test(expected=InvalidTypeException.class)
 	public void integersCannotBeOred() throws InvalidTypeException
 	{
-		type.or(new StringType("world"));
+		type.or(new IntegerType(testInt));
 	}
 }
