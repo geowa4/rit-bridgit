@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+
 public class BooleanTypeTest
 {
 	private BooleanType type;

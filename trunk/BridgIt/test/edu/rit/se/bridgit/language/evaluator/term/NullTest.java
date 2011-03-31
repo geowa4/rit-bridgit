@@ -6,9 +6,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 
 public class NullTest
 {

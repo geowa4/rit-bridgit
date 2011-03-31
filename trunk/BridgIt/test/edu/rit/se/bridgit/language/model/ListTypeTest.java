@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+
 public class ListTypeTest
 {
 	private ListType type;

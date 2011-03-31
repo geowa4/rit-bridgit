@@ -161,19 +161,6 @@ functionType returns [String name]
   | 'Void' {$name = "void";}
   ;
 
-term returns [Evaluator eval]
-  : STRING_LITERAL           {$eval = new StringEvaluator($STRING_LITERAL.text);}
-  | IDENT                    {$eval = new MemberLoadEvaluator($IDENT.text);}
-  | '(' expression ')'       {$eval = $expression.eval;}
-  | INTEGER                  {$eval = new IntegerEvaluator(Integer.parseInt($INTEGER.text));}
-  | DOUBLE                   {$eval = new DoubleEvaluator(Double.parseDouble($DOUBLE.text));}
-  | bool                     {$eval = $bool.eval;}
-  | functionCall             {$eval = $functionCall.eval;}
-  | newObject                {$eval = $newObject.eval;}
-  | 'Null'                   {$eval = new NullEvaluator();}
-  | list                     {$eval = $list.eval;}
-  ;
-
 bool returns[Evaluator eval]
   : 'true'  {$eval = new BooleanEvaluator(true);}
   | 'false' {$eval = new BooleanEvaluator(false);}
@@ -190,10 +177,30 @@ list returns[ListEvaluator eval]
     ']'
   ;
 
+term returns [Evaluator eval]
+  : STRING_LITERAL           {$eval = new StringEvaluator($STRING_LITERAL.text);}
+  | IDENT                    {$eval = new MemberLoadEvaluator($IDENT.text);}
+  | '(' expression ')'       {$eval = $expression.eval;}
+  | INTEGER                  {$eval = new IntegerEvaluator(Integer.parseInt($INTEGER.text));}
+  | DOUBLE                   {$eval = new DoubleEvaluator(Double.parseDouble($DOUBLE.text));}
+  | bool                     {$eval = $bool.eval;}
+  | functionCall             {$eval = $functionCall.eval;}
+  | newObject                {$eval = $newObject.eval;}
+  | list                     {$eval = $list.eval;}
+  | 'Null'                   {$eval = new NullEvaluator();}
+  ;
+  
+indexedAccess returns [IndexedAccessEvaluator eval]
+  : term                     {$eval = new IndexedAccessEvaluator($term.eval);}
+    (
+      '[' expression ']'     {$eval.setIndex($expression.eval);}
+    )?
+  ;
+
 negation returns [Evaluator eval]
   : {boolean negated = false;}
     ('not' {negated = !negated;})* 
-    term {$eval = $term.eval;}
+    indexedAccess {$eval = $indexedAccess.eval;}
     {if(negated) $eval = new NegationEvaluator($eval);}
   ;
 

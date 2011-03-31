@@ -3,12 +3,12 @@ package edu.rit.se.bridgit.language.evaluator.function;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.MemberLoadEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.VoidType;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalBridge;
 import edu.rit.se.bridgit.language.model.bridge.NoMethodFoundException;
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 public class MethodCallEvaluator implements Evaluator
 {

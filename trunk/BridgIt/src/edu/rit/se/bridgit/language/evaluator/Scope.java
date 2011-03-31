@@ -7,9 +7,9 @@ import java.util.Set;
 import edu.rit.se.bridgit.language.builtin.function.BuiltInFunctionFactory;
 import edu.rit.se.bridgit.language.evaluator.function.Function;
 import edu.rit.se.bridgit.language.model.FunctionType;
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 public class Scope 
 {

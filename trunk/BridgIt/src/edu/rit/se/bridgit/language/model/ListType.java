@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+
 public class ListType extends Type
 {
 	private List<Type> value;

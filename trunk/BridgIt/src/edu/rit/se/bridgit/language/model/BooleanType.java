@@ -1,5 +1,7 @@
 package edu.rit.se.bridgit.language.model;
 
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+
 
 public class BooleanType extends Type
 {

@@ -7,9 +7,9 @@ import edu.rit.se.bridgit.language.evaluator.function.ParameterEvaluator;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterList;
 import edu.rit.se.bridgit.language.evaluator.function.ParameterListEvaluator;
 import edu.rit.se.bridgit.language.model.DoubleType;
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 public class DoubleFunction extends Function
 {
