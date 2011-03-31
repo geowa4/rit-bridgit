@@ -8,8 +8,8 @@ import org.antlr.runtime.RecognitionException;
 import edu.rit.se.bridgit.language.PseudoLexer;
 import edu.rit.se.bridgit.language.PseudoParser;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 /**
  * Special handler which is used by the play command to execute the given

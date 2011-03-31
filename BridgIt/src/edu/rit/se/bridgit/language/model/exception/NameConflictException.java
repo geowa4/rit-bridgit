@@ -1,4 +1,4 @@
-package edu.rit.se.bridgit.language.model;
+package edu.rit.se.bridgit.language.model.exception;
 
 public class NameConflictException extends Exception
 {

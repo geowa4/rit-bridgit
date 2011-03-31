@@ -13,8 +13,8 @@ import edu.rit.se.bridgit.language.evaluator.Block;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 public class IfTest
 {

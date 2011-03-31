@@ -13,10 +13,10 @@ import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.IntegerType;
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 public class VariableTest 
 {

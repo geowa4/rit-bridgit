@@ -19,9 +19,9 @@ import edu.rit.se.bridgit.language.evaluator.conditional.WhileEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.BooleanType;
 import edu.rit.se.bridgit.language.model.IntegerType;
-import edu.rit.se.bridgit.language.model.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.NameConflictException;
 import edu.rit.se.bridgit.language.model.Type;
+import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
+import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 public class ArgumentListTest
 {

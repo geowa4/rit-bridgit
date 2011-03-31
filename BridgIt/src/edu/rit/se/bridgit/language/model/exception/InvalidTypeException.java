@@ -1,4 +1,4 @@
-package edu.rit.se.bridgit.language.model;
+package edu.rit.se.bridgit.language.model.exception;
 
 public class InvalidTypeException extends Exception {
 	private static final long serialVersionUID = -3894386344414091704L;
