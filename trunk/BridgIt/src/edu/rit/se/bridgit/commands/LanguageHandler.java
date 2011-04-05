@@ -5,6 +5,7 @@ import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 
+import edu.rit.se.bridgit.language.CustomPseudoParser;
 import edu.rit.se.bridgit.language.PseudoLexer;
 import edu.rit.se.bridgit.language.PseudoParser;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
@@ -33,7 +34,7 @@ public class LanguageHandler
 		CharStream stream = new ANTLRStringStream(program);
 		PseudoLexer lexer = new PseudoLexer(stream);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		PseudoParser parser = new PseudoParser(tokens);
+		PseudoParser parser = new CustomPseudoParser(tokens);
 		Evaluator result;
 		try
 		{

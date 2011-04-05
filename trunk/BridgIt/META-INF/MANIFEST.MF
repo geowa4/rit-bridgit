@@ -20,4 +20,5 @@ Import-Package: org.eclipse.ui.editors.text,
  org.eclipse.ui.part,
  org.eclipse.ui.texteditor
 Bundle-ClassPath: .,
- lib/antlr-3.3-complete.jar
+ lib/antlr-3.3-complete.jar,
+ lib/log4j-1.2.16.jar
