@@ -15,7 +15,17 @@ public class IndexedAccessEvaluator implements Evaluator
 	private Evaluator term;
 	private Evaluator index;
 	
+	public IndexedAccessEvaluator()
+	{
+		this(null);
+	}
+	
 	public IndexedAccessEvaluator(Evaluator term)
+	{
+		this.term = term;
+	}
+	
+	public void setTerm(Evaluator term)
 	{
 		this.term = term;
 	}
