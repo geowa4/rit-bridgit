@@ -43,13 +43,11 @@ public class FunctionCallEvaluator implements Evaluator {
 	public void validateType(Type t) throws InvalidTypeException 
 	{
 		String pseudoType = function.getReturnType();
-		int index = pseudoType.indexOf(":");
-		String finalPseudoType = index < 0 ? pseudoType : pseudoType.substring(index + 1);
 		if(t.getPseudoType().equals(Type.NULL_TYPE))
 		{
-			t.setPseudoType(finalPseudoType);
+			t.setPseudoType(pseudoType);
 		}
-		else if(!t.getPseudoType().contains(finalPseudoType))
+		else if(!t.getPseudoType().contains(pseudoType))
 		{
 			throw new InvalidTypeException(Function.class, "Return type of " + 
 					function.getFunctionName() + " does not match declared return type.");
