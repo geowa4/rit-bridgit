@@ -25,7 +25,7 @@ public class FunctionEvaluator implements Evaluator
 	
 	public void setPseudoType(String pseudoType)
 	{
-		function.setReturnType("Function:" + pseudoType);
+		function.setReturnType(pseudoType);
 	}
 	
 	public void addReturnValue(Evaluator e){

@@ -6,6 +6,7 @@ import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 
 public class FunctionType extends Type
 {
+	public static final String BECOMES = "$";
 	private Function value;
 	
 	public FunctionType(Function func) throws InvalidTypeException
@@ -17,7 +18,9 @@ public class FunctionType extends Type
 	
 	@Override
 	public void setPseudoType(String pseudoType) throws InvalidTypeException 
-	{}
+	{
+		this.pseudoType = Type.FUNCTION_TYPE + BECOMES + pseudoType;
+	}
 	
 	@Override
 	public String getPseudoType()
