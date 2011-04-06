@@ -1,6 +1,7 @@
 package edu.rit.se.bridgit.monklypse;
 
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
@@ -14,7 +15,8 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jmex.swt.input.SWTKeyInput;
 import com.jmex.swt.input.SWTMouseInput;
-
+import edu.rit.se.bridgit.language.model.bridge.Command;
+import edu.rit.se.bridgit.language.model.bridge.GraphicalBridge;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 public class RenderCanvas extends SWTDefaultImplementor {
@@ -96,48 +98,37 @@ public class RenderCanvas extends SWTDefaultImplementor {
         			System.exit(-1);
         		}
                 
-//                URL model_url = RenderCanvas.class.getClassLoader().getResource("Models" + File.separator + 
-//                		"People" + File.separator + "Ballerina" + File.separator + "Maggie.obj");
-//                
-//                URL mat_url = RenderCanvas.class.getClassLoader().getResource("Models" + File.separator + 
-//                		"People" + File.separator + "Ballerina" + File.separator);
-//                
-//             // Create something to convert .obj format to .jme
-//        		FormatConverter converter = new ObjToJme();
-//        		// Point the converter to where it will find the .mtl file from
-//        		converter.setProperty("mtllib", mat_url);
-//         
-//        		// This byte array will hold my .jme file
-//        		ByteArrayOutputStream BO = new ByteArrayOutputStream();
-//        		try {
-//        			// Use the format converter to convert .obj to .jme
-//        			converter.convert(model_url.openStream(), BO);
-//        			Node maggie = (Node) BinaryImporter.getInstance().load(
-//        				new ByteArrayInputStream(BO.toByteArray()));
-//        			// shrink this baby down some
-//        			maggie.setLocalScale(.07f);
-//        			maggie.setModelBound(new BoundingSphere());
-//        			maggie.updateModelBound();
-//        			// Put her on the scene graph
-//        			rootNode.attachChild(maggie);
-//        		} catch (IOException e) { // Just in case anything happens
-//        			logger.logp(Level.SEVERE, this.getClass().toString(),
-//        				"simpleInitGame()", "Exception", e);
-//        			System.exit(0);
+//        		GraphicalBridge test = GraphicalModelBridgeFactory.buildBridge("maggie");
+//        		Command testCom = new Command();
+//        		testCom.methodName = "setTranslation";
+//        		testCom.parameters = new LinkedList<String>();
+//        		testCom.parameters.add("0");
+//        		testCom.parameters.add("10");
+//        		testCom.parameters.add("0");
+//        		try
+//        		{
+//        			test.sendMessage(testCom);
 //        		}
-
-                //Vector3f max = new Vector3f(5, 5, 5);
-                //Vector3f min = new Vector3f(-5, -5, -5);
-//
-//                box = new Box("Box", min, max);
-//                box.setModelBound(new BoundingBox());
-//                box.updateModelBound();
-//                box.setLocalTranslation(new Vector3f(0, 0, -10));
-//                box.setRenderQueueMode(Renderer.QUEUE_SKIP);
-//                rootNode.attachChild(box);
-
- //               box.setRandomColors();
-
+//        		catch(Exception e)
+//        		{
+//        			e.printStackTrace();
+//        		}
+//        		
+//        		Command testCom2 = new Command();
+//        		testCom2.methodName = "setScale";
+//        		testCom2.parameters = new LinkedList<String>();
+//        		testCom2.parameters.add(".1");
+//        		try
+//        		{
+//        			test.sendMessage(testCom2);
+//        		}
+//        		catch(Exception e)
+//        		{
+//        			e.printStackTrace();
+//        		}
+//        		
+//        		test.executeActionQueue();
+        		
                 startTime = System.currentTimeMillis() + 5000;
 
                 input = new FirstPersonHandler(cam, 50, 1);

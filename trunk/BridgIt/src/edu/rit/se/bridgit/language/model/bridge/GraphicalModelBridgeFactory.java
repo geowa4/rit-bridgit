@@ -16,8 +16,14 @@ import java.util.Vector;
 
 import com.jme.scene.Node;
 import com.jme.util.export.binary.BinaryImporter;
+import com.jme.util.resource.ResourceLocatorTool;
+import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.model.converters.FormatConverter;
 import com.jmex.model.converters.ObjToJme;
+import com.jmex.model.converters.Md3ToJme;
+
+import com.jmex.model.collada.*;
+
 
 import edu.rit.se.bridgit.monklypse.RenderCanvas;
 
@@ -26,9 +32,8 @@ public class GraphicalModelBridgeFactory
 	public static HashMap<String, GraphicalBridge> availableclasses = 
 		new HashMap<String, GraphicalBridge>();
 	
+	
 	//public static RenderCanvas jme_canvas = new RenderCanvas();
-	
-	
 	
 	public static HashMap<String, Vector<GraphicalBridge>> currentinstances = 
 		new HashMap<String, Vector<GraphicalBridge>>();
@@ -81,11 +86,16 @@ public class GraphicalModelBridgeFactory
 					String name = list_of_files[i].getName();
 					if(name.contains(".obj"))
 					{
-						String class_name = list_of_files[i].getName();
+						String class_name = name.substring(0,name.indexOf('.'));
 						List<String> methods = new LinkedList<String>();
-						methods.add("jump");
-						methods.add("fly");
+						methods.add("setTranslation");
+						methods.add("offsetTranslation");
+						methods.add("setScale");
 						availableclasses.put(class_name, new GraphicalBridge(class_name, methods, loadObjModel(list_of_files[i])));
+					}
+					if(name.contains(".dae"))
+					{
+						
 					}
 				}
 				else if(list_of_files[i].isDirectory())
