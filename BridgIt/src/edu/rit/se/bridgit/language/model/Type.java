@@ -30,10 +30,15 @@ public abstract class Type
 	{
 		if(value == null) throw new InvalidTypeException("Value of a Type cannot be null.");
 		else if(pseudoType == null) throw new InvalidTypeException("Invalid Pseudo type.");
-		int index = pseudoType.indexOf(":");
-		String finalPseudoType = index < 0 ? pseudoType : pseudoType.substring(0, index);
 		if(value == NullType.NULL_VALUE || value == VoidType.VOID_VALUE)
 			return;
+		validateClassType();
+	}
+	
+	protected void validateClassType() throws InvalidTypeException
+	{
+		int index = pseudoType.indexOf(FunctionType.BECOMES);
+		String finalPseudoType = index < 0 ? pseudoType : pseudoType.substring(0, index);
 		if(type != null && !type.getName().contains(finalPseudoType))
 			throw new InvalidTypeException(type, "Assignment");
 	}

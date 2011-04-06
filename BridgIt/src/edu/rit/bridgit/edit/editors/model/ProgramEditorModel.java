@@ -2,7 +2,6 @@ package edu.rit.bridgit.edit.editors.model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 /**
  * Represents the model for the program editor. This is a string

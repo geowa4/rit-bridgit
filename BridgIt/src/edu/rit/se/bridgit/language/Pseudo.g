@@ -243,11 +243,22 @@ relation returns [Evaluator eval]
     )*
   ;
   
-expression returns [Evaluator eval]
+booleanExpression returns [Evaluator eval]
   : op1=relation         {$eval = $op1.eval;}
     ( 'and' op2=relation {$eval = new AndEvaluator($eval, $op2.eval);}
     | 'or'  op2=relation {$eval = new OrEvaluator($eval, $op2.eval);}
     )*
+  ;
+
+methodCall returns [MethodCallEvaluator eval]
+  : booleanExpression               {$eval = new MethodCallEvaluator($booleanExpression.eval);}
+    (
+      '.' IDENT '(' arguments ')'  {$eval.setMethodNameAndParameters($IDENT.text, $arguments.eval);}
+    )?
+  ;
+
+expression returns [Evaluator eval]
+  : methodCall {$eval = $methodCall.eval;}
   ;
 
 fragment LETTER : ('a'..'z' | 'A'..'Z');

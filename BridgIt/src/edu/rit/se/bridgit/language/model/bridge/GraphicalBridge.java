@@ -9,6 +9,8 @@ import com.jme.math.Vector3f;
 import com.jme.renderer.Renderer;
 import com.jme.scene.Node;
 
+import edu.rit.se.bridgit.language.model.Type;
+
 public class GraphicalBridge
 {
 	String pseudoType;
@@ -40,11 +42,12 @@ public class GraphicalBridge
 		this(other.pseudoType, other.availableMethods, other.actionQueue, other.render_node);
 	}
 	
-	public Object sendMessage(Command com) throws NoMethodFoundException
+	public Object sendMessage(String methodName, List<Type> arguments) throws NoMethodFoundException
 	{
-		if(!availableMethods.contains(com.methodName))
+		Command com = new Command(methodName, arguments);
+		if(!availableMethods.contains(com.getMethodName()))
 		{
-			throw new NoMethodFoundException(pseudoType, com.methodName);
+			throw new NoMethodFoundException(pseudoType, com.getMethodName());
 		}
 		actionQueue.add(com); //TODO: this should add something real
 		return new Boolean(true); //TODO: must return something real
@@ -75,22 +78,22 @@ public class GraphicalBridge
 		while(actionQueue.size() > 0)
 		{
 			Command curCommand = actionQueue.poll();
-			if(curCommand.methodName == "setTranslation")
+			if(curCommand.getMethodName() == "setTranslation")
 			{
-				this.render_node.setLocalTranslation(Float.valueOf(curCommand.parameters[0]).floatValue(),
-						Float.valueOf(curCommand.parameters[1]).floatValue(),
-						Float.valueOf(curCommand.parameters[2]).floatValue());
+				this.render_node.setLocalTranslation(Float.parseFloat(curCommand.getArguments().get(0).toString()),
+						Float.parseFloat(curCommand.getArguments().get(1).toString()),
+						Float.parseFloat(curCommand.getArguments().get(2).toString()));
 			}
-			else if(curCommand.methodName == "offsetTranslation")
+			else if(curCommand.getMethodName() == "offsetTranslation")
 			{
 				Vector3f oldTranslation = this.render_node.getLocalTranslation();
-				this.render_node.setLocalTranslation(oldTranslation.x + Float.valueOf(curCommand.parameters[0]).floatValue(),
-						oldTranslation.y + Float.valueOf(curCommand.parameters[1]).floatValue(),
-						oldTranslation.z + Float.valueOf(curCommand.parameters[2]).floatValue());
+				this.render_node.setLocalTranslation(oldTranslation.x + Float.parseFloat(curCommand.getArguments().get(0).toString()),
+						oldTranslation.y + Float.parseFloat(curCommand.getArguments().get(1).toString()),
+						oldTranslation.z + Float.parseFloat(curCommand.getArguments().get(2).toString()));
 			}
-			else if(curCommand.methodName == "setScale")
+			else if(curCommand.getMethodName() == "setScale")
 			{
-				this.render_node.setLocalScale(Float.valueOf(curCommand.parameters[0]).floatValue());
+				this.render_node.setLocalScale(Float.parseFloat(curCommand.getArguments().get(0).toString()));
 			}
 		}
 	}

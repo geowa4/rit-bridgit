@@ -8,22 +8,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.Vector;
 
 import com.jme.scene.Node;
 import com.jme.util.export.binary.BinaryImporter;
-import com.jme.util.resource.ResourceLocatorTool;
-import com.jme.util.resource.SimpleResourceLocator;
 import com.jmex.model.converters.FormatConverter;
 import com.jmex.model.converters.ObjToJme;
-import com.jmex.model.converters.Md3ToJme;
-
-import com.jmex.model.collada.*;
-
 
 import edu.rit.se.bridgit.monklypse.RenderCanvas;
 
@@ -31,7 +27,6 @@ public class GraphicalModelBridgeFactory
 {
 	public static HashMap<String, GraphicalBridge> availableclasses = 
 		new HashMap<String, GraphicalBridge>();
-	
 	
 	//public static RenderCanvas jme_canvas = new RenderCanvas();
 	
@@ -55,8 +50,7 @@ public class GraphicalModelBridgeFactory
 			jme_canvas.addNode(returnval.getGeometry());
 			return returnval;
 		}
-		else
-			return null;
+		else return null; 
 	}
 	
 	public static void loadContent() throws FileNotFoundException
@@ -145,15 +139,14 @@ public class GraphicalModelBridgeFactory
 			System.err.println("Error in model loading" + model_url.getFile());
 			e.printStackTrace();
 		}
-		
-	
 		return null;
-		
 	}
 
-	public static Set<String> getAvailableClasses()
+	public static Collection<String> getAvailableClasses()
 	{
-		return availableclasses.keySet();
+		List<String> l = new ArrayList<String>(availableclasses.keySet());
+		Collections.sort(l);
+		return l;
 	}
 	
 	public static void addPossibleClass(GraphicalBridge gb)

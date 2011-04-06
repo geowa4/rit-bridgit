@@ -1,7 +1,6 @@
 package edu.rit.se.bridgit.monklypse;
 
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
 
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
@@ -15,8 +14,7 @@ import com.jme.math.Vector3f;
 import com.jme.scene.Node;
 import com.jmex.swt.input.SWTKeyInput;
 import com.jmex.swt.input.SWTMouseInput;
-import edu.rit.se.bridgit.language.model.bridge.Command;
-import edu.rit.se.bridgit.language.model.bridge.GraphicalBridge;
+
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 public class RenderCanvas extends SWTDefaultImplementor {

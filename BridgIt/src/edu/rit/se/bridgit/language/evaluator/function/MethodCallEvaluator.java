@@ -3,11 +3,8 @@ package edu.rit.se.bridgit.language.evaluator.function;
 import org.apache.log4j.Logger;
 
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
-import edu.rit.se.bridgit.language.evaluator.MemberLoadEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
-import edu.rit.se.bridgit.language.model.VoidType;
-import edu.rit.se.bridgit.language.model.bridge.Command;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalBridge;
 import edu.rit.se.bridgit.language.model.bridge.NoMethodFoundException;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
@@ -15,32 +12,42 @@ import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 public class MethodCallEvaluator implements Evaluator
 {
-	private MemberLoadEvaluator loader;
-	private String methodName;
 	private static final Logger log = Logger.getLogger(MethodCallEvaluator.class);
 	
-	public MethodCallEvaluator(String variableName, String methodName)
+	private Evaluator booleanExpression;
+	private String methodName;
+	private ArgumentListEvaluator arguments;
+	
+	public MethodCallEvaluator(Evaluator booleanExpression)
 	{
-		this.loader = new MemberLoadEvaluator(variableName);
-		this.methodName = methodName;
+		this.booleanExpression = booleanExpression;
 	}
 
-	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException,
-			NameConflictException
+	public void setMethodNameAndParameters(String methodName, ArgumentListEvaluator arguments)
 	{
-		Type ret = loader.evaluate(scope);
-		validateType(ret);
-		try
+		this.methodName = methodName;
+		this.arguments = arguments;
+	}
+	
+	@Override
+	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException
+	{
+		Type target = booleanExpression.evaluate(scope);
+		if(methodName != null && arguments != null) 
 		{
-			((GraphicalBridge) ret.getValue()).sendMessage(new Command(methodName));
-			return new VoidType();
+			validateType(target);
+			GraphicalBridge bridge = (GraphicalBridge) target.getValue();
+			arguments.evaluate(scope);
+			try
+			{
+				bridge.sendMessage(methodName, arguments.getArgValues());
+			}
+			catch (NoMethodFoundException e)
+			{
+				log.error("Method \"" + methodName + "\" does not exist for type " + target.getPseudoType());
+			}
 		}
-		catch(NoMethodFoundException e)
-		{
-			log.error(e);
-			return null;
-		}
+		return target;
 	}
 
 	@Override
@@ -48,8 +55,8 @@ public class MethodCallEvaluator implements Evaluator
 	{
 		if(!(t.getValue() instanceof GraphicalBridge))
 		{
-			throw new InvalidTypeException(t.getType(), 
-					"Calling method " + methodName + " on " + t.getPseudoType());
+			throw new InvalidTypeException("It is not correct to call method \"" + 
+					methodName + "\" on " + t.getPseudoType());
 		}
 	}
 }
