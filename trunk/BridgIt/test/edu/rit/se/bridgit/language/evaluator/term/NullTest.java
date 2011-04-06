@@ -1,8 +1,8 @@
 package edu.rit.se.bridgit.language.evaluator.term;
 
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 

@@ -1,9 +1,9 @@
 package edu.rit.se.bridgit.language.evaluator.term;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
+import org.junit.Test;
 
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;

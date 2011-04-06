@@ -3,14 +3,16 @@ package edu.rit.se.bridgit.language.model;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 
-
 public class ObjectType extends Type
 {
 	public ObjectType(String pseudoType) throws InvalidTypeException
 	{
 		super(GraphicalModelBridgeFactory.buildBridge(pseudoType), pseudoType);
-		validateTypes();
 	}
+	
+	@Override
+	protected void validateClassType()
+	{/*ignore class types for models*/}
 	
 	@Override
 	public void setPseudoType(String pseudoType) throws InvalidTypeException 
@@ -19,7 +21,7 @@ public class ObjectType extends Type
 	@Override
 	public String toString()
 	{
-		return pseudoType;
+		return "{" + pseudoType + "}";
 	}
 
 	@Override
