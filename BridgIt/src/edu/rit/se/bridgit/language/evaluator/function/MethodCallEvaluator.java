@@ -1,10 +1,13 @@
 package edu.rit.se.bridgit.language.evaluator.function;
 
+import org.apache.log4j.Logger;
+
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.MemberLoadEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.VoidType;
+import edu.rit.se.bridgit.language.model.bridge.Command;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalBridge;
 import edu.rit.se.bridgit.language.model.bridge.NoMethodFoundException;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
@@ -14,6 +17,7 @@ public class MethodCallEvaluator implements Evaluator
 {
 	private MemberLoadEvaluator loader;
 	private String methodName;
+	private static final Logger log = Logger.getLogger(MethodCallEvaluator.class);
 	
 	public MethodCallEvaluator(String variableName, String methodName)
 	{
@@ -29,12 +33,12 @@ public class MethodCallEvaluator implements Evaluator
 		validateType(ret);
 		try
 		{
-			((GraphicalBridge) ret.getValue()).sendMessage(methodName);
+			((GraphicalBridge) ret.getValue()).sendMessage(new Command(methodName));
 			return new VoidType();
 		}
 		catch(NoMethodFoundException e)
 		{
-			System.err.println(e);
+			log.error(e);
 			return null;
 		}
 	}

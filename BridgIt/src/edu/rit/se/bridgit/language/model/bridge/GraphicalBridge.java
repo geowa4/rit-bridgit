@@ -13,10 +13,10 @@ public class GraphicalBridge
 {
 	String pseudoType;
 	List<String> availableMethods;
-	Queue<?> actionQueue;
+	Queue<Command> actionQueue;
 	Node render_node;
 	
-	public GraphicalBridge(String pseudoType, List<String> methods, Queue<?> actionQueue, Node in_render_node)
+	public GraphicalBridge(String pseudoType, List<String> methods, Queue<Command> actionQueue, Node in_render_node)
 	{
 		this.pseudoType = pseudoType;
 		this.availableMethods = methods;
@@ -26,13 +26,13 @@ public class GraphicalBridge
         
         render_node.setModelBound(new BoundingBox());
         render_node.updateModelBound();
-        render_node.setLocalTranslation(new Vector3f(0, 0, -10));
+        render_node.setLocalTranslation(new Vector3f(0, 0, 0));
         render_node.setRenderQueueMode(Renderer.QUEUE_OPAQUE);
 	}
 	
 	public GraphicalBridge(String pseudoType, List<String> methods, Node in_render_node)
 	{
-		this(pseudoType, methods, new LinkedList<String>(), in_render_node);
+		this(pseudoType, methods, new LinkedList<Command>(), in_render_node);
 	}
 	
 	public GraphicalBridge(GraphicalBridge other) 
@@ -40,13 +40,13 @@ public class GraphicalBridge
 		this(other.pseudoType, other.availableMethods, other.actionQueue, other.render_node);
 	}
 	
-	public Object sendMessage(String methodName) throws NoMethodFoundException
+	public Object sendMessage(Command com) throws NoMethodFoundException
 	{
-		if(!availableMethods.contains(methodName))
+		if(!availableMethods.contains(com.methodName))
 		{
-			throw new NoMethodFoundException(pseudoType, methodName);
+			throw new NoMethodFoundException(pseudoType, com.methodName);
 		}
-		actionQueue.add(null); //TODO: this should add something real
+		actionQueue.add(com); //TODO: this should add something real
 		return new Boolean(true); //TODO: must return something real
 	}
 	
@@ -68,5 +68,30 @@ public class GraphicalBridge
 	public Node getGeometry()
 	{
 		return render_node;
+	}
+	
+	public void executeActionQueue()
+	{
+		while(actionQueue.size() > 0)
+		{
+			Command curCommand = actionQueue.poll();
+			if(curCommand.methodName == "setTranslation")
+			{
+				this.render_node.setLocalTranslation(Float.valueOf(curCommand.parameters[0]).floatValue(),
+						Float.valueOf(curCommand.parameters[1]).floatValue(),
+						Float.valueOf(curCommand.parameters[2]).floatValue());
+			}
+			else if(curCommand.methodName == "offsetTranslation")
+			{
+				Vector3f oldTranslation = this.render_node.getLocalTranslation();
+				this.render_node.setLocalTranslation(oldTranslation.x + Float.valueOf(curCommand.parameters[0]).floatValue(),
+						oldTranslation.y + Float.valueOf(curCommand.parameters[1]).floatValue(),
+						oldTranslation.z + Float.valueOf(curCommand.parameters[2]).floatValue());
+			}
+			else if(curCommand.methodName == "setScale")
+			{
+				this.render_node.setLocalScale(Float.valueOf(curCommand.parameters[0]).floatValue());
+			}
+		}
 	}
 }
