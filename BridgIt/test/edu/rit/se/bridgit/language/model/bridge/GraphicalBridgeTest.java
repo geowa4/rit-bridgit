@@ -23,7 +23,7 @@ public class GraphicalBridgeTest
 			add("jump");
 			add("spin");
 		}};
-		ballerina = new GraphicalBridge("Ballerina", methods, actionQueue, null);
+		//ballerina = new GraphicalBridge("Ballerina", methods, actionQueue, null);
 	}
 	
 //	@Test
