@@ -37,8 +37,8 @@ public class ScopeView extends ViewPart
 		GridLayout grid = new GridLayout(1, true);
 		parent.setLayout(grid);
 		Scope currentScope = Scope.getCurrentScope();
-		buildVariablePane(parent, currentScope);
 		buildConstantPane(parent, currentScope);
+		buildVariablePane(parent, currentScope);
 		buildFunctionPane(parent, currentScope);
 		parent.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, true, 1, 2));
 	}
