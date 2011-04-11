@@ -89,12 +89,24 @@ parameter returns [ParameterEvaluator eval]
   {$eval = new ParameterEvaluator($IDENT.text, $type.text);}
   ; 
 
-statement returns [Evaluator eval]
-  : assignment   ';' {$eval = $assignment.eval;}
+simpleStatement returns [Evaluator eval]
+  : expression       {$eval = $expression.eval;}
+  | assignment       {$eval = $assignment.eval;}
   | conditional      {$eval = $conditional.eval;}
   | loop             {$eval = $loop.eval;}
-  | methodCall   ';' {$eval = $methodCall.eval;}
-  | functionCall ';' {$eval = $functionCall.eval;}
+  ;
+  
+complexStatement returns [MethodCallEvaluator eval]
+  : stmt=simpleStatement               {$eval = new MethodCallEvaluator($stmt.eval);}
+   (
+     '.' IDENT {$eval.setMethodName($IDENT.text);} 
+     '(' (arguments {$eval.setArguments($arguments.eval);})? ')' 
+   )?
+  ;
+
+statement returns [Evaluator eval]
+  : complexStatement {$eval = $complexStatement.eval;}
+   ';'
   ;
 
 assignment returns [Evaluator eval]
@@ -140,13 +152,6 @@ loop returns [WhileEvaluator eval]
 functionCall returns [FunctionCallEvaluator eval]
   : IDENT {$eval = new FunctionCallEvaluator($IDENT.text);}
     '(' (arguments {$eval.setArgumentsList($arguments.eval);})? ')'
-  ;
-
-methodCall returns [MethodCallEvaluator eval]
-  : member=IDENT                           {$eval = new MethodCallEvaluator(new MemberLoadEvaluator($member.text));}
-    (
-      '.' method=IDENT '(' arguments ')'   {$eval.setMethodNameAndParameters($method.text, $arguments.eval);}
-    )
   ;
 
 newObject returns [Evaluator eval]
