@@ -78,20 +78,20 @@ public class GraphicalBridge
 		while(actionQueue.size() > 0)
 		{
 			Command curCommand = actionQueue.poll();
-			if(curCommand.getMethodName() == "setTranslation")
+			if(curCommand.getMethodName().equals("setTranslation"))
 			{
 				this.render_node.setLocalTranslation(Float.parseFloat(curCommand.getArguments().get(0).toString()),
 						Float.parseFloat(curCommand.getArguments().get(1).toString()),
 						Float.parseFloat(curCommand.getArguments().get(2).toString()));
 			}
-			else if(curCommand.getMethodName() == "offsetTranslation")
+			else if(curCommand.getMethodName().equals("offsetTranslation"))
 			{
 				Vector3f oldTranslation = this.render_node.getLocalTranslation();
 				this.render_node.setLocalTranslation(oldTranslation.x + Float.parseFloat(curCommand.getArguments().get(0).toString()),
 						oldTranslation.y + Float.parseFloat(curCommand.getArguments().get(1).toString()),
 						oldTranslation.z + Float.parseFloat(curCommand.getArguments().get(2).toString()));
 			}
-			else if(curCommand.getMethodName() == "setScale")
+			else if(curCommand.getMethodName().equals("setScale"))
 			{
 				this.render_node.setLocalScale(Float.parseFloat(curCommand.getArguments().get(0).toString()));
 			}
