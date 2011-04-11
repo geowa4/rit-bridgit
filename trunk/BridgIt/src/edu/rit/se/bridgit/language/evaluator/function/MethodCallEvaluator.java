@@ -23,9 +23,13 @@ public class MethodCallEvaluator implements Evaluator
 		this.booleanExpression = booleanExpression;
 	}
 
-	public void setMethodNameAndParameters(String methodName, ArgumentListEvaluator arguments)
+	public void setMethodName(String methodName)
 	{
 		this.methodName = methodName;
+	}
+
+	public void setArguments(ArgumentListEvaluator arguments)
+	{
 		this.arguments = arguments;
 	}
 	
