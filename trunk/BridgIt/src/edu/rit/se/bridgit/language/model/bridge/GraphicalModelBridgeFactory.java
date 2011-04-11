@@ -21,20 +21,26 @@ import com.jme.util.export.binary.BinaryImporter;
 import com.jmex.model.converters.FormatConverter;
 import com.jmex.model.converters.ObjToJme;
 
+import edu.rit.se.bridgit.edit.content.ContentLoadedListener;
 import edu.rit.se.bridgit.monklypse.RenderCanvas;
 
 public class GraphicalModelBridgeFactory
-{
-	public static HashMap<String, GraphicalBridge> availableclasses = 
+{	
+	private static Collection<ContentLoadedListener> contentLoadedListeners = new LinkedList<ContentLoadedListener>();
+	
+	private static HashMap<String, GraphicalBridge> availableclasses = 
 		new HashMap<String, GraphicalBridge>();
 	
-	//public static RenderCanvas jme_canvas = new RenderCanvas();
-	
-	public static HashMap<String, Vector<GraphicalBridge>> currentinstances = 
+	private static HashMap<String, Vector<GraphicalBridge>> currentinstances = 
 		new HashMap<String, Vector<GraphicalBridge>>();
 
-	public static RenderCanvas jme_canvas = new RenderCanvas();
+	private static RenderCanvas jmeCanvas = new RenderCanvas();
 	
+	public static RenderCanvas getJmeCanvas()
+	{
+		return jmeCanvas;
+	}
+
 	public static GraphicalBridge buildBridge(String pseudoType)
 	{
 		if(availableclasses.containsKey(pseudoType))
@@ -47,7 +53,7 @@ public class GraphicalModelBridgeFactory
 			}
 			currentinstances.get(pseudoType).add(returnval);
 			
-			jme_canvas.addNode(returnval.getGeometry());
+			jmeCanvas.addNode(returnval.getGeometry());
 			return returnval;
 		}
 		else return null; 
@@ -66,6 +72,7 @@ public class GraphicalModelBridgeFactory
 		{
 			throw new FileNotFoundException("Content Directory could not be found:\nShould be located at:\n" + content_folder);
 		}
+		fireContentLoaded();
 	}
 	
 	private static void loadModels(File in_current_folder)
@@ -162,5 +169,18 @@ public class GraphicalModelBridgeFactory
 	public static String getThumbnailForType(String type)
 	{
 		return ((GraphicalBridge) availableclasses.get(type)).getThumbnail();
+	}
+
+	public static void addContentLoadedListener(ContentLoadedListener contentListener)
+	{
+		contentLoadedListeners.add(contentListener);
+	}
+	
+	private static void fireContentLoaded()
+	{
+		for(ContentLoadedListener cll : contentLoadedListeners)
+		{
+			cll.contentLoaded(getAvailableClasses());
+		}
 	}
 }

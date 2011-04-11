@@ -1,6 +1,9 @@
 package edu.rit.se.bridgit.edit.views;
 
+import java.util.Collection;
+
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -13,10 +16,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.part.ViewPart;
 
+import edu.rit.se.bridgit.edit.content.ContentLoadedListener;
 import edu.rit.se.bridgit.edit.content.StructuredCollectionContentProvider;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
-public class TypesView extends ViewPart implements ISelectionChangedListener
+public class TypesView extends ViewPart implements ISelectionChangedListener, ContentLoadedListener
 {
 	private Composite parent;
 	private ListViewer list;
@@ -31,9 +35,11 @@ public class TypesView extends ViewPart implements ISelectionChangedListener
 		shell.setLayout(grid);
 		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
 		list = new ListViewer(parent);
-		list.setContentProvider(new StructuredCollectionContentProvider());
+		IStructuredContentProvider content = new StructuredCollectionContentProvider();
+		list.setContentProvider(content);
 		list.setInput(GraphicalModelBridgeFactory.getAvailableClasses());
 		list.addSelectionChangedListener(this);
+		GraphicalModelBridgeFactory.addContentLoadedListener(this);
 		imagePreview = new Label(parent, SWT.NO_FOCUS);
 	}
 
@@ -54,5 +60,11 @@ public class TypesView extends ViewPart implements ISelectionChangedListener
 				imagePreview.setImage(new Image(parent.getDisplay(), imagePath));
 			}
 		}
+	}
+
+	@Override
+	public void contentLoaded(Collection<?> content)
+	{
+		list.setInput(content);
 	}
 }
