@@ -43,12 +43,3 @@ public class ProgramEditorInput implements IEditorInput {
 	}
 
 }
-
-//public class ProgramEditorInput extends FileEditorInput {
-//
-//	public ProgramEditorInput(String fullPath) {
-//		super(fullPath);
-//		// TODO Auto-generated constructor stub
-//	}
-//
-//}

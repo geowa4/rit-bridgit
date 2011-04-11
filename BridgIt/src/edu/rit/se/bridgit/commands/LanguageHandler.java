@@ -5,6 +5,7 @@ import org.antlr.runtime.CharStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 
+import edu.rit.se.bridgit.edit.editors.ProgramEditor;
 import edu.rit.se.bridgit.language.CustomPseudoParser;
 import edu.rit.se.bridgit.language.PseudoLexer;
 import edu.rit.se.bridgit.language.PseudoParser;
@@ -19,7 +20,7 @@ import edu.rit.se.bridgit.language.model.exception.NameConflictException;
  * @author Bradley R. Blankenship
  *
  */
-public class LanguageHandler
+public class LanguageHandler implements Runnable
 {
 	/**
 	 * Evaluates the program.
@@ -58,5 +59,11 @@ public class LanguageHandler
 			e.printStackTrace();
 		}
 		return retVal;
+	}
+
+	@Override
+	public void run() {
+		// Call the handling function
+		evaluateProgram(ProgramEditor.m_Text.getText());
 	}
 }

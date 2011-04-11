@@ -25,10 +25,12 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditor;
 
 import edu.rit.bridgit.edit.editors.model.ProgramDocumentProvider;
+import edu.rit.bridgit.edit.editors.model.ProgramEditorInput;
 import edu.rit.bridgit.edit.editors.model.ProgramEditorModel;
 import edu.rit.se.bridgit.edit.views.ScopeView;
 import edu.rit.se.bridgit.language.PseudoParser;
@@ -60,6 +62,27 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 		this.setDocumentProvider(new ProgramDocumentProvider());
 		configureInsertMode(SMART_INSERT, false);
 	    this.enableOverwriteMode(true);
+	}
+	
+	@Override
+	public void dispose() {
+		// Base call
+		super.dispose();
+		
+		// If we're on our last editor
+		if(getSite().getPage().getEditorReferences().length <= 0)
+		{
+			// Try to open another one
+			try
+			{
+				getSite().getPage().openEditor(new ProgramEditorInput(),
+						"edu.rit.se.bridgit.edit.editors.programeditor");
+			}
+			catch (PartInitException e)
+			{
+				e.printStackTrace();
+			}
+		}		
 	}
 	
 	@Override
@@ -189,11 +212,11 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 		
 		// Create the rules for multiline comment scanning
 		documentRules[2] = new MultiLineRule("/*", "*/",
-				new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 95, 191)))), '\uFFFC', true);
+				new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 95, 191)))), (char) 0, true);
 		
 		// Create the rules for single-line comment scanning
 		documentRules[3] = new SingleLineRule("//", null,
-				new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 127, 95)))), ';', true, true);
+				new Token(new TextAttribute(new Color(Display.getCurrent(), new RGB(63, 127, 95)))), (char) 0, true, true);
 		
 		// Create the keyword evaluators for the document
 		RuleBasedScanner rulesScanner = new RuleBasedScanner();
