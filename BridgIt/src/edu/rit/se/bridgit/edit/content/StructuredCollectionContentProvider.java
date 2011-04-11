@@ -5,8 +5,7 @@ import java.util.Collection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-public class StructuredCollectionContentProvider implements
-		IStructuredContentProvider
+public class StructuredCollectionContentProvider implements IStructuredContentProvider
 {
 	@Override
 	public Object[] getElements(Object inputElement)

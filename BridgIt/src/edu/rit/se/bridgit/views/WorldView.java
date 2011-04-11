@@ -27,7 +27,7 @@ public class WorldView extends ViewPart {
         container.setLayout(new GridLayout(1, true));
         
         composite = new JMEComposite(container,
-                       GraphicalModelBridgeFactory.jme_canvas);
+                       GraphicalModelBridgeFactory.getJmeCanvas());
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
         
         GraphicalModelBridgeFactory.buildBridge("Ballerina");
