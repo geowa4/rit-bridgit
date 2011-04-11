@@ -94,7 +94,7 @@ public class ScopeView extends ViewPart
 	@Override
 	public void setFocus() 
 	{
-		varList.getControl().setFocus();
+		constList.getControl().setFocus();
 	}
 	
 	/**

@@ -4,7 +4,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.monklypse.core.JMEComposite;
@@ -17,9 +16,8 @@ public class WorldView extends ViewPart {
 	// The JME composite container to use
 	private JMEComposite composite;
 	
-	public WorldView() {
-		// TODO Auto-generated constructor stub
-	}
+	public WorldView() 
+	{}
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -30,11 +28,9 @@ public class WorldView extends ViewPart {
                        GraphicalModelBridgeFactory.getJmeCanvas());
         composite.setLayoutData(new GridData(GridData.FILL_BOTH));
         
-        GraphicalModelBridgeFactory.buildBridge("Ballerina");
-     
-         // Attempt to attach the program editor to this view
+        // Attempt to attach the program editor to this view
 		try {
-			IEditorPart editor = getSite().getPage().openEditor(new ProgramEditorInput(),
+			getSite().getPage().openEditor(new ProgramEditorInput(),
 					"edu.rit.se.bridgit.edit.editors.programeditor");
 		} catch (PartInitException e) {
 			e.printStackTrace();
