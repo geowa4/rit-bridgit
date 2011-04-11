@@ -93,6 +93,7 @@ statement returns [Evaluator eval]
   : assignment   ';' {$eval = $assignment.eval;}
   | conditional      {$eval = $conditional.eval;}
   | loop             {$eval = $loop.eval;}
+  | methodCall   ';' {$eval = $methodCall.eval;}
   | functionCall ';' {$eval = $functionCall.eval;}
   ;
 
@@ -139,6 +140,13 @@ loop returns [WhileEvaluator eval]
 functionCall returns [FunctionCallEvaluator eval]
   : IDENT {$eval = new FunctionCallEvaluator($IDENT.text);}
     '(' (arguments {$eval.setArgumentsList($arguments.eval);})? ')'
+  ;
+
+methodCall returns [MethodCallEvaluator eval]
+  : member=IDENT                           {$eval = new MethodCallEvaluator(new MemberLoadEvaluator($member.text));}
+    (
+      '.' method=IDENT '(' arguments ')'   {$eval.setMethodNameAndParameters($method.text, $arguments.eval);}
+    )
   ;
 
 newObject returns [Evaluator eval]
@@ -250,15 +258,8 @@ booleanExpression returns [Evaluator eval]
     )*
   ;
 
-methodCall returns [MethodCallEvaluator eval]
-  : booleanExpression               {$eval = new MethodCallEvaluator($booleanExpression.eval);}
-    (
-      '.' IDENT '(' arguments ')'  {$eval.setMethodNameAndParameters($IDENT.text, $arguments.eval);}
-    )?
-  ;
-
 expression returns [Evaluator eval]
-  : methodCall {$eval = $methodCall.eval;}
+  : booleanExpression {$eval = $booleanExpression.eval;}
   ;
 
 fragment LETTER : ('a'..'z' | 'A'..'Z');

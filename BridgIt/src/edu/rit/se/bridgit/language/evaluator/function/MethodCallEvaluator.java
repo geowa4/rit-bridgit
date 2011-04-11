@@ -41,8 +41,9 @@ public class MethodCallEvaluator implements Evaluator
 			try
 			{
 				bridge.sendMessage(methodName, arguments.getArgValues());
+				bridge.executeActionQueue();
 			}
-			catch (NoMethodFoundException e)
+			catch(NoMethodFoundException e)
 			{
 				log.error("Method \"" + methodName + "\" does not exist for type " + target.getPseudoType());
 			}
