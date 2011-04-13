@@ -34,6 +34,21 @@ public class VariableTest
 				scope.getVariableValue("x").getValue());
 	}
 	
+	@Test
+	public void declareAsDoulbeAssignAsInteger() 
+	throws InvalidTypeException, NameConflictException
+	{
+		Evaluator value = new IntegerEvaluator(7);
+		Evaluator evaluator = new VariableEvaluator(
+				"x", Type.DOUBLE_TYPE, value);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		assertEquals("Variable must be set to 7.0.",
+				7.0, 
+				(Double) scope.getVariableValue("x").getValue(),
+				0.01);
+	}
+	
 	@Test(expected=InvalidTypeException.class)
 	public void declareWithInvalidInitialization() 
 	throws InvalidTypeException, NameConflictException

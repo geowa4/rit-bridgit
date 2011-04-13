@@ -1,5 +1,6 @@
 package edu.rit.se.bridgit.language.evaluator;
 
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.exception.NameConflictException;
@@ -23,11 +24,13 @@ public class ConstantEvaluator implements Evaluator
 	{
 		if(value == null)
 			throw new InvalidTypeException(null, "Constant Assignment to null");
-		Type ret = value.evaluate(scope);
-		validateType(ret);
-		ret.setPseudoType(pseudoType);
-		scope.addConstant(name, ret);
-		return ret;
+		Type eval = value.evaluate(scope);
+		if(pseudoType.equals(Type.DOUBLE_TYPE) && eval.getPseudoType().equals(Type.INTEGER_TYPE))
+			eval = ((IntegerType) eval).convertToDoubleType();
+		validateType(eval);
+		eval.setPseudoType(pseudoType);
+		scope.addConstant(name, eval);
+		return eval;
 	}
 
 	@Override

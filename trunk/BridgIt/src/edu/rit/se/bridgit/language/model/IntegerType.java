@@ -139,4 +139,9 @@ public class IntegerType extends Type
 	{
 		throw new InvalidTypeException("Integer cannot be used as a term in Boolean operation.");
 	}
+
+	public Type convertToDoubleType() throws InvalidTypeException
+	{
+		return new DoubleType(value.doubleValue());
+	}
 }
