@@ -1,6 +1,7 @@
 package edu.rit.se.bridgit.language.evaluator;
 
 import edu.rit.se.bridgit.language.model.EmptyType;
+import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
@@ -45,6 +46,8 @@ public class VariableEvaluator implements Evaluator
 		{
 			Type eval = value.evaluate(scope);
 			if(eval.getPseudoType().equals(Type.NULL_TYPE)) eval.setPseudoType(pseudoType);
+			if(pseudoType.equals(Type.DOUBLE_TYPE) && eval.getPseudoType().equals(Type.INTEGER_TYPE))
+				eval = ((IntegerType) eval).convertToDoubleType();
 			validateType(eval);
 			if(!isAssignment)
 			{

@@ -25,10 +25,10 @@ public class LenFunction extends Function
 		ParameterList params = new ParameterListEvaluator();
 		params.addParam(new ParameterEvaluator(parameterName, Type.ANY_TYPE));
 		setParameters(params);
-		setReturnValue(new TypeOfReturn());
+		setReturnValue(new LenReturn());
 	}
 	
-	private class TypeOfReturn implements Evaluator
+	private class LenReturn implements Evaluator
 	{
 		@SuppressWarnings("unchecked")
 		@Override
