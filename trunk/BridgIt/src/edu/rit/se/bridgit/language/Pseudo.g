@@ -46,7 +46,7 @@ constant returns [Evaluator eval]
   ;
 
 variable returns [Evaluator eval]
-  : 'variable'IDENT ':' type ('=' expression)? ';'
+  : 'variable' IDENT ':' type ('=' expression)? ';'
     {$eval = new VariableEvaluator($IDENT.text, $type.text, $expression.eval);}
   ;
 
@@ -90,8 +90,8 @@ parameter returns [ParameterEvaluator eval]
   ; 
 
 simpleStatement returns [Evaluator eval]
-  : expression       {$eval = $expression.eval;}
-  | assignment       {$eval = $assignment.eval;}
+  : expression  ';'  {$eval = $expression.eval;}
+  | assignment  ';'  {$eval = $assignment.eval;}
   | conditional      {$eval = $conditional.eval;}
   | loop             {$eval = $loop.eval;}
   ;
@@ -100,13 +100,12 @@ complexStatement returns [MethodCallEvaluator eval]
   : stmt=simpleStatement               {$eval = new MethodCallEvaluator($stmt.eval);}
    (
      '.' IDENT {$eval.setMethodName($IDENT.text);} 
-     '(' (arguments {$eval.setArguments($arguments.eval);})? ')' 
+     '(' (arguments {$eval.setArguments($arguments.eval);})? ')' ';'
    )?
   ;
 
 statement returns [Evaluator eval]
   : complexStatement {$eval = $complexStatement.eval;}
-   ';'
   ;
 
 assignment returns [Evaluator eval]
@@ -121,7 +120,6 @@ conditional returns [IfEvaluator eval]
          ifStmt=statement             {if_block.add($ifStmt.eval);}
        )+ 
        '}'                            {$eval.addConditional($ifExp.eval, if_block);}
-    
     ('else' 'if' elseIfExp=expression 
        '{'                            {BlockEvaluator else_if_block = new BlockEvaluator();}
        (
@@ -278,7 +276,7 @@ STRING_LITERAL
   ;
 INTEGER : DIGIT+;
 DOUBLE: DIGIT+ '\.' DIGIT+;
-IDENT : LETTER(LETTER | DIGIT)*;
+IDENT : LETTER(LETTER | DIGIT | '_')*;
 WS : (' ' | '\t' | '\n' | '\r' | '\f')+ {$channel = HIDDEN;};
 COMMENT : '//' .* ('\r' | '\n')         {$channel = HIDDEN;};
 MULTILINE_COMMENT : '/*' .* '*/'        {$channel = HIDDEN;};
