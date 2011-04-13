@@ -29,6 +29,21 @@ public class ConstantTest
 				scope.getConstantValue("x").getValue());
 	}
 	
+	@Test
+	public void declarationAsDoubleAssignAsInteger() 
+	throws InvalidTypeException, NameConflictException
+	{
+		Evaluator value = new IntegerEvaluator(7);
+		Evaluator evaluator = new ConstantEvaluator(
+				"x", Type.DOUBLE_TYPE, value);
+		Scope scope = new Scope(null);
+		evaluator.evaluate(scope);
+		assertEquals("Constant must be set to 7.0.",
+				7.0, 
+				(Double) scope.getConstantValue("x").getValue(),
+				0.01);
+	}
+	
 	@Test(expected=InvalidTypeException.class)
 	public void declareWithInvalidInitialization() 
 	throws InvalidTypeException, NameConflictException
