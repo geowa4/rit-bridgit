@@ -33,7 +33,11 @@ public class PrintlnFunction extends Function
 		public Type evaluate(Scope scope) throws InvalidTypeException,
 				NameConflictException
 		{
-			System.out.println(scope.getVariableValue(parameterName));
+			Type value = scope.getVariableValue(parameterName);
+			if(value.getPseudoType().equals(Type.STRING_TYPE))
+				System.out.println(value.getValue());
+			else
+				System.out.println(value);
 			return new VoidType();
 		}
 
