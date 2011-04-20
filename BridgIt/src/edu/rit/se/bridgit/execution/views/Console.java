@@ -11,14 +11,11 @@ import org.eclipse.ui.part.ViewPart;
 public class Console extends ViewPart
 {
 	// The text variables for the text value
-	Label consoleLabel;
-	Text consoleField;
-
-	public Console()
-	{
-		// TODO Auto-generated constructor stub
-	}
-
+	private Label consoleLabel;
+	private Text consoleField;
+	private InputHandler inputHandler;
+	private boolean receiveInput;
+	
 	@Override
 	public void createPartControl(Composite parent)
 	{
@@ -34,6 +31,7 @@ public class Console extends ViewPart
 		// Add a text field for entering console commands
 		consoleField = new Text(parent, SWT.SINGLE | SWT.LEFT | SWT.BORDER_SOLID | SWT.BORDER | SWT.BOLD);
 		consoleField.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false, 1, 1));
+		consoleField.setEnabled(false);
 		
 		// Set the layout data
 		parent.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, true, 1, 2));
@@ -42,8 +40,25 @@ public class Console extends ViewPart
 	@Override
 	public void setFocus()
 	{
-		// Set focus to the console field
-		consoleField.setFocus();
+		if(receiveInput) 
+		{
+			consoleField.setEnabled(true);
+			consoleField.setFocus();
+		}
 	}
 
+	public void receiveInput()
+	{
+		receiveInput = true;
+		setFocus();
+		inputHandler = new InputHandler(consoleField);
+	}
+	
+	public void ignoreInput()
+	{
+		receiveInput = false;
+		consoleField.setEnabled(false);
+		inputHandler.detach();
+		inputHandler = null;
+	}
 }
