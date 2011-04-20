@@ -40,7 +40,7 @@ public class LanguageHandler implements Runnable
 		try
 		{
 			result = parser.application();
-			retVal = new String("" + result.evaluate(null));
+			retVal = result.evaluate(null).toString();
 		}
 		catch (RecognitionException e)
 		{
