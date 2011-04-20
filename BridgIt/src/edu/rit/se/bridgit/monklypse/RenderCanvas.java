@@ -12,6 +12,7 @@ import com.jme.input.KeyInput;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.scene.Node;
+import com.jme.scene.TriMesh;
 import com.jmex.swt.input.SWTKeyInput;
 import com.jmex.swt.input.SWTMouseInput;
 
@@ -185,11 +186,11 @@ public class RenderCanvas extends SWTDefaultImplementor {
 
         }
         
-        public void addNode(Node in_model)
+        public void addNode(TriMesh triMesh)
         {
         	 
              if(rootNode != null)
-            	 rootNode.attachChild(in_model);
+            	 rootNode.attachChild(triMesh);
         }
 
         /* (non-Javadoc)

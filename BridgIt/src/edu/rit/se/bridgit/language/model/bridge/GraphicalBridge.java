@@ -8,6 +8,7 @@ import com.jme.bounding.BoundingBox;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Renderer;
 import com.jme.scene.Node;
+import com.jme.scene.TriMesh;
 
 import edu.rit.se.bridgit.language.model.Type;
 
@@ -16,9 +17,9 @@ public class GraphicalBridge
 	String pseudoType;
 	List<String> availableMethods;
 	Queue<Command> actionQueue;
-	Node render_node;
+	TriMesh render_node;
 	
-	public GraphicalBridge(String pseudoType, List<String> methods, Queue<Command> actionQueue, Node in_render_node)
+	public GraphicalBridge(String pseudoType, List<String> methods, Queue<Command> actionQueue, TriMesh in_render_node)
 	{
 		this.pseudoType = pseudoType;
 		this.availableMethods = methods;
@@ -32,7 +33,7 @@ public class GraphicalBridge
         render_node.setRenderQueueMode(Renderer.QUEUE_OPAQUE);
 	}
 	
-	public GraphicalBridge(String pseudoType, List<String> methods, Node in_render_node)
+	public GraphicalBridge(String pseudoType, List<String> methods, TriMesh in_render_node)
 	{
 		this(pseudoType, methods, new LinkedList<Command>(), in_render_node);
 	}
@@ -42,6 +43,7 @@ public class GraphicalBridge
 		this(other.pseudoType, other.availableMethods, other.actionQueue, other.render_node);
 	}
 	
+
 	public Object sendMessage(String methodName, List<Type> arguments) throws NoMethodFoundException
 	{
 		Command com = new Command(methodName, arguments);
@@ -68,7 +70,7 @@ public class GraphicalBridge
 		return "/Users/student/Desktop/BridgIt_Project/BridgIt/BridgIt/icons/alt_about.gif";
 	}
 	
-	public Node getGeometry()
+	public TriMesh getGeometry()
 	{
 		return render_node;
 	}
