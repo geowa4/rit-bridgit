@@ -10,6 +10,7 @@ import edu.rit.se.bridgit.language.CustomPseudoParser;
 import edu.rit.se.bridgit.language.PseudoLexer;
 import edu.rit.se.bridgit.language.PseudoParser;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
+import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
@@ -31,16 +32,16 @@ public class LanguageHandler implements Runnable
 	 */
 	public static String evaluateProgram(String program)
 	{
-		String retVal = null;
 		CharStream stream = new ANTLRStringStream(program);
 		PseudoLexer lexer = new PseudoLexer(stream);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		PseudoParser parser = new CustomPseudoParser(tokens);
-		Evaluator result;
+		Evaluator application;
+		Type appReturn = null;
 		try
 		{
-			result = parser.application();
-			retVal = result.evaluate(null).toString();
+			application = parser.application();
+			appReturn = application.evaluate(null);
 		}
 		catch (RecognitionException e)
 		{
@@ -58,7 +59,7 @@ public class LanguageHandler implements Runnable
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return retVal;
+		return appReturn != null ? appReturn.toString() : "";
 	}
 
 	@Override

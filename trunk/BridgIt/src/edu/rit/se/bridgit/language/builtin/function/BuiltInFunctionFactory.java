@@ -24,6 +24,7 @@ public class BuiltInFunctionFactory
 		functions.add(new TypeOfFunction());
 		functions.add(new LenFunction());
 		functions.add(new PowFunction());
+		functions.add(new InputFunction());
 	}
 	
 	public static List<Function> getFunctions()
