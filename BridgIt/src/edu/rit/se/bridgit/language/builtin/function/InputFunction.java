@@ -1,6 +1,5 @@
 package edu.rit.se.bridgit.language.builtin.function;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -18,7 +17,6 @@ import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 public class InputFunction extends Function
 {
-	private static final Logger log = Logger.getLogger(InputFunction.class);
 	public static final String functionName = "input";
 	private static final String parameterName = "prompt";
 
