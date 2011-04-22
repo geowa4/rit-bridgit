@@ -43,7 +43,6 @@ public class InputFunction extends Function
 					scope.getVariableValue(parameterName).getValue().toString(), "", null);
 			dialog.open();
 			String value = dialog.getValue() == null ? "" : dialog.getValue();
-			log.info("You typed: " + value);
 			return new StringType(value);
 		}
 
