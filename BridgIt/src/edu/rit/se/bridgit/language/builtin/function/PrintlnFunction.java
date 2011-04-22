@@ -1,5 +1,7 @@
 package edu.rit.se.bridgit.language.builtin.function;
 
+import org.apache.log4j.Logger;
+
 import edu.rit.se.bridgit.language.evaluator.Block;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
@@ -14,6 +16,7 @@ import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
 public class PrintlnFunction extends Function
 {
+	private static final Logger log = Logger.getLogger(PrintlnFunction.class); 
 	private static final String parameterName = "object";
 	public static final String functionName = "println";
 	
@@ -35,9 +38,9 @@ public class PrintlnFunction extends Function
 		{
 			Type value = scope.getVariableValue(parameterName);
 			if(value.getPseudoType().equals(Type.STRING_TYPE))
-				System.out.println(value.getValue());
+				log.info(value.getValue() + "\n");
 			else
-				System.out.println(value);
+				log.info(value + "\n");
 			return new VoidType();
 		}
 

@@ -33,7 +33,7 @@ public class TypesView extends ViewPart implements ISelectionChangedListener, Co
 		GridLayout grid = new GridLayout(2, true);
 		Shell shell = new Shell(parent.getDisplay());
 		shell.setLayout(grid);
-		parent.setLayoutData(new GridData(GridData.FILL_BOTH));
+		parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		list = new ListViewer(parent);
 		IStructuredContentProvider content = new StructuredCollectionContentProvider();
 		list.setContentProvider(content);
