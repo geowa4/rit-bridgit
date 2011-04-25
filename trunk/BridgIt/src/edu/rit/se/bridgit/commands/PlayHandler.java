@@ -8,6 +8,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+import edu.rit.se.bridgit.execution.views.Console;
+
 public class PlayHandler extends AbstractHandler
 {
 	// The ID of the play perspective
@@ -29,6 +31,9 @@ public class PlayHandler extends AbstractHandler
 			{
 				workbenchWindow.getWorkbench().showPerspective(EXECUTION_PERSPECTIVE_ID, workbenchWindow);
 				workbenchWindow.getWorkbench().getDisplay().asyncExec(new LanguageHandler());
+				Console console = (Console) workbenchWindow.getActivePage().findView(Console.class.getName());
+				console.clear();
+				console.setFocus();
 			} catch (WorkbenchException e)
 			{
 				e.printStackTrace();
@@ -45,7 +50,6 @@ public class PlayHandler extends AbstractHandler
 				e.printStackTrace();
 			}
 		}
-		
 		return null;
 	}
 }
