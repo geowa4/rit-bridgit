@@ -23,11 +23,6 @@ public class Console extends ViewPart
 		parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 	}
 	
-	public Text getConsoleText()
-	{
-		return consoleText;
-	}
-	
 	public void append(String text)
 	{
 		consoleText.append(text);
