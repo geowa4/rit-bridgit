@@ -86,7 +86,8 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 	}
 	
 	@Override
-	protected boolean isLineNumberRulerVisible() {
+	protected boolean isLineNumberRulerVisible() 
+	{
 	     return true;
 	 }
 	

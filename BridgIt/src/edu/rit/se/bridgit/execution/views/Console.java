@@ -38,4 +38,9 @@ public class Console extends ViewPart
 	{
 		consoleText.setFocus();
 	}
+
+	public void clear()
+	{
+		consoleText.setText("");
+	}
 }
