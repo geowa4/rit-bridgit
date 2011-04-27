@@ -95,17 +95,9 @@ simpleStatement returns [Evaluator eval]
   | conditional      {$eval = $conditional.eval;}
   | loop             {$eval = $loop.eval;}
   ;
-  
-complexStatement returns [MethodCallEvaluator eval]
-  : stmt=simpleStatement               {$eval = new MethodCallEvaluator($stmt.eval);}
-   (
-     '.' IDENT {$eval.setMethodName($IDENT.text);} 
-     '(' (arguments {$eval.setArguments($arguments.eval);})? ')' ';'
-   )?
-  ;
 
 statement returns [Evaluator eval]
-  : complexStatement {$eval = $complexStatement.eval;}
+  : simpleStatement {$eval = $simpleStatement.eval;}
   ;
 
 assignment returns [Evaluator eval]
@@ -207,10 +199,22 @@ indexedAccess returns [IndexedAccessEvaluator eval]
     )?
   ;
 
+methodCall returns [MethodCallEvaluator eval]
+  : indexedAccess   {$eval = new MethodCallEvaluator($indexedAccess.eval);}
+   (
+     '.' IDENT      {$eval.setMethodName($IDENT.text);} 
+     '(' 
+        (
+          arguments {$eval.setArguments($arguments.eval);}
+        )? 
+     ')'
+   )?
+  ;
+
 negation returns [Evaluator eval]
   : {boolean negated = false;}
     ('not' {negated = !negated;})* 
-    indexedAccess {$eval = $indexedAccess.eval;}
+    methodCall {$eval = $methodCall.eval;}
     {if(negated) $eval = new NegationEvaluator($eval);}
   ;
 
