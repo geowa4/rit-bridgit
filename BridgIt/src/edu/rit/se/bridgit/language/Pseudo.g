@@ -193,16 +193,16 @@ list returns[ListEvaluator eval]
   ;
 
 term returns [Evaluator eval]
-  : STRING_LITERAL           {$eval = new StringEvaluator($STRING_LITERAL.text);}
+  : '(' expression ')'       {$eval = $expression.eval;} 
   | IDENT                    {$eval = new MemberLoadEvaluator($IDENT.text);}
-  | '(' expression ')'       {$eval = $expression.eval;}
+  | STRING_LITERAL           {$eval = new StringEvaluator($STRING_LITERAL.text);}
   | INTEGER                  {$eval = new IntegerEvaluator(Integer.parseInt($INTEGER.text));}
   | DOUBLE                   {$eval = new DoubleEvaluator(Double.parseDouble($DOUBLE.text));}
   | bool                     {$eval = $bool.eval;}
-  | functionCall             {$eval = $functionCall.eval;}
-  | newObject                {$eval = $newObject.eval;}
   | list                     {$eval = $list.eval;}
   | 'Null'                   {$eval = new NullEvaluator();}
+  | functionCall             {$eval = $functionCall.eval;}
+  | newObject                {$eval = $newObject.eval;}
   ;
   
 indexedAccess returns [IndexedAccessEvaluator eval]
@@ -214,14 +214,14 @@ indexedAccess returns [IndexedAccessEvaluator eval]
 
 methodCall returns [MethodCallEvaluator eval]
   : indexedAccess   {$eval = new MethodCallEvaluator($indexedAccess.eval);}
-   (
-     '.' IDENT      {$eval.setMethodName($IDENT.text);} 
-     '(' 
-        (
-          arguments {$eval.setArguments($arguments.eval);}
-        )? 
-     ')'
-   )?
+    (
+      '.' IDENT      {$eval.setMethodName($IDENT.text);} 
+      '(' 
+         (
+           arguments {$eval.setArguments($arguments.eval);}
+         )? 
+      ')'
+    )?
   ;
 
 negation returns [Evaluator eval]
@@ -271,15 +271,11 @@ relation returns [Evaluator eval]
     )*
   ;
   
-booleanExpression returns [Evaluator eval]
+expression returns [Evaluator eval]
   : op1=relation         {$eval = $op1.eval;}
     ( 'and' op2=relation {$eval = new AndEvaluator($eval, $op2.eval);}
     | 'or'  op2=relation {$eval = new OrEvaluator($eval, $op2.eval);}
     )*
-  ;
-
-expression returns [Evaluator eval]
-  : booleanExpression {$eval = $booleanExpression.eval;}
   ;
 
 fragment LETTER : ('a'..'z' | 'A'..'Z');

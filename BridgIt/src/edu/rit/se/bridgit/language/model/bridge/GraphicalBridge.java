@@ -13,10 +13,10 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class GraphicalBridge
 {
-	String pseudoType;
-	List<String> availableMethods;
+	private String pseudoType;
+	private List<String> availableMethods;
 	
-	TriMesh render_node;
+	private TriMesh render_node;
 
 	
 	public GraphicalBridge(String pseudoType, List<String> methods, TriMesh in_render_node)
