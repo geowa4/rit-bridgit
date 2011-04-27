@@ -39,7 +39,7 @@ public class GraphicalBridge
 	}
 	
 
-	public Object sendMessage(String methodName, List<Type> arguments, int pseudo_type) throws NoMethodFoundException
+	public Object sendMessage(String methodName, List<Type> arguments, int pseudo_thread) throws NoMethodFoundException
 	{
 		Command com;
 		com = new Command(methodName, arguments);
