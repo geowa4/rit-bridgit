@@ -1,21 +1,21 @@
 package edu.rit.se.bridgit.execution.views;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
 public class Console extends ViewPart
 {
-	private Text consoleText;
+	private StyledText consoleText;
 	
 	@Override
 	public void createPartControl(Composite parent)
 	{
-		consoleText = new Text(parent, SWT.MULTI | SWT.LEFT | SWT.READ_ONLY);
+		consoleText = new StyledText(parent, SWT.MULTI | SWT.LEFT | SWT.READ_ONLY);
 		
 		GridLayout grid = new GridLayout(1, true);
 		Shell shell = new Shell(parent.getDisplay());

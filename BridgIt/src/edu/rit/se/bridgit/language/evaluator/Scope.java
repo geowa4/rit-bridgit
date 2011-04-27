@@ -139,6 +139,16 @@ public class Scope
 			return null;
 	}
 	
+	public Type removeVariable(String name)
+	{
+		if(variables.containsKey(name))
+			return variables.remove(name);
+		else if(parent != null)
+			return parent.removeVariable(name);
+		else
+			return null;
+	}
+	
 	public Type getFunctionValue(String name) throws InvalidTypeException 
 	{
 		if(functions.containsKey(name))

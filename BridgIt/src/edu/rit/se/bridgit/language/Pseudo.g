@@ -28,9 +28,9 @@ application returns [Block eval]
 
 setup returns [Block eval] 
   : 'setup' '{' {$eval = new BlockEvaluator(false);}
-      ( constant {$eval.add($constant.eval);} )*     
-      ( variable {$eval.add($variable.eval);} )*
-      ( function {$eval.add($function.eval);} )*
+      (constant {$eval.add($constant.eval);})*     
+      (variable {$eval.add($variable.eval);})*
+      (function {$eval.add($function.eval);})*
     '}'
   ;
 
@@ -96,8 +96,21 @@ simpleStatement returns [Evaluator eval]
   | loop             {$eval = $loop.eval;}
   ;
 
+parallelStatement returns [BlockEvaluator eval]
+  : 'parallel' '{'      {$eval = new ParallelBlockEvaluator();}
+      (
+        simpleStatement {$eval.add($simpleStatement.eval);}
+      )*
+    '}'
+  ;
+
 statement returns [Evaluator eval]
-  : simpleStatement {$eval = $simpleStatement.eval;}
+  : 
+    (
+      simpleStatement   {$eval = $simpleStatement.eval;}
+      |
+      parallelStatement {$eval = $parallelStatement.eval;}
+    )
   ;
 
 assignment returns [Evaluator eval]
