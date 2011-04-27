@@ -6,8 +6,8 @@ import edu.rit.se.bridgit.language.model.Type;
 
 public class Command {
 
-	private String methodName;
-	private List<Type> arguments;
+	protected String methodName;
+	protected List<Type> arguments;
 	
 	public Command(String methodName, List<Type> arguments)
 	{

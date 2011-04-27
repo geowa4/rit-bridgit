@@ -14,8 +14,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Vector;
 
 import com.jme.bounding.BoundingBox;
@@ -49,17 +51,48 @@ public class GraphicalModelBridgeFactory
 	private static HashMap<String, GraphicalBridge> availableclasses = 
 		new HashMap<String, GraphicalBridge>();
 	
-	private static HashMap<String, Vector<GraphicalBridge>> currentinstances = 
-		new HashMap<String, Vector<GraphicalBridge>>();
+	private static HashMap<String, LinkedList<GraphicalBridge>> currentinstances = 
+		new HashMap<String, LinkedList<GraphicalBridge>>();
 
 	private static RenderCanvas jmeCanvas = new RenderCanvas();
 	
+	private static LinkedList<CommandPair> curCommands = new LinkedList<CommandPair>();
+	
+	private static Vector<Queue<CommandPair>> actionQueue = new Vector<Queue<CommandPair>>();
+	
 	static final FormatConverter CONVERTER_3DS = new MaxToJme();
 
+	enum CommandType
+	{
+		Standard, MoveOverTime
+	};
+	
+	private static HashMap<String, CommandType> commandMap = new HashMap<String, CommandType>();
 	
 	public static RenderCanvas getJmeCanvas()
 	{
 		return jmeCanvas;
+	}
+	
+	public static void addAction(Command in_command, GraphicalBridge in_bridge, int pseudoThread)
+	{
+		while(actionQueue.size() - 1 < pseudoThread)
+		{
+			actionQueue.add(new LinkedList<CommandPair>());
+		}
+		actionQueue.get(pseudoThread).add(new CommandPair(in_command, in_bridge));
+	}
+	
+	public static void update(double delta)
+	{
+		for(int i = 0; i < actionQueue.size(); i++)
+		{
+			CommandPair curPair = actionQueue.get(i).peek();
+			if(!curPair.graphicalBridge.executeAction(curPair.command, delta))
+			{
+				actionQueue.get(i).poll();
+			}
+		}
 	}
 
 	public static GraphicalBridge buildBridge(String pseudoType)
@@ -70,7 +103,7 @@ public class GraphicalModelBridgeFactory
 			
 			if(!currentinstances.containsKey(pseudoType))
 			{
-				currentinstances.put(pseudoType, new Vector<GraphicalBridge>());
+				currentinstances.put(pseudoType, new LinkedList<GraphicalBridge>());
 			}
 			currentinstances.get(pseudoType).add(returnval);
 			
@@ -94,6 +127,9 @@ public class GraphicalModelBridgeFactory
 			throw new FileNotFoundException("Content Directory could not be found:\nShould be located at:\n" + content_folder);
 		}
 		fireContentLoaded();
+		
+		//load the command types
+		
 	}
 	
 	private static void loadModels(File in_current_folder)
@@ -113,11 +149,23 @@ public class GraphicalModelBridgeFactory
 						methods.add("setTranslation");
 						methods.add("offsetTranslation");
 						methods.add("setScale");
+						methods.add("moveOverTime");
+						methods.add("scaleOvertime");
+						methods.add("remove");
 						availableclasses.put(class_name, new GraphicalBridge(class_name, methods, loadObjModel(list_of_files[i])));
 					}
-					if(name.contains(".dae"))
+					if(name.contains(".3ds"))
 					{
-						
+						String class_name = name.substring(0,name.indexOf('.'));
+						List<String> methods = new LinkedList<String>();
+						methods.add("setTranslation");
+						methods.add("offsetTranslation");
+						methods.add("setScale");
+						methods.add("moveOverTime");
+						methods.add("scaleOverTime");
+						methods.add("remove");
+						//availableclasses.put(class_name, new GraphicalBridge(class_name, methods,
+							//	load3dsModel(list_of_files[i].getAbsolutePath(), list_of_files[i].getAbsolutePath())));
 					}
 				}
 				else if(list_of_files[i].isDirectory())

@@ -45,7 +45,6 @@ public class MethodCallEvaluator implements Evaluator
 			try
 			{
 				bridge.sendMessage(methodName, arguments.getArgValues());
-				bridge.executeActionQueue();
 			}
 			catch(NoMethodFoundException e)
 			{

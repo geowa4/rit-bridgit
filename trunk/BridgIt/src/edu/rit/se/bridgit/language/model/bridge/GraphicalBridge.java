@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Queue;
 
 import com.jme.bounding.BoundingBox;
+import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Renderer;
 import com.jme.scene.Node;
@@ -12,18 +13,19 @@ import com.jme.scene.TriMesh;
 
 import edu.rit.se.bridgit.language.model.Type;
 
+
 public class GraphicalBridge
 {
 	String pseudoType;
 	List<String> availableMethods;
-	Queue<Command> actionQueue;
-	TriMesh render_node;
 	
-	public GraphicalBridge(String pseudoType, List<String> methods, Queue<Command> actionQueue, TriMesh in_render_node)
+	TriMesh render_node;
+
+	
+	public GraphicalBridge(String pseudoType, List<String> methods, TriMesh in_render_node)
 	{
 		this.pseudoType = pseudoType;
 		this.availableMethods = methods;
-		this.actionQueue = actionQueue;
 
         render_node = in_render_node;
         
@@ -33,26 +35,23 @@ public class GraphicalBridge
         render_node.setRenderQueueMode(Renderer.QUEUE_OPAQUE);
 	}
 	
-	public GraphicalBridge(String pseudoType, List<String> methods, TriMesh in_render_node)
-	{
-		this(pseudoType, methods, new LinkedList<Command>(), in_render_node);
-	}
 	
 	public GraphicalBridge(GraphicalBridge other) 
 	{
-		this(other.pseudoType, other.availableMethods, other.actionQueue, other.render_node);
+		this(other.pseudoType, other.availableMethods, other.render_node);
 	}
 	
 
 	public Object sendMessage(String methodName, List<Type> arguments) throws NoMethodFoundException
 	{
-		Command com = new Command(methodName, arguments);
+		Command com;
+		com = new Command(methodName, arguments);
 		if(!availableMethods.contains(com.getMethodName()))
 		{
 			throw new NoMethodFoundException(pseudoType, com.getMethodName());
 		}
-		actionQueue.add(com); //TODO: this should add something real
-		return new Boolean(true); //TODO: must return something real
+		GraphicalModelBridgeFactory.addAction(com, this, 0);
+		return new Boolean(true);
 	}
 	
 	public List<String> getAvailableMethods()
@@ -75,28 +74,88 @@ public class GraphicalBridge
 		return render_node;
 	}
 	
-	public void executeActionQueue()
+	public void update(float tps)
 	{
-		while(actionQueue.size() > 0)
+		
+	}
+	
+	public boolean executeAction(Command in_action, double delta)
+	{
+		
+		Command curCommand = in_action;
+		if(curCommand.getMethodName().equals("setTranslation"))
 		{
-			Command curCommand = actionQueue.poll();
-			if(curCommand.getMethodName().equals("setTranslation"))
-			{
-				this.render_node.setLocalTranslation(Float.parseFloat(curCommand.getArguments().get(0).toString()),
-						Float.parseFloat(curCommand.getArguments().get(1).toString()),
-						Float.parseFloat(curCommand.getArguments().get(2).toString()));
-			}
-			else if(curCommand.getMethodName().equals("offsetTranslation"))
-			{
-				Vector3f oldTranslation = this.render_node.getLocalTranslation();
-				this.render_node.setLocalTranslation(oldTranslation.x + Float.parseFloat(curCommand.getArguments().get(0).toString()),
-						oldTranslation.y + Float.parseFloat(curCommand.getArguments().get(1).toString()),
-						oldTranslation.z + Float.parseFloat(curCommand.getArguments().get(2).toString()));
-			}
-			else if(curCommand.getMethodName().equals("setScale"))
-			{
-				this.render_node.setLocalScale(Float.parseFloat(curCommand.getArguments().get(0).toString()));
-			}
+			this.render_node.setLocalTranslation(Float.parseFloat(curCommand.getArguments().get(0).toString()),
+					Float.parseFloat(curCommand.getArguments().get(1).toString()),
+					Float.parseFloat(curCommand.getArguments().get(2).toString()));
+			return true;
 		}
+		else if(curCommand.getMethodName().equals("offsetTranslation"))
+		{
+			Vector3f oldTranslation = this.render_node.getLocalTranslation();
+			this.render_node.setLocalTranslation(oldTranslation.x + Float.parseFloat(curCommand.getArguments().get(0).toString()),
+					oldTranslation.y + Float.parseFloat(curCommand.getArguments().get(1).toString()),
+					oldTranslation.z + Float.parseFloat(curCommand.getArguments().get(2).toString()));
+			return true;
+		}
+		else if(curCommand.getMethodName().equals("setScale"))
+		{
+			this.render_node.setLocalScale(Float.parseFloat(curCommand.getArguments().get(0).toString()));
+			return true;
+		}
+		else if(curCommand.getMethodName().equals("setRotation"))
+		{
+			Quaternion q = new Quaternion();
+			q.fromAngles(Float.parseFloat(curCommand.getArguments().get(0).toString()),
+					Float.parseFloat(curCommand.getArguments().get(1).toString()),
+					Float.parseFloat(curCommand.getArguments().get(2).toString()));
+			this.render_node.setLocalRotation(q);
+		}
+		else if(curCommand.getMethodName().equals("moveOverTime"))
+		{
+			MoveOverTimeCommand motc = (MoveOverTimeCommand)curCommand;
+			if(!motc.initialized())
+			{
+				motc.setTime(Float.parseFloat(motc.getArguments().get(3).toString()));
+				motc.setInitialPosition(this.render_node.getLocalTranslation());
+			}
+			
+			this.render_node.setLocalTranslation(motc.startPos.add(motc.update(delta)));
+			
+			return motc.finished();
+		}
+		else if(curCommand.getMethodName().equals("scaleOverTime"))
+		{
+			MoveOverTimeCommand motc = (MoveOverTimeCommand)curCommand;
+			if(!motc.initialized())
+			{
+				motc.setTime(Float.parseFloat(motc.getArguments().get(3).toString()));
+			}
+			
+			this.render_node.setLocalScale(motc.startPos.add(motc.update(delta)));
+			
+			return motc.finished();
+		}
+		else if(curCommand.getMethodName().equals("rotateOverTime"))
+		{
+			MoveOverTimeCommand motc = (MoveOverTimeCommand)curCommand;
+			if(!motc.initialized())
+			{
+				motc.setTime(Float.parseFloat(motc.getArguments().get(3).toString()));
+			}
+			
+			Quaternion q = new Quaternion();
+			Vector3f ypr = motc.update(delta);
+			q.fromAngles(ypr.x, ypr.y, ypr.z);
+			this.render_node.setLocalRotation(q);
+			
+			return motc.finished();
+		}
+		else if(curCommand.getMethodName().equals("remove"))
+		{
+			this.render_node.removeFromParent();
+		}
+		
+		return false;
 	}
 }
