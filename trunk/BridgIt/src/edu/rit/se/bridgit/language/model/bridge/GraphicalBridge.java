@@ -39,7 +39,7 @@ public class GraphicalBridge
 	}
 	
 
-	public Object sendMessage(String methodName, List<Type> arguments) throws NoMethodFoundException
+	public Object sendMessage(String methodName, List<Type> arguments, int pseudo_type) throws NoMethodFoundException
 	{
 		Command com;
 		com = new Command(methodName, arguments);
@@ -49,6 +49,11 @@ public class GraphicalBridge
 		}
 		GraphicalModelBridgeFactory.addAction(com, this, 0);
 		return new Boolean(true);
+	}
+	
+	public Object sendMessage(String methodName, List<Type> arguments) throws NoMethodFoundException
+	{
+		return sendMessage(methodName,arguments,0);
 	}
 	
 	public List<String> getAvailableMethods()
