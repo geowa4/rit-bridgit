@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -22,18 +21,8 @@ import java.util.Vector;
 
 import com.jme.bounding.BoundingBox;
 import com.jme.bounding.BoundingSphere;
-import com.jme.light.PointLight;
-import com.jme.math.Vector3f;
-import com.jme.renderer.ColorRGBA;
-import com.jme.scene.Node;
 import com.jme.scene.Spatial;
 import com.jme.scene.TriMesh;
-import com.jme.scene.shape.Box;
-import com.jme.scene.shape.Sphere;
-import com.jme.scene.state.LightState;
-import com.jme.scene.state.MaterialState;
-import com.jme.system.DisplaySystem;
-import com.jme.util.export.Savable;
 import com.jme.util.export.binary.BinaryImporter;
 import com.jme.util.resource.ResourceLocatorTool;
 import com.jme.util.resource.SimpleResourceLocator;
@@ -286,7 +275,7 @@ public class GraphicalModelBridgeFactory
 	
 	public static void addPossibleClass(GraphicalBridge gb)
 	{
-		availableclasses.put(gb.pseudoType, gb);
+		availableclasses.put(gb.getPseudoType(), gb);
 	}
 	
 	public static int getNumberInstances(String inpseudoType)
