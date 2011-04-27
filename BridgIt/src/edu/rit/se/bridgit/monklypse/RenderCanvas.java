@@ -24,14 +24,16 @@ public class RenderCanvas extends SWTDefaultImplementor {
 
         private Vector3f axis;
         //private Box box;
-        long startTime = 0;
+        double startTime = 0;
         long fps = 0;
+        double prevTime = 0;
+        
         private InputHandler input;
         //private List<Updatable> updatables = new ArrayList<Updatable>();
 
         public RenderCanvas() {
                 super(640, 480);
-                
+                prevTime = 0;
         }
 
         public void simpleSetup() {
@@ -128,7 +130,7 @@ public class RenderCanvas extends SWTDefaultImplementor {
 //        		
 //        		test.executeActionQueue();
         		
-                startTime = System.currentTimeMillis() + 5000;
+                prevTime = (System.currentTimeMillis()/1000.0);
 
                 input = new FirstPersonHandler(cam, 50, 1);
                 //execute in rendercontext to correctly create the resource in the opengl context
@@ -162,6 +164,12 @@ public class RenderCanvas extends SWTDefaultImplementor {
                         input.update(tpf);
                 }
 
+                
+                double delta = (System.currentTimeMillis()/1000) - prevTime;
+                prevTime = (System.currentTimeMillis()/1000);
+                
+                GraphicalModelBridgeFactory.update(delta);
+                
                 // Code for rotating the box... no surprises here.
 //                if (tpf < 1) {
 //                        angle = angle + (tpf * 25);
