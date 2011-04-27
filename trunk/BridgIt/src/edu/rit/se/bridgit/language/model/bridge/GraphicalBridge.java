@@ -1,14 +1,11 @@
 package edu.rit.se.bridgit.language.model.bridge;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import com.jme.bounding.BoundingBox;
 import com.jme.math.Quaternion;
 import com.jme.math.Vector3f;
 import com.jme.renderer.Renderer;
-import com.jme.scene.Node;
 import com.jme.scene.TriMesh;
 
 import edu.rit.se.bridgit.language.model.Type;
