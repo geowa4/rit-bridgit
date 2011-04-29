@@ -248,7 +248,7 @@ mult returns [Evaluator eval]
   ;
   
 add returns [Evaluator eval]
-  : op1=mult         {$eval = $op1.eval;}
+  : op1=mult       {$eval = $op1.eval;}
     ( '+' op2=mult {$eval = new PlusEvaluator($eval, $op2.eval);}
     | '-' op2=mult {$eval = new MinusEvaluator($eval, $op2.eval);}
     )*
@@ -271,10 +271,17 @@ relation returns [Evaluator eval]
     )*
   ;
   
-expression returns [Evaluator eval]
+andExpression returns [Evaluator eval]
   : op1=relation         {$eval = $op1.eval;}
-    ( 'and' op2=relation {$eval = new AndEvaluator($eval, $op2.eval);}
-    | 'or'  op2=relation {$eval = new OrEvaluator($eval, $op2.eval);}
+    (
+      'and' op2=relation {$eval = new AndEvaluator($eval, $op2.eval);}
+    )*
+  ;
+  
+expression returns [Evaluator eval]
+  : op1=andExpression        {$eval = $op1.eval;}
+    (
+      'or' op2=andExpression {$eval = new OrEvaluator($eval, $op2.eval);}
     )*
   ;
 

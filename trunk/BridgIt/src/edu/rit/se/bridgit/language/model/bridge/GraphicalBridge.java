@@ -53,7 +53,7 @@ public class GraphicalBridge
 	
 	public Object sendMessage(String methodName, List<Type> arguments) throws NoMethodFoundException
 	{
-		return sendMessage(methodName,arguments,0);
+		return sendMessage(methodName, arguments, 0);
 	}
 	
 	public List<String> getAvailableMethods()
