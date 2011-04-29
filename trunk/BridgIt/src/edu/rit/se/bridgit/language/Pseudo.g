@@ -162,18 +162,11 @@ newObject returns [Evaluator eval]
   ;
 
 type returns [String name]
-  : 'Integer' {$name = "Integer";}
-  | 'Boolean' {$name = "Boolean";}
-  | 'String'  {$name = "String";}
-  | 'List'    {$name = "List";}
-  | 'Any'     {$name = "Any";}
-  | 'Double'  {$name = "Double";}
-  | IDENT     {$name = $IDENT.text;}
+  : IDENT  {$name = $IDENT.text;}
   ;
 
 functionType returns [String name]
   : type   {$name = $type.name;}
-  | 'Void' {$name = "void";}
   ;
 
 bool returns[Evaluator eval]
