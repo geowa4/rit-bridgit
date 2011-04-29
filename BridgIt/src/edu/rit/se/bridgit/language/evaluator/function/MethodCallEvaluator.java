@@ -3,6 +3,7 @@ package edu.rit.se.bridgit.language.evaluator.function;
 import org.apache.log4j.Logger;
 
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
+import edu.rit.se.bridgit.language.evaluator.ParallelBlockEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalBridge;
@@ -44,7 +45,11 @@ public class MethodCallEvaluator implements Evaluator
 			arguments.evaluate(scope);
 			try
 			{
-				bridge.sendMessage(methodName, arguments.getArgValues());
+				Type parallelId = scope.getVariableValue(ParallelBlockEvaluator.PARALLEL_ID);
+				if(parallelId != null)
+					bridge.sendMessage(methodName, arguments.getArgValues(), (Integer) parallelId.getValue());
+				else
+					bridge.sendMessage(methodName, arguments.getArgValues());
 			}
 			catch(NoMethodFoundException e)
 			{
