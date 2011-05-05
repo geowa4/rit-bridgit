@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.ui,
  org.monklypse.jme2;bundle-version="1.0.0",
  org.monklypse.jme2.physics;bundle-version="1.0.0",
  org.monklypse.lwjgl;bundle-version="1.0.0",
- org.eclipse.core.resources;bundle-version="3.6.0"
+ org.eclipse.core.resources;bundle-version="3.6.0",
+ Pseudo;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: org.eclipse.ui.editors.text,
