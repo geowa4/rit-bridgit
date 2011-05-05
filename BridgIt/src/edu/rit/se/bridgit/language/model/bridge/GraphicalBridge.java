@@ -8,10 +8,12 @@ import com.jme.math.Vector3f;
 import com.jme.renderer.Renderer;
 import com.jme.scene.TriMesh;
 
+import edu.rit.se.bridgit.language.bridge.PseudoInstanceBridge;
 import edu.rit.se.bridgit.language.model.Type;
+import edu.rit.se.bridgit.language.model.exception.NoMethodFoundException;
 
 
-public class GraphicalBridge
+public class GraphicalBridge implements PseudoInstanceBridge
 {
 	private String pseudoType;
 	private List<String> availableMethods;
@@ -38,7 +40,7 @@ public class GraphicalBridge
 		this(other.pseudoType, other.availableMethods, other.render_node);
 	}
 	
-
+	@Override
 	public Object sendMessage(String methodName, List<Type> arguments, int pseudo_thread) throws NoMethodFoundException
 	{
 		Command com;
@@ -50,37 +52,41 @@ public class GraphicalBridge
 		GraphicalModelBridgeFactory.addAction(com, this, 0);
 		return new Boolean(true);
 	}
-	
+
+	@Override
 	public Object sendMessage(String methodName, List<Type> arguments) throws NoMethodFoundException
 	{
 		return sendMessage(methodName, arguments, 0);
 	}
-	
+
+	@Override
 	public List<String> getAvailableMethods()
 	{
 		return availableMethods;
 	}
-	
+
+	@Override
 	public String getPseudoType()
 	{
 		return pseudoType;
 	}
-	
+
+	@Override
 	public String getThumbnail()
 	{
 		return "/Users/student/Desktop/BridgIt_Project/BridgIt/BridgIt/icons/alt_about.gif";
 	}
-	
+
 	public TriMesh getGeometry()
 	{
 		return render_node;
 	}
-	
+
 	public void update(float tps)
 	{
 		
 	}
-	
+
 	public boolean executeAction(Command in_action, double delta)
 	{
 		
