@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import edu.rit.se.bridgit.language.bridge.PseudoBridge;
 import edu.rit.se.bridgit.language.builtin.function.BuiltInFunctionFactory;
 import edu.rit.se.bridgit.language.evaluator.function.Function;
 import edu.rit.se.bridgit.language.model.FunctionType;
@@ -14,6 +15,7 @@ import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 public class Scope 
 {
 	private static Scope currentScope;
+	private static PseudoBridge pseudoBridge;
 	
 	public static Scope getCurrentScope()
 	{
@@ -25,6 +27,16 @@ public class Scope
 		currentScope = scope;
 	}
 	
+	public static PseudoBridge getPseudoBridge()
+	{
+		return pseudoBridge;
+	}
+
+	public static void setPseudoBridge(PseudoBridge pseudoBridge)
+	{
+		Scope.pseudoBridge = pseudoBridge;
+	}
+
 	private Scope parent;
 	
 	private Map<String, Type> variables = new HashMap<String, Type>();

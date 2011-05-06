@@ -1,9 +1,5 @@
 package edu.rit.se.bridgit.language.builtin.function;
 
-import org.eclipse.jface.dialogs.InputDialog;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
-
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.function.Function;
@@ -36,11 +32,8 @@ public class InputFunction extends Function
 		@Override
 		public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException
 		{
-			IWorkbenchWindow workbench = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-			InputDialog dialog = new InputDialog(workbench.getShell(), "The application requests your input", 
-					scope.getVariableValue(parameterName).getValue().toString(), "", null);
-			dialog.open();
-			String value = dialog.getValue() == null ? "" : dialog.getValue();
+			String prompt = scope.getVariableValue(parameterName).getValue().toString();
+			String value = Scope.getPseudoBridge().getUserInput(prompt);
 			return new StringType(value);
 		}
 

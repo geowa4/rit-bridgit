@@ -19,6 +19,10 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Vector;
 
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+
 import com.jme.bounding.BoundingBox;
 import com.jme.bounding.BoundingSphere;
 import com.jme.scene.Spatial;
@@ -31,9 +35,11 @@ import com.jmex.model.converters.MaxToJme;
 import com.jmex.model.converters.ObjToJme;
 
 import edu.rit.se.bridgit.edit.content.ContentLoadedListener;
+import edu.rit.se.bridgit.language.bridge.PseudoBridge;
+import edu.rit.se.bridgit.language.bridge.PseudoInstanceBridge;
 import edu.rit.se.bridgit.monklypse.RenderCanvas;
 
-public class GraphicalModelBridgeFactory
+public class GraphicalModelBridgeFactory implements PseudoBridge
 {	
 	private static Collection<ContentLoadedListener> contentLoadedListeners = new LinkedList<ContentLoadedListener>();
 	
@@ -84,7 +90,7 @@ public class GraphicalModelBridgeFactory
 		}
 	}
 
-	public static GraphicalBridge buildBridge(String pseudoType)
+	public static GraphicalBridge buildGraphicalBridge(String pseudoType)
 	{
 		if(availableclasses.containsKey(pseudoType))
 		{
@@ -100,6 +106,12 @@ public class GraphicalModelBridgeFactory
 			return returnval;
 		}
 		else return null; 
+	}
+	
+	@Override
+	public PseudoInstanceBridge buildInstanceBridge(String pseudoType)
+	{
+		return buildGraphicalBridge(pseudoType);
 	}
 	
 	public static void loadContent() throws FileNotFoundException
@@ -299,5 +311,16 @@ public class GraphicalModelBridgeFactory
 		{
 			cll.contentLoaded(getAvailableClasses());
 		}
+	}
+
+	@Override
+	public String getUserInput(String prompt)
+	{
+		IWorkbenchWindow workbench = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		InputDialog dialog = new InputDialog(workbench.getShell(), "The application requests your input", 
+				prompt, "", null);
+		dialog.open();
+		String value = dialog.getValue() == null ? "" : dialog.getValue();
+		return value;
 	}
 }
