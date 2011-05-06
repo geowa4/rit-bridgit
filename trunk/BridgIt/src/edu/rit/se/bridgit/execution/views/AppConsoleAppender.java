@@ -4,7 +4,7 @@ import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
 import org.eclipse.ui.PlatformUI;
 
-public class ConsoleAppender extends AppenderSkeleton
+public class AppConsoleAppender extends AppenderSkeleton
 {
 	private Console console;
 	

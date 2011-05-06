@@ -2,14 +2,14 @@ package edu.rit.se.bridgit.language.evaluator.function;
 
 import org.apache.log4j.Logger;
 
+import edu.rit.se.bridgit.language.bridge.PseudoInstanceBridge;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.ParallelBlockEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
-import edu.rit.se.bridgit.language.model.bridge.GraphicalBridge;
-import edu.rit.se.bridgit.language.model.bridge.NoMethodFoundException;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.NoMethodFoundException;
 
 public class MethodCallEvaluator implements Evaluator
 {
@@ -41,7 +41,7 @@ public class MethodCallEvaluator implements Evaluator
 		if(methodName != null && arguments != null) 
 		{
 			validateType(target);
-			GraphicalBridge bridge = (GraphicalBridge) target.getValue();
+			PseudoInstanceBridge bridge = (PseudoInstanceBridge) target.getValue();
 			arguments.evaluate(scope);
 			try
 			{
@@ -62,7 +62,7 @@ public class MethodCallEvaluator implements Evaluator
 	@Override
 	public void validateType(Type t) throws InvalidTypeException
 	{
-		if(!(t.getValue() instanceof GraphicalBridge))
+		if(!(t.getValue() instanceof PseudoInstanceBridge))
 		{
 			throw new InvalidTypeException("It is not correct to call method \"" + 
 					methodName + "\" on " + t.getPseudoType());

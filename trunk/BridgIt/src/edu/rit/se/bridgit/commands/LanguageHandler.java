@@ -10,7 +10,9 @@ import edu.rit.se.bridgit.language.CustomPseudoParser;
 import edu.rit.se.bridgit.language.PseudoLexer;
 import edu.rit.se.bridgit.language.PseudoParser;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
+import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
+import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.exception.NameConflictException;
 
@@ -41,6 +43,7 @@ public class LanguageHandler implements Runnable
 		try
 		{
 			application = parser.application();
+			Scope.setPseudoBridge(new GraphicalModelBridgeFactory());
 			appReturn = application.evaluate(null);
 		}
 		catch (RecognitionException e)
