@@ -14,6 +14,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -27,7 +29,7 @@ import edu.rit.se.bridgit.edit.content.StructuredCollectionContentProvider;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 public class TypesView extends ViewPart implements ISelectionChangedListener, 
-	KeyListener, ContentLoadedListener
+	KeyListener, MouseListener, ContentLoadedListener
 {
 	private static final Logger log = Logger.getLogger(TypesView.class);
 	
@@ -52,6 +54,7 @@ public class TypesView extends ViewPart implements ISelectionChangedListener,
 		GraphicalModelBridgeFactory.addContentLoadedListener(this);
 		imagePreview = new Label(parent, SWT.NO_FOCUS);
 		list.getControl().addKeyListener(this);
+		list.getControl().addMouseListener(this);
 	}
 
 	@Override
@@ -71,6 +74,7 @@ public class TypesView extends ViewPart implements ISelectionChangedListener,
 			{
 				imagePreview.setImage(new Image(parent.getDisplay(), imagePath));
 			}
+			log.trace("Selection changed to " + selectedType);
 		}
 	}
 
@@ -80,6 +84,8 @@ public class TypesView extends ViewPart implements ISelectionChangedListener,
 			new StringSelection("new " + selectedType + "()");
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipboard.setContents(clipboardData, clipboardData);
+		log.trace("Snippet to construct " + selectedType + 
+			" has been added to the clipboard.");
 	}
 
 	@Override
@@ -98,8 +104,20 @@ public class TypesView extends ViewPart implements ISelectionChangedListener,
 		if(e.keyCode == SWT.CR)
 		{
 			setClipboardContent();
-			log.trace("Snippet to construct " + selectedType + 
-					" has been added to the clipboard.");
 		}
 	}
+
+	@Override
+	public void mouseDoubleClick(MouseEvent e)
+	{
+		setClipboardContent();
+	}
+
+	@Override
+	public void mouseDown(MouseEvent e)
+	{}
+
+	@Override
+	public void mouseUp(MouseEvent e)
+	{}
 }
