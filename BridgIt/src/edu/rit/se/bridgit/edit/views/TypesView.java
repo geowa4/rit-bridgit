@@ -1,13 +1,19 @@
 package edu.rit.se.bridgit.edit.views;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.util.Collection;
 
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -20,11 +26,15 @@ import edu.rit.se.bridgit.edit.content.ContentLoadedListener;
 import edu.rit.se.bridgit.edit.content.StructuredCollectionContentProvider;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
-public class TypesView extends ViewPart implements ISelectionChangedListener, ContentLoadedListener
+public class TypesView extends ViewPart implements ISelectionChangedListener, 
+	KeyListener, ContentLoadedListener
 {
+	private static final Logger log = Logger.getLogger(TypesView.class);
+	
 	private Composite parent;
 	private ListViewer list;
 	private Label imagePreview;
+	private String selectedType;
 
 	@Override
 	public void createPartControl(Composite parent) 
@@ -41,6 +51,7 @@ public class TypesView extends ViewPart implements ISelectionChangedListener, Co
 		list.addSelectionChangedListener(this);
 		GraphicalModelBridgeFactory.addContentLoadedListener(this);
 		imagePreview = new Label(parent, SWT.NO_FOCUS);
+		list.getControl().addKeyListener(this);
 	}
 
 	@Override
@@ -53,8 +64,9 @@ public class TypesView extends ViewPart implements ISelectionChangedListener, Co
 		Object selection = ((IStructuredSelection) event.getSelection()).getFirstElement();
 		if(selection != null)
 		{
+			selectedType = selection.toString();
 			String imagePath = 
-				GraphicalModelBridgeFactory.getThumbnailForType(selection.toString());
+				GraphicalModelBridgeFactory.getThumbnailForType(selectedType);
 			if(!imagePath.equals(""))
 			{
 				imagePreview.setImage(new Image(parent.getDisplay(), imagePath));
@@ -62,9 +74,32 @@ public class TypesView extends ViewPart implements ISelectionChangedListener, Co
 		}
 	}
 
+	private void setClipboardContent()
+	{
+		StringSelection clipboardData = 
+			new StringSelection("new " + selectedType + "()");
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(clipboardData, clipboardData);
+	}
+
 	@Override
 	public void contentLoaded(Collection<?> content)
 	{
 		list.setInput(content);
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e)
+	{}
+
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		if(e.keyCode == SWT.CR)
+		{
+			setClipboardContent();
+			log.trace("Snippet to construct " + selectedType + 
+					" has been added to the clipboard.");
+		}
 	}
 }

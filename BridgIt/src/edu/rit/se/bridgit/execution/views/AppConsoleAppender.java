@@ -26,7 +26,7 @@ public class AppConsoleAppender extends AppenderSkeleton
 			try
 			{
 				console = (Console) PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(Console.class.getName());
-				return true;
+				return console != null;
 			}
 			catch(Exception e)
 			{
