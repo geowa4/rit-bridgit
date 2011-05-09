@@ -84,8 +84,8 @@ public class TypesView extends ViewPart implements ISelectionChangedListener,
 			new StringSelection("new " + selectedType + "()");
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipboard.setContents(clipboardData, clipboardData);
-		log.trace("Snippet to construct " + selectedType + 
-			" has been added to the clipboard.");
+		log.trace("Snippet \"" + selectedType + 
+			"\" has been added to the clipboard.");
 	}
 
 	@Override

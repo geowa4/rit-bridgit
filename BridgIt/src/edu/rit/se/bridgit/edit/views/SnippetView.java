@@ -1,5 +1,8 @@
 package edu.rit.se.bridgit.edit.views;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +18,10 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -25,12 +32,14 @@ import org.eclipse.ui.part.ViewPart;
 import edu.rit.se.bridgit.Activator;
 import edu.rit.se.bridgit.edit.content.StructuredCollectionContentProvider;
 
-public class SnippetView extends ViewPart implements ISelectionChangedListener
+public class SnippetView extends ViewPart implements ISelectionChangedListener,
+	KeyListener, MouseListener
 {
 	private static final Logger log = Logger.getLogger(SnippetView.class);
 	private ListViewer list;
 	private Text preview;
 	private Properties snippets;
+	private String selectedSnippet;
 
 	@Override
 	public void createPartControl(Composite parent) 
@@ -45,6 +54,8 @@ public class SnippetView extends ViewPart implements ISelectionChangedListener
 		list.setInput(buildListInput());
 		list.addSelectionChangedListener(this);
 		preview = new Text(parent, SWT.MULTI | SWT.LEFT | SWT.READ_ONLY);
+		list.getControl().addKeyListener(this);
+		list.getControl().addMouseListener(this);
 	}
 
 	private Collection<String> buildListInput()
@@ -72,6 +83,17 @@ public class SnippetView extends ViewPart implements ISelectionChangedListener
 	{
 		list.getControl().setFocus();
 	}
+	
+	private void setClipboardContent()
+	{
+		String value = snippets.getProperty(selectedSnippet);
+		StringSelection clipboardData = 
+			new StringSelection(value);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(clipboardData, clipboardData);
+		log.trace("Snippet \"" + value + 
+			"\" has been added to the clipboard.");
+	}
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent event)
@@ -79,10 +101,36 @@ public class SnippetView extends ViewPart implements ISelectionChangedListener
 		Object selection = ((IStructuredSelection) event.getSelection()).getFirstElement();
 		if(selection != null)
 		{
-			String selectedSnippet = selection.toString();
+			selectedSnippet = selection.toString();
 			selectedSnippet = selectedSnippet.replaceAll("\\s+", ".");
 			preview.setText(snippets.getProperty(selectedSnippet));
 		}
 	}
 
+	@Override
+	public void keyPressed(KeyEvent e)
+	{}
+
+	@Override
+	public void keyReleased(KeyEvent e)
+	{
+		if(e.keyCode == SWT.CR)
+		{
+			setClipboardContent();
+		}
+	}
+
+	@Override
+	public void mouseDoubleClick(MouseEvent e)
+	{
+		setClipboardContent();
+	}
+
+	@Override
+	public void mouseDown(MouseEvent e)
+	{}
+
+	@Override
+	public void mouseUp(MouseEvent e)
+	{}
 }
