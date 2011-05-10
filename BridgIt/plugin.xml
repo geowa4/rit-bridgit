@@ -236,6 +236,11 @@
             id="edu.rit.se.bridgit.commands.focusTypesView"
             name="Focus Types View">
       </command>
+      <command
+            defaultHandler="edu.rit.se.bridgit.commands.FocusSnippetViewHandler"
+            id="edu.rit.se.bridgit.commands.FocusSnippetViewHandler"
+            name="Focus Snippets View">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
@@ -249,13 +254,13 @@
             commandId="edu.rit.se.bridgit.commands.focusScopeObjectsView"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="edu.rit.se.bridgit.bindings.BridgitBindings"
-            sequence="M1+M2+A">
+            sequence="M1+M2+O">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusTypesView"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="edu.rit.se.bridgit.bindings.BridgitBindings"
-            sequence="M1+M2+S">
+            sequence="M1+M2+T">
       </key>
       <key
             commandId="edu.rit.se.bridgit.commands.focusWorldView"
@@ -267,7 +272,13 @@
             commandId="edu.rit.se.bridgit.commands.focusEditor"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="edu.rit.se.bridgit.bindings.BridgitBindings"
-            sequence="M1+M2+D">
+            sequence="M1+M2+E">
+      </key>
+      <key
+            commandId="edu.rit.se.bridgit.commands.FocusSnippetViewHandler"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="edu.rit.se.bridgit.bindings.BridgitBindings"
+            sequence="M1+M2+S">
       </key>
       <scheme
             id="edu.rit.se.bridgit.bindings.BridgitBindings"
