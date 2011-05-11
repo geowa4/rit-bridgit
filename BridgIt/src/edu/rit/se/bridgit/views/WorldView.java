@@ -31,7 +31,7 @@ public class WorldView extends ViewPart
         // Attempt to attach the program editor to this view
 		try {
 			getSite().getPage().openEditor(new ProgramEditorInput(),
-					"edu.rit.se.bridgit.edit.editors.programeditor");
+					"edu.rit.se.bridgit.edit.editors.ProgramEditor");
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

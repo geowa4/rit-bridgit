@@ -40,6 +40,10 @@
          		name="preferenceCustomization"
          		value="plugin_customization.ini">
          </property>
+         <property
+               name="appName"
+               value="BridgIt">
+         </property>
       </product>
    </extension>
    <extension
