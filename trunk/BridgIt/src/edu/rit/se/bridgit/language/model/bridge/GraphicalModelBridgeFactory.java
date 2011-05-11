@@ -135,8 +135,10 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 	
 	private static void loadModels(File in_current_folder)
 	{
+		GraphicalBridge bridge = null;
+		String thumbnail = null;
 		File[] list_of_files = in_current_folder.listFiles();
-		for(int i = 0; i < list_of_files.length; i++ )
+		for(int i = 0; i < list_of_files.length; ++i)
 		{
 			if(!list_of_files[i].isHidden())
 			{
@@ -153,9 +155,14 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 						methods.add("moveOverTime");
 						methods.add("scaleOvertime");
 						methods.add("remove");
-						availableclasses.put(class_name, new GraphicalBridge(class_name, methods, loadObjModel(list_of_files[i])));
+						bridge = new GraphicalBridge(class_name, methods, loadObjModel(list_of_files[i]));
+						if(thumbnail != null && !thumbnail.isEmpty())
+						{
+							bridge.setThumbnail(thumbnail);
+						}
+						availableclasses.put(class_name, bridge);
 					}
-					if(name.contains(".3ds"))
+					else if(name.contains(".3ds"))
 					{
 						String class_name = name.substring(0,name.indexOf('.'));
 						List<String> methods = new LinkedList<String>();
@@ -167,6 +174,12 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 						methods.add("remove");
 						//availableclasses.put(class_name, new GraphicalBridge(class_name, methods,
 							//	load3dsModel(list_of_files[i].getAbsolutePath(), list_of_files[i].getAbsolutePath())));
+					}
+					else if(name.toLowerCase().contains(".png"))
+					{
+						thumbnail = list_of_files[i].getAbsolutePath();
+						if(bridge != null)
+							bridge.setThumbnail(thumbnail);
 					}
 				}
 				else if(list_of_files[i].isDirectory())

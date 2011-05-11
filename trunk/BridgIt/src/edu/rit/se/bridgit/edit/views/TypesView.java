@@ -74,7 +74,6 @@ public class TypesView extends ViewPart implements ISelectionChangedListener,
 			{
 				imagePreview.setImage(new Image(parent.getDisplay(), imagePath));
 			}
-			log.trace("Selection changed to " + selectedType);
 		}
 	}
 
