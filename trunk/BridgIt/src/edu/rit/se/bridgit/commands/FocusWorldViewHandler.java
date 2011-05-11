@@ -23,7 +23,7 @@ public class FocusWorldViewHandler extends AbstractHandler
 		{
 			// Get the view
 			IViewPart view = PlatformUI.getWorkbench().
-				getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.views.worldView");
+				getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.views.WorldView");
 			
 			// Focus the scope
 			if(view != null && view.getSite().getPage().isPartVisible(view))

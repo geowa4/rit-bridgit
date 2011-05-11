@@ -3,6 +3,7 @@
 	<name>BridgIt</name>
 	<comment></comment>
 	<projects>
+		<project>Pseudo</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -13,8 +13,8 @@ import edu.rit.se.bridgit.execution.views.Console;
 public class PlayHandler extends AbstractHandler
 {
 	// The ID of the play perspective
-	public static final String EDIT_PERSPECTIVE_ID = "edu.rit.se.bridgit.edit.perspectives.editPerspective";
-	public static final String EXECUTION_PERSPECTIVE_ID = "edu.rit.se.bridgit.execution.perspectives.executionPerspective";
+	public static final String EDIT_PERSPECTIVE_ID = "edu.rit.se.bridgit.edit.perspectives.EditPerspective";
+	public static final String EXECUTION_PERSPECTIVE_ID = "edu.rit.se.bridgit.execution.perspectives.ExecutionPerspective";
 	
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException

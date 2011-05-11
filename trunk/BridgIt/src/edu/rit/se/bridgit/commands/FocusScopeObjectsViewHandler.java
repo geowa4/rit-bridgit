@@ -23,7 +23,7 @@ public class FocusScopeObjectsViewHandler extends AbstractHandler
 		{
 			// Get the view
 			IViewPart view = PlatformUI.getWorkbench().
-				getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.edit.views.objectsView");
+				getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.edit.views.ScopeView");
 			
 			// Focus the scope
 			if(view != null && view.getSite().getPage().isPartVisible(view))

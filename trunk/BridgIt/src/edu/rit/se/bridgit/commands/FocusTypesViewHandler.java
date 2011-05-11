@@ -18,8 +18,8 @@ import org.eclipse.ui.handlers.HandlerUtil;
 public class FocusTypesViewHandler extends AbstractHandler
 {
 	// The ID of the play perspective
-	public static final String EDIT_PERSPECTIVE_ID = "edu.rit.se.bridgit.edit.perspectives.editPerspective";
-	public static final String EXECUTION_PERSPECTIVE_ID = "edu.rit.se.bridgit.execution.perspectives.executionPerspective";
+	public static final String EDIT_PERSPECTIVE_ID = "edu.rit.se.bridgit.edit.perspectives.EditPerspective";
+	public static final String EXECUTION_PERSPECTIVE_ID = "edu.rit.se.bridgit.execution.perspectives.ExecutionPerspective";
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException
@@ -37,7 +37,7 @@ public class FocusTypesViewHandler extends AbstractHandler
 				// Get the view
 				IViewPart view = PlatformUI.getWorkbench().
 					getActiveWorkbenchWindow().getActivePage().findView(
-							"edu.rit.se.bridgit.edit.views.typesView");
+							"edu.rit.se.bridgit.edit.views.TypesView");
 			
 				// Focus the scope
 				if(view != null && view.getSite().getPage().isPartVisible(view))
