@@ -23,7 +23,7 @@ public class FocusEditorHandler extends AbstractHandler {
 			// Get the view
 			IEditorReference[] editors = PlatformUI.getWorkbench().
 				getActiveWorkbenchWindow().getActivePage().findEditors(
-						null, "edu.rit.se.bridgit.edit.editors.programeditor", IWorkbenchPage.MATCH_ID);
+						null, "edu.rit.se.bridgit.edit.editors.ProgramEditor", IWorkbenchPage.MATCH_ID);
 		
 			// If the editor is there
 			if(editors.length > 0 && editors[0].getPage().isPartVisible(editors[0].getPart(true)))

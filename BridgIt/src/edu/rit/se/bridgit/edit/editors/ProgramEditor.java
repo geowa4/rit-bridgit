@@ -76,7 +76,7 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 			try
 			{
 				getSite().getPage().openEditor(new ProgramEditorInput(),
-						"edu.rit.se.bridgit.edit.editors.programeditor");
+						"edu.rit.se.bridgit.edit.editors.ProgramEditor");
 			}
 			catch (PartInitException e)
 			{
@@ -137,7 +137,7 @@ public class ProgramEditor extends AbstractDecoratedTextEditor
 				
 					// Set the values of the scope view
 					ScopeView scopeView = (ScopeView) PlatformUI.getWorkbench().
-						getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.edit.views.objectsView");
+						getActiveWorkbenchWindow().getActivePage().findView("edu.rit.se.bridgit.edit.views.ScopeView");
 				
 					// If the values parsed are correct, set the values
 					if(parsedValues.size() >= 3)

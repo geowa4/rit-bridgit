@@ -11,8 +11,8 @@ import org.monklypse.core.JMEComposite;
 import edu.rit.bridgit.edit.editors.model.ProgramEditorInput;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
-public class WorldView extends ViewPart {
-
+public class WorldView extends ViewPart
+{
 	// The JME composite container to use
 	private JMEComposite composite;
 	
