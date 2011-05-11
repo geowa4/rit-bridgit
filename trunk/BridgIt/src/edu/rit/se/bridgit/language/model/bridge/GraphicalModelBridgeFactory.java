@@ -175,7 +175,7 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 						//availableclasses.put(class_name, new GraphicalBridge(class_name, methods,
 							//	load3dsModel(list_of_files[i].getAbsolutePath(), list_of_files[i].getAbsolutePath())));
 					}
-					else if(name.toLowerCase().contains(".png"))
+					else if(name.toLowerCase().startsWith("icon"))
 					{
 						thumbnail = list_of_files[i].getAbsolutePath();
 						if(bridge != null)
