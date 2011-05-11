@@ -17,4 +17,6 @@ public interface PseudoInstanceBridge
 	public String getPseudoType();
 
 	public String getThumbnail();
+
+	void setThumbnail(String thumbnail);
 }

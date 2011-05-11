@@ -19,7 +19,7 @@ public class GraphicalBridge implements PseudoInstanceBridge
 	private List<String> availableMethods;
 	
 	private TriMesh render_node;
-
+	private String thumbnail;
 	
 	public GraphicalBridge(String pseudoType, List<String> methods, TriMesh in_render_node)
 	{
@@ -74,7 +74,16 @@ public class GraphicalBridge implements PseudoInstanceBridge
 	@Override
 	public String getThumbnail()
 	{
-		return "/Users/student/Desktop/BridgIt_Project/BridgIt/BridgIt/icons/alt_about.gif";
+		if(thumbnail == null || thumbnail.isEmpty())
+			return "/Users/student/Desktop/BridgIt_Project/BridgIt/BridgIt/icons/alt_about.gif";
+		else
+			return thumbnail;
+	}
+	
+	@Override
+	public void setThumbnail(String thumbnail)
+	{
+		this.thumbnail = thumbnail;
 	}
 
 	public TriMesh getGeometry()
