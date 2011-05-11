@@ -18,7 +18,7 @@ public class CodeView extends ViewPart {
 		// Attempt to attach the program editor to this view
 		try {
 			IEditorPart editor = getSite().getPage().openEditor(new ProgramEditorInput(),
-					"edu.rit.se.bridgit.edit.editors.programeditor");
+					"edu.rit.se.bridgit.edit.editors.ProgramEditor");
 			editor.createPartControl(parent);
 		} catch (PartInitException e) {
 			e.printStackTrace();
