@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.rit.se.bridgit.language.model.Type;
 
-public class ScaleOverTimeCommand extends overTimeCommand {
+public class ScaleOverTimeCommand extends MoveOverTimeCommand {
 
 	public ScaleOverTimeCommand(String methodName, List<Type> arguments, GraphicalBridge inBridge) {
 		super(methodName, arguments, inBridge);
