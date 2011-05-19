@@ -7,7 +7,7 @@ import com.ardor3d.math.Vector3;
 
 import edu.rit.se.bridgit.language.model.Type;
 
-public class RotateOverTimeCommand extends overTimeCommand {
+public class RotateOverTimeCommand extends MoveOverTimeCommand {
 
 	public RotateOverTimeCommand(String methodName, List<Type> arguments, GraphicalBridge inBridge) 
 	{
