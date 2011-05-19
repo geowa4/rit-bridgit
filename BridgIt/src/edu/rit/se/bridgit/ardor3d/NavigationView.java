@@ -292,17 +292,17 @@ public class NavigationView extends ViewPart
       
         AWTImageLoader.registerLoader();
 
-        try {
-            final SimpleResourceLocator srl = new SimpleResourceLocator(ResourceLocatorTool.getClassPathResource(
-                    LwjglSwtExample.class, "com/pildo/paco/media"));
-           
-           
-            System.out.println("Resource Dir: " + srl.getBaseDir());
-           
-            ResourceLocatorTool.addResourceLocator(ResourceLocatorTool.TYPE_TEXTURE, srl);
-        } catch (final URISyntaxException ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            final SimpleResourceLocator srl = new SimpleResourceLocator(ResourceLocatorTool.getClassPathResource(
+//                    LwjglSwtExample.class, "/Users/student/Dropbox/"));
+//           
+//           
+//            System.out.println("Resource Dir: " + srl.getBaseDir());
+//           
+//            ResourceLocatorTool.addResourceLocator(ResourceLocatorTool.TYPE_TEXTURE, srl);
+//        } catch (final URISyntaxException ex) {
+//            ex.printStackTrace();
+//        }
 
        
        //
