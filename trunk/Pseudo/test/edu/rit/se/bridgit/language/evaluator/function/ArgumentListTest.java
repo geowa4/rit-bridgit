@@ -20,8 +20,7 @@ import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.BooleanType;
 import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.Type;
-import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class ArgumentListTest
 {
@@ -55,7 +54,7 @@ public class ArgumentListTest
 	 * Obviously that would not match the parameters the second time around.
 	 */
 	@Test
-	public void argumentsAreConsistentInLoop() throws InvalidTypeException, NameConflictException
+	public void argumentsAreConsistentInLoop() throws PseudoException
 	{
 		whileEval = new WhileEvaluator();
 		whileBlock = new BlockEvaluator() {{
@@ -83,7 +82,7 @@ public class ArgumentListTest
 	}
 	
 	@Test
-	public void executesAllArguments() throws InvalidTypeException, NameConflictException
+	public void executesAllArguments() throws PseudoException
 	{
 		final Type t = new IntegerType(1);
 		context.checking(new Expectations() {{

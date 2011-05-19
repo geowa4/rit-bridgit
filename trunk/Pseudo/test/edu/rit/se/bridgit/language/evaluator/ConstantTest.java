@@ -11,13 +11,13 @@ import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class ConstantTest
 {
 	@Test
 	public void declarationWithValidInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		Evaluator evaluator = new ConstantEvaluator(
@@ -31,7 +31,7 @@ public class ConstantTest
 	
 	@Test
 	public void declarationAsDoubleAssignAsInteger() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		Evaluator evaluator = new ConstantEvaluator(
@@ -46,7 +46,7 @@ public class ConstantTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void declareWithInvalidInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator value = new BooleanEvaluator(true);
 		Evaluator evaluator = new ConstantEvaluator(
@@ -58,7 +58,7 @@ public class ConstantTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void declareWithoutInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator evaluator = new ConstantEvaluator(
 				"x", Type.INTEGER_TYPE, null);

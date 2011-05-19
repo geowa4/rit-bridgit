@@ -13,7 +13,7 @@ import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class ModTest
 {
@@ -27,7 +27,7 @@ public class ModTest
 
 	@Test
 	public void integerModdedByIntegerIsAnInteger()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		ModEvaluator evaluator = new ModEvaluator(
 				new IntegerEvaluator(1), new IntegerEvaluator(1));
@@ -37,7 +37,7 @@ public class ModTest
 	
 	@Test
 	public void integerModdedByDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		ModEvaluator evaluator = new ModEvaluator(
 				new IntegerEvaluator(3), new DoubleEvaluator(2.0));
@@ -47,7 +47,7 @@ public class ModTest
 	
 	@Test
 	public void doubleModdedByDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		ModEvaluator evaluator = new ModEvaluator(
 				new DoubleEvaluator(3.0), new DoubleEvaluator(4.0));
@@ -57,7 +57,7 @@ public class ModTest
 	
 	@Test
 	public void doubleModdedByIntegerIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		ModEvaluator evaluator = new ModEvaluator(
 				new DoubleEvaluator(3.0), new IntegerEvaluator(3));
@@ -67,7 +67,7 @@ public class ModTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void stringModdedByNumberIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		ModEvaluator evaluator = new ModEvaluator(
 				new StringEvaluator("9"), new IntegerEvaluator(3));
@@ -77,7 +77,7 @@ public class ModTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void numberModdedByStringIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		ModEvaluator evaluator = new ModEvaluator(
 				new IntegerEvaluator(9), new StringEvaluator("3"));
@@ -87,7 +87,7 @@ public class ModTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void stringModdedByStringIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		ModEvaluator evaluator = new ModEvaluator(
 				new StringEvaluator("9"), new StringEvaluator("3"));
@@ -96,7 +96,7 @@ public class ModTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nullIsNotAllowed() throws PseudoException
 	{
 		NullEvaluator op1 = new NullEvaluator();
 		IntegerEvaluator op2 = new IntegerEvaluator(0);

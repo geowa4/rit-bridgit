@@ -1,6 +1,6 @@
 package edu.rit.se.bridgit.language.model.exception;
 
-public class NameConflictException extends Exception
+public class NameConflictException extends PseudoException
 {
 	private static final long serialVersionUID = -2172881185726330078L;
 	

@@ -10,7 +10,7 @@ import edu.rit.se.bridgit.language.model.BooleanType;
 import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class MemberLoadTest
 {
@@ -19,7 +19,7 @@ public class MemberLoadTest
 	private Type constType;
 	
 	@Before
-	public void createScope() throws InvalidTypeException, NameConflictException
+	public void createScope() throws PseudoException
 	{
 		this.scope = new Scope(null);
 		this.varType = new IntegerType(7);

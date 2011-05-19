@@ -15,7 +15,7 @@ import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class IntegerFunctionTest
 {
@@ -30,7 +30,7 @@ public class IntegerFunctionTest
 	}
 	
 	@Test
-	public void stringsCanBeCastToInt() throws InvalidTypeException, NameConflictException
+	public void stringsCanBeCastToInt() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new StringEvaluator("42"));
@@ -40,7 +40,7 @@ public class IntegerFunctionTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nonNumericStringsAreNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nonNumericStringsAreNotAllowed() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new StringEvaluator("forty-two"));
@@ -50,7 +50,7 @@ public class IntegerFunctionTest
 	}
 	
 	@Test
-	public void booleansCanBeCastToInt() throws InvalidTypeException, NameConflictException
+	public void booleansCanBeCastToInt() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new BooleanEvaluator(true));
@@ -60,7 +60,7 @@ public class IntegerFunctionTest
 	}
 	
 	@Test
-	public void doublesCanBeCastToInt() throws InvalidTypeException, NameConflictException
+	public void doublesCanBeCastToInt() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new DoubleEvaluator(1.0d));
@@ -70,7 +70,7 @@ public class IntegerFunctionTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void otherTypesAreDisallowed() throws InvalidTypeException, NameConflictException
+	public void otherTypesAreDisallowed() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new NullEvaluator());

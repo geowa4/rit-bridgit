@@ -11,7 +11,7 @@ import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class NegationTest
 {
@@ -25,7 +25,7 @@ public class NegationTest
 	
 	@Test
 	public void negatingABooleanIsTypeConsistent() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		BooleanEvaluator b = new BooleanEvaluator(true);
 		NegationEvaluator evaluator = new NegationEvaluator(b);
@@ -36,7 +36,7 @@ public class NegationTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void cannotNegateSomethingThatIsNotBoolean() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		IntegerEvaluator i = new IntegerEvaluator(1);
 		NegationEvaluator evaluator = new NegationEvaluator(i);

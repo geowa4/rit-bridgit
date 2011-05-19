@@ -13,7 +13,7 @@ import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class MultTest
 {
@@ -27,7 +27,7 @@ public class MultTest
 
 	@Test
 	public void integerMultipliedByIntegerIsAnInteger()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MultEvaluator evaluator = new MultEvaluator(
 				new IntegerEvaluator(1), new IntegerEvaluator(1));
@@ -37,7 +37,7 @@ public class MultTest
 	
 	@Test
 	public void integerMultipliedByDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MultEvaluator evaluator = new MultEvaluator(
 				new IntegerEvaluator(0), new DoubleEvaluator(0.0));
@@ -47,7 +47,7 @@ public class MultTest
 	
 	@Test
 	public void doubleMultipliedByDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MultEvaluator evaluator = new MultEvaluator(
 				new DoubleEvaluator(3.0), new DoubleEvaluator(4.0));
@@ -57,7 +57,7 @@ public class MultTest
 	
 	@Test
 	public void doubleMultipliedByIntegerIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MultEvaluator evaluator = new MultEvaluator(
 				new DoubleEvaluator(3.0), new IntegerEvaluator(3));
@@ -67,7 +67,7 @@ public class MultTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void stringMultipliedByNumberIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MultEvaluator evaluator = new MultEvaluator(
 				new StringEvaluator("9"), new IntegerEvaluator(3));
@@ -77,7 +77,7 @@ public class MultTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void numberMultipliedByStringIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MultEvaluator evaluator = new MultEvaluator(
 				new IntegerEvaluator(9), new StringEvaluator("3"));
@@ -87,7 +87,7 @@ public class MultTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void stringMultipliedByStringIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MultEvaluator evaluator = new MultEvaluator(
 				new StringEvaluator("9"), new StringEvaluator("3"));
@@ -96,7 +96,7 @@ public class MultTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nullIsNotAllowed() throws PseudoException
 	{
 		NullEvaluator op1 = new NullEvaluator();
 		IntegerEvaluator op2 = new IntegerEvaluator(0);

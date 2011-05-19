@@ -13,7 +13,7 @@ import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class MinusTest
 {
@@ -27,7 +27,7 @@ public class MinusTest
 
 	@Test
 	public void integerSubtractedFromIntegerIsAnInteger()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MinusEvaluator evaluator = new MinusEvaluator(
 				new IntegerEvaluator(1), new IntegerEvaluator(1));
@@ -37,7 +37,7 @@ public class MinusTest
 	
 	@Test
 	public void integerSubtractedFromDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MinusEvaluator evaluator = new MinusEvaluator(
 				new IntegerEvaluator(3), new DoubleEvaluator(2.0));
@@ -47,7 +47,7 @@ public class MinusTest
 	
 	@Test
 	public void doubleSubtractedFromDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MinusEvaluator evaluator = new MinusEvaluator(
 				new DoubleEvaluator(3.0), new DoubleEvaluator(4.0));
@@ -57,7 +57,7 @@ public class MinusTest
 	
 	@Test
 	public void doubleSubtractedFromIntegerIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MinusEvaluator evaluator = new MinusEvaluator(
 				new DoubleEvaluator(3.0), new IntegerEvaluator(3));
@@ -67,7 +67,7 @@ public class MinusTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void stringSubtractedFromNumberIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MinusEvaluator evaluator = new MinusEvaluator(
 				new StringEvaluator("9"), new IntegerEvaluator(3));
@@ -77,7 +77,7 @@ public class MinusTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void numberSubtractedFromStringIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MinusEvaluator evaluator = new MinusEvaluator(
 				new IntegerEvaluator(9), new StringEvaluator("3"));
@@ -87,7 +87,7 @@ public class MinusTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void stringSubtractedFromStringIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		MinusEvaluator evaluator = new MinusEvaluator(
 				new StringEvaluator("9"), new StringEvaluator("3"));
@@ -96,7 +96,7 @@ public class MinusTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nullIsNotAllowed() throws PseudoException
 	{
 		NullEvaluator op1 = new NullEvaluator();
 		IntegerEvaluator op2 = new IntegerEvaluator(0);

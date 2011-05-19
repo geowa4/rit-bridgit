@@ -4,8 +4,7 @@ import edu.rit.se.bridgit.language.evaluator.BinaryEvaluator;
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
-import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class EqualsEvaluator extends BinaryEvaluator 
 {
@@ -16,7 +15,7 @@ public class EqualsEvaluator extends BinaryEvaluator
 	}
 
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
+	public Type evaluate(Scope scope) throws PseudoException
 	{
 		Type result1 = op1.evaluate(scope);
 		Type result2= op2.evaluate(scope);

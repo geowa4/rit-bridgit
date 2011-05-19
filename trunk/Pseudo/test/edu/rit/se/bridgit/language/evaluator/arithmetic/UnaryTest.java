@@ -12,7 +12,7 @@ import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class UnaryTest
 {
@@ -26,7 +26,7 @@ public class UnaryTest
 	
 	@Test
 	public void negatingAPositiveIntegerMakesANegativeInteger() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		UnaryEvaluator evaluator = new UnaryEvaluator(new IntegerEvaluator(1));
 		Type t = evaluator.evaluate(scope);
@@ -35,7 +35,7 @@ public class UnaryTest
 	
 	@Test
 	public void negatingAPositiveDoubleMakesANegativeDouble() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		UnaryEvaluator evaluator = new UnaryEvaluator(new DoubleEvaluator(1.0));
 		Type t = evaluator.evaluate(scope);
@@ -44,7 +44,7 @@ public class UnaryTest
 	
 	@Test
 	public void negatingANegativeIntegerMakesAPositiveInteger() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		UnaryEvaluator evaluator = new UnaryEvaluator(new IntegerEvaluator(-1));
 		Type t = evaluator.evaluate(scope);
@@ -53,7 +53,7 @@ public class UnaryTest
 	
 	@Test
 	public void negatingANegativeDoubleMakesAPositiveDouble() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		UnaryEvaluator evaluator = new UnaryEvaluator(new DoubleEvaluator(-1.0));
 		Type t = evaluator.evaluate(scope);
@@ -62,7 +62,7 @@ public class UnaryTest
 	
 	@Test
 	public void negatingYourselfYieldsNothing() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		UnaryEvaluator nested = new UnaryEvaluator(new DoubleEvaluator(1.0));
 		UnaryEvaluator evaluator = new UnaryEvaluator(nested);
@@ -72,7 +72,7 @@ public class UnaryTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nullIsNotAllowed() throws PseudoException
 	{
 		NullEvaluator op1 = new NullEvaluator();
 		UnaryEvaluator evaluator = new UnaryEvaluator(op1);

@@ -13,7 +13,7 @@ import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class LessThanTest
 {
@@ -26,7 +26,7 @@ public class LessThanTest
 	}
 	
 	@Test
-	public void anyNumberTypeIsAllowed() throws InvalidTypeException, NameConflictException
+	public void anyNumberTypeIsAllowed() throws PseudoException
 	{
 		IntegerEvaluator op1 = new IntegerEvaluator(3);
 		DoubleEvaluator op2 = new DoubleEvaluator(3.0);
@@ -37,7 +37,7 @@ public class LessThanTest
 	}
 	
 	@Test
-	public void stringsAreAllowed() throws InvalidTypeException, NameConflictException
+	public void stringsAreAllowed() throws PseudoException
 	{
 		StringEvaluator op1 = new StringEvaluator("b");
 		StringEvaluator op2 = new StringEvaluator("a");
@@ -48,7 +48,7 @@ public class LessThanTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nullIsNotAllowed() throws PseudoException
 	{
 		NullEvaluator op1 = new NullEvaluator();
 		StringEvaluator op2 = new StringEvaluator("a");

@@ -5,6 +5,7 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class WhileEvaluator implements Evaluator
 {
@@ -22,7 +23,7 @@ public class WhileEvaluator implements Evaluator
 	}
 
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
+	public Type evaluate(Scope scope) throws PseudoException
 	{
 		while(executeConditional(scope))
 		{
@@ -32,7 +33,7 @@ public class WhileEvaluator implements Evaluator
 	}
 	
 	private Boolean executeConditional(Scope scope) 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Type ret = pair.getConditional().evaluate(scope);
 		validateType(ret);

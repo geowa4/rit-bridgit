@@ -3,7 +3,7 @@ package edu.rit.se.bridgit.language.evaluator;
 import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class ConstantEvaluator implements Evaluator 
 {
@@ -20,7 +20,7 @@ public class ConstantEvaluator implements Evaluator
 	}
 	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
+	public Type evaluate(Scope scope) throws PseudoException 
 	{
 		if(value == null)
 			throw new InvalidTypeException(null, "Constant Assignment to null");

@@ -16,13 +16,13 @@ import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class VariableTest 
 {
 	@Test
 	public void declarationWithValidInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		Evaluator evaluator = new VariableEvaluator(
@@ -36,7 +36,7 @@ public class VariableTest
 	
 	@Test
 	public void declareAsDoulbeAssignAsInteger() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		Evaluator evaluator = new VariableEvaluator(
@@ -51,7 +51,7 @@ public class VariableTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void declareWithInvalidInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator value = new BooleanEvaluator(true);
 		Evaluator evaluator = new VariableEvaluator(
@@ -63,7 +63,7 @@ public class VariableTest
 	
 	@Test
 	public void declareWithoutInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator evaluator = new VariableEvaluator(
 				"x", Type.INTEGER_TYPE, null);
@@ -75,7 +75,7 @@ public class VariableTest
 	
 	@Test
 	public void assignToValidTypeAfterValidInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
@@ -93,7 +93,7 @@ public class VariableTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void assignToInvalidTypeAfterValidInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
@@ -110,7 +110,7 @@ public class VariableTest
 	
 	@Test
 	public void assignToNullAfterValidInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Evaluator value = new IntegerEvaluator(7);
 		VariableEvaluator evaluator = new VariableEvaluator(
@@ -128,7 +128,7 @@ public class VariableTest
 	
 	@Test
 	public void assignToValidTypeAfterNoInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
 				"x", Type.INTEGER_TYPE, null);
@@ -145,7 +145,7 @@ public class VariableTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void assignToInValidTypeAfterNoInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
 				"x", Type.INTEGER_TYPE, null);
@@ -161,7 +161,7 @@ public class VariableTest
 	
 	@Test
 	public void assignToNullAfterNoInitialization() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		VariableEvaluator evaluator = new VariableEvaluator(
 				"x", Type.INTEGER_TYPE, null);
@@ -177,7 +177,7 @@ public class VariableTest
 	}
 	
 	@Test
-	public void checkStringVariableDefinition() throws InvalidTypeException, NameConflictException
+	public void checkStringVariableDefinition() throws PseudoException
 	{
 		
 		Evaluator e = new StringEvaluator("Test");
@@ -189,7 +189,7 @@ public class VariableTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void cannotDeclareWithNullPseudoType() throws InvalidTypeException, NameConflictException
+	public void cannotDeclareWithNullPseudoType() throws PseudoException
 	{
 		Evaluator evaluator = new VariableEvaluator(
 				"x", null, null);
@@ -199,7 +199,7 @@ public class VariableTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void cannotDeclareWithEmptyPseudoType() throws InvalidTypeException, NameConflictException
+	public void cannotDeclareWithEmptyPseudoType() throws PseudoException
 	{
 		Evaluator evaluator = new VariableEvaluator(
 				"x", "", null);

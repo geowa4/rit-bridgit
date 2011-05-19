@@ -7,8 +7,7 @@ import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.VoidType;
-import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class Function
 {
@@ -19,7 +18,7 @@ public class Function
 	private Evaluator returnValue;
 	private Scope definitionScope;
 	
-	public Type apply(List<Type> args) throws InvalidTypeException, NameConflictException 
+	public Type apply(List<Type> args) throws PseudoException
 	{
 		Scope executionScope = new Scope(definitionScope);
 		if(parameters != null) 

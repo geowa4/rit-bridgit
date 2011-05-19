@@ -13,7 +13,7 @@ import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class DivideTest
 {
@@ -27,7 +27,7 @@ public class DivideTest
 	
 	@Test
 	public void integerDivisionWithRoundoff() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		DivideEvaluator evaluator = new DivideEvaluator(
 				new IntegerEvaluator(1), new IntegerEvaluator(3));
@@ -37,7 +37,7 @@ public class DivideTest
 	
 	@Test
 	public void integerDivisionWithoutRoundoff() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		DivideEvaluator evaluator = new DivideEvaluator(
 				new IntegerEvaluator(9), new IntegerEvaluator(3));
@@ -47,7 +47,7 @@ public class DivideTest
 	
 	@Test
 	public void integerDividedByDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		DivideEvaluator evaluator = new DivideEvaluator(
 				new IntegerEvaluator(9), new DoubleEvaluator(4.5));
@@ -57,7 +57,7 @@ public class DivideTest
 	
 	@Test
 	public void doubleDividedByDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		DivideEvaluator evaluator = new DivideEvaluator(
 				new DoubleEvaluator(1.0), new DoubleEvaluator(0.33333));
@@ -67,7 +67,7 @@ public class DivideTest
 	
 	@Test
 	public void doubleDividedByIntegerIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		DivideEvaluator evaluator = new DivideEvaluator(
 				new DoubleEvaluator(10.0), new IntegerEvaluator(2));
@@ -77,7 +77,7 @@ public class DivideTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void stringDividedByNumberIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		DivideEvaluator evaluator = new DivideEvaluator(
 				new StringEvaluator("9"), new IntegerEvaluator(3));
@@ -87,7 +87,7 @@ public class DivideTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void numberDividedByStringIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		DivideEvaluator evaluator = new DivideEvaluator(
 				new IntegerEvaluator(9), new StringEvaluator("3"));
@@ -97,7 +97,7 @@ public class DivideTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void stringDividedByStringIsNotAllowed()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		DivideEvaluator evaluator = new DivideEvaluator(
 				new StringEvaluator("9"), new StringEvaluator("3"));
@@ -106,7 +106,7 @@ public class DivideTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nullIsNotAllowed() throws PseudoException
 	{
 		NullEvaluator op1 = new NullEvaluator();
 		IntegerEvaluator op2 = new IntegerEvaluator(0);

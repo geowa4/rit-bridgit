@@ -11,7 +11,7 @@ import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class AndTest
 {
@@ -25,7 +25,7 @@ public class AndTest
 	
 	@Test
 	public void firstIsFalse() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		BooleanEvaluator op1 = new BooleanEvaluator(false);
 		BooleanEvaluator op2 = new BooleanEvaluator(true);
@@ -37,7 +37,7 @@ public class AndTest
 	
 	@Test
 	public void secondIsFalse() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		BooleanEvaluator op2 = new BooleanEvaluator(false);
 		BooleanEvaluator op1 = new BooleanEvaluator(true);
@@ -49,7 +49,7 @@ public class AndTest
 	
 	@Test
 	public void bothAreFalse() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		BooleanEvaluator op1 = new BooleanEvaluator(false);
 		BooleanEvaluator op2 = new BooleanEvaluator(false);
@@ -61,7 +61,7 @@ public class AndTest
 	
 	@Test
 	public void bothAreTrue() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		BooleanEvaluator op1 = new BooleanEvaluator(true);
 		BooleanEvaluator op2 = new BooleanEvaluator(true);
@@ -73,7 +73,7 @@ public class AndTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void firstIsNonBoolean() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		IntegerEvaluator op1 = new IntegerEvaluator(1);
 		BooleanEvaluator op2 = new BooleanEvaluator(true);
@@ -84,7 +84,7 @@ public class AndTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void secondIsNonBoolean() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		IntegerEvaluator op2 = new IntegerEvaluator(1);
 		BooleanEvaluator op1 = new BooleanEvaluator(true);
@@ -95,7 +95,7 @@ public class AndTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void neitherIsBoolean() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		IntegerEvaluator op1 = new IntegerEvaluator(1);
 		IntegerEvaluator op2 = new IntegerEvaluator(1);

@@ -13,8 +13,7 @@ import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
-import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 /**
  * Special handler which is used by the play command to execute the given
@@ -52,12 +51,7 @@ public class LanguageHandler implements Runnable
 			e.printStackTrace();
 			
 		}
-		catch (InvalidTypeException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (NameConflictException e)
+		catch (PseudoException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();

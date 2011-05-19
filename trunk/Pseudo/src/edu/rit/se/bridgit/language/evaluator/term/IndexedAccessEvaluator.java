@@ -7,7 +7,7 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.StringType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 import edu.rit.se.bridgit.language.model.exception.UnsupportedMemberException;
 
 public class IndexedAccessEvaluator implements Evaluator
@@ -36,7 +36,7 @@ public class IndexedAccessEvaluator implements Evaluator
 	}
 
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException
+	public Type evaluate(Scope scope) throws PseudoException
 	{
 		Type termType = term.evaluate(scope);
 		if(index != null)

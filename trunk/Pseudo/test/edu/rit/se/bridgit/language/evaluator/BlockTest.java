@@ -13,7 +13,7 @@ import org.junit.Test;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class BlockTest
 {
@@ -34,7 +34,7 @@ public class BlockTest
 	
 	@Test
 	public void executeSingleNestedEvaluator() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		context.checking(new Expectations() {{
 			oneOf(block1).evaluate(scope);
@@ -45,7 +45,7 @@ public class BlockTest
 	
 	@Test
 	public void executeNNestedEvaluators() 
-	throws InvalidTypeException, NameConflictException 
+	throws PseudoException 
 	{
 		context.checking(new Expectations() {{
 			oneOf(block1).evaluate(scope);
@@ -60,7 +60,7 @@ public class BlockTest
 	
 	@Test
 	public void scopeOfParentEvaluatorReusedInSetup() 
-	throws InvalidTypeException, NameConflictException 
+	throws PseudoException 
 	{
 		BlockEvaluator setup = new BlockEvaluator(false);
 		setup.add(
@@ -80,7 +80,7 @@ public class BlockTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void localScopeIsNotAccessibleFromOutside() 
-	throws InvalidTypeException, NameConflictException 
+	throws PseudoException 
 	{
 		BlockEvaluator setup = new BlockEvaluator();
 		setup.add(

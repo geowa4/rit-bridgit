@@ -9,7 +9,7 @@ import edu.rit.se.bridgit.language.evaluator.function.ParameterListEvaluator;
 import edu.rit.se.bridgit.language.model.StringType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class InputFunction extends Function
 {
@@ -30,7 +30,7 @@ public class InputFunction extends Function
 	{
 		
 		@Override
-		public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException
+		public Type evaluate(Scope scope) throws PseudoException
 		{
 			String prompt = scope.getVariableValue(parameterName).getValue().toString();
 			String value = Scope.getPseudoBridge().getUserInput(prompt);

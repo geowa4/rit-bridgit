@@ -9,8 +9,7 @@ import org.junit.Test;
 
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
-import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class ListTest
 {
@@ -25,7 +24,7 @@ public class ListTest
 	}
 	
 	@Test
-	public void listsCanAcceptAlTypesOfElements() throws InvalidTypeException, NameConflictException
+	public void listsCanAcceptAlTypesOfElements() throws PseudoException
 	{
 		eval.addTerm(new StringEvaluator("1"));
 		eval.addTerm(new IntegerEvaluator(2));

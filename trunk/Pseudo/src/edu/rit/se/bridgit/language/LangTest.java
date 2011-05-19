@@ -6,13 +6,12 @@ import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 
 import edu.rit.se.bridgit.language.evaluator.Evaluator;
-import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class LangTest 
 {
 	public static void main(String...args) 
-	throws RecognitionException, InvalidTypeException, NameConflictException
+	throws RecognitionException, PseudoException
 	{
 		CharStream stream = new ANTLRStringStream(
 				"application Awesome {\n" + 

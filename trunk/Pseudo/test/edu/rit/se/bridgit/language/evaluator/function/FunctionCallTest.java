@@ -20,7 +20,7 @@ import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class FunctionCallTest
 {
@@ -43,7 +43,7 @@ public class FunctionCallTest
 	}
 	
 	@Test
-	public void functionBlockCanAlterVariablesInDefinitionScope() throws NameConflictException, InvalidTypeException
+	public void functionBlockCanAlterVariablesInDefinitionScope() throws PseudoException
 	{
 		definitionScope.addVariable("variable", new IntegerType(1));
 		fnBlock.add(new VariableEvaluator("variable", new IntegerEvaluator(2)));
@@ -54,7 +54,7 @@ public class FunctionCallTest
 	}
 	
 	@Test(expected=NullPointerException.class)
-	public void functionBlockCannotAlterVariablesInCallScope() throws NameConflictException, InvalidTypeException
+	public void functionBlockCannotAlterVariablesInCallScope() throws PseudoException
 	{
 		callScope.addVariable("variable", new IntegerType(1));
 		fnBlock.add(new VariableEvaluator("variable", new IntegerEvaluator(2)));
@@ -65,7 +65,7 @@ public class FunctionCallTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void variableCannotBeAssignedToVoidReturnValue() throws InvalidTypeException, NameConflictException
+	public void variableCannotBeAssignedToVoidReturnValue() throws PseudoException
 	{
 		definitionScope.addVariable("variable", new IntegerType(1));
 		fnEval.setPseudoType(Type.VOID_TYPE);
@@ -77,7 +77,7 @@ public class FunctionCallTest
 	}
 	
 	@Test
-	public void variableCanBeAssignedMatchingFunctionReturnValue() throws InvalidTypeException, NameConflictException
+	public void variableCanBeAssignedMatchingFunctionReturnValue() throws PseudoException
 	{
 		definitionScope.addVariable("variable", new IntegerType(1));
 		fnEval.setPseudoType("Integer");
@@ -90,7 +90,7 @@ public class FunctionCallTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void variableCannotBeAssignedMismatchedFunctionReturnValue() throws InvalidTypeException, NameConflictException
+	public void variableCannotBeAssignedMismatchedFunctionReturnValue() throws PseudoException
 	{
 		definitionScope.addVariable("variable", new IntegerType(1));
 		fnEval.setPseudoType(Type.BOOLEAN_TYPE);
@@ -103,7 +103,7 @@ public class FunctionCallTest
 	}
 	
 	@Test
-	public void parametersAreNotVisibleOutsideOfFunction() throws NameConflictException, InvalidTypeException
+	public void parametersAreNotVisibleOutsideOfFunction() throws PseudoException
 	{
 		fnEval.setPseudoType(Type.VOID_TYPE);
 		ParameterList params = new ParameterListEvaluator();
@@ -118,7 +118,7 @@ public class FunctionCallTest
 	}
 	
 	@Test
-	public void functionCanReturnNull() throws InvalidTypeException, NameConflictException
+	public void functionCanReturnNull() throws PseudoException
 	{
 		fnEval.setPseudoType(Type.INTEGER_TYPE);
 		fnEval.addReturnValue(new NullEvaluator());
