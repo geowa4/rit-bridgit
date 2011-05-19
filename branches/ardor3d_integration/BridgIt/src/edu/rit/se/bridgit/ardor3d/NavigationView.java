@@ -11,6 +11,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.opengl.GLData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 import org.lwjgl.LWJGLException;
 
@@ -32,6 +33,9 @@ import com.ardor3d.input.swt.SwtMouseManager;
 import com.ardor3d.input.swt.SwtMouseWrapper;
 import com.ardor3d.math.Vector3;
 import com.ardor3d.renderer.Camera;
+
+import edu.rit.bridgit.edit.editors.model.ProgramEditorInput;
+import edu.rit.se.bridgit.edit.editors.ProgramEditor;
 
 /**
 * A simple example showing a textured and lit box spinning.
@@ -108,6 +112,13 @@ public class NavigationView extends ViewPart
       
       // Create the View's Toolbar
       createLocalToolbar();
+      
+      try {
+    	  getSite().getPage().openEditor(new ProgramEditorInput(),
+    	  	ProgramEditor.class.getName());
+      } catch (PartInitException e) {
+    	  e.printStackTrace();
+      }
    }
 
    
