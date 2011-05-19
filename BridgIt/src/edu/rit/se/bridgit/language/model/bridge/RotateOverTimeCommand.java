@@ -2,55 +2,39 @@ package edu.rit.se.bridgit.language.model.bridge;
 
 import java.util.List;
 
-import com.jme.math.Vector3f;
+import com.ardor3d.math.Quaternion;
+import com.ardor3d.math.Vector3;
 
 import edu.rit.se.bridgit.language.model.Type;
 
-public class RotateOverTimeCommand extends Command {
+public class RotateOverTimeCommand extends overTimeCommand {
 
-	float totalTime = -1;
-	float elapsedTime = 0;
+	public RotateOverTimeCommand(String methodName, List<Type> arguments, GraphicalBridge inBridge) 
+	{
+		super(methodName, arguments, inBridge);
+	}
 	
-	Vector3f offset;
-	Vector3f startPos;
-	
-	public RotateOverTimeCommand(String methodName, List<Type> arguments) {
-		super(methodName, arguments);
-		
-		offset = new Vector3f(Float.parseFloat(arguments.get(0).toString()), 
-				Float.parseFloat(arguments.get(1).toString()), 
-				Float.parseFloat(arguments.get(2).toString()));
+	public RotateOverTimeCommand()
+	{
+		super();
 	}
 
-	boolean initialized()
-	{
-		return (totalTime != -1);
-	}
-	
-	void setTime(float in_time)
-	{
-		totalTime = in_time;
-	}
-	
-	void setInitialPosition(Vector3f in_initialPos)
-	{
-		startPos = in_initialPos;
-	}
-	
-	Vector3f update(double delta)
-	{
-		elapsedTime += delta;
-		if(elapsedTime > totalTime)
-		{
-			elapsedTime = totalTime;
-		}
+	@Override
+	public boolean execute(double delta) {
 		
-		float scaler = elapsedTime/totalTime;
-		return startPos.add(offset.mult(scaler));
+		Vector3 yaw_pitch_roll = update(delta);
+		
+		Quaternion quat = new Quaternion();
+		quat.fromEulerAngles(yaw_pitch_roll.getX(), yaw_pitch_roll.getY(), yaw_pitch_roll.getZ());
+		bridge.render_node.setRotation(quat);
+		
+		return finished();
 	}
-	
-	boolean finished()
-	{
-		return elapsedTime == totalTime;
+
+	@Override
+	public Command clone(String inMethod, List<Type> inArguments,
+			GraphicalBridge inBridge) {
+		
+		return new RotateOverTimeCommand(inMethod, inArguments, inBridge);
 	}
 }

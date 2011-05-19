@@ -6,7 +6,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
-import org.monklypse.core.JMEComposite;
 
 import edu.rit.bridgit.edit.editors.model.ProgramEditorInput;
 import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
@@ -14,7 +13,7 @@ import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 public class WorldView extends ViewPart
 {
 	// The JME composite container to use
-	private JMEComposite composite;
+	//private JMEComposite composite;
 	
 	public WorldView() 
 	{}
@@ -24,9 +23,9 @@ public class WorldView extends ViewPart
 		Composite container = new Composite(parent, SWT.None);
         container.setLayout(new GridLayout(1, true));
         
-        composite = new JMEComposite(container,
-                       GraphicalModelBridgeFactory.getJmeCanvas());
-        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+//        composite = new JMEComposite(container,
+//                       GraphicalModelBridgeFactory.getJmeCanvas());
+//        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
         
         // Attempt to attach the program editor to this view
 		try {
@@ -39,7 +38,7 @@ public class WorldView extends ViewPart
 
 	@Override
 	public void setFocus() {
-		composite.setFocus();
+		//composite.setFocus();
 	}
 
 }

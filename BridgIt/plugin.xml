@@ -69,7 +69,7 @@
       </view>
       <view
             allowMultiple="false"
-            class="edu.rit.se.bridgit.views.WorldView"
+            class="edu.rit.se.bridgit.ardor3d.NavigationView"
             id="edu.rit.se.bridgit.views.WorldView"
             name="World"
             restorable="true">

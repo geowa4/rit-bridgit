@@ -2,55 +2,31 @@ package edu.rit.se.bridgit.language.model.bridge;
 
 import java.util.List;
 
-import com.jme.math.Vector3f;
 
 import edu.rit.se.bridgit.language.model.Type;
 
-public class ScaleOverTimeCommand extends Command {
+public class ScaleOverTimeCommand extends overTimeCommand {
 
-	float totalTime = -1;
-	float elapsedTime = 0;
-	
-	Vector3f offset;
-	Vector3f startPos;
-	
-	public ScaleOverTimeCommand(String methodName, List<Type> arguments) {
-		super(methodName, arguments);
-		
-		offset = new Vector3f(Float.parseFloat(arguments.get(0).toString()), 
-				Float.parseFloat(arguments.get(1).toString()), 
-				Float.parseFloat(arguments.get(2).toString()));
+	public ScaleOverTimeCommand(String methodName, List<Type> arguments, GraphicalBridge inBridge) {
+		super(methodName, arguments, inBridge);
 	}
 
-	boolean initialized()
-	{
-		return (totalTime != -1);
+	public ScaleOverTimeCommand() {
+		super();
 	}
-	
-	void setTime(float in_time)
-	{
-		totalTime = in_time;
-	}
-	
-	void setInitialPosition(Vector3f in_initialPos)
-	{
-		startPos = in_initialPos;
-	}
-	
-	Vector3f update(double delta)
-	{
-		elapsedTime += delta;
-		if(elapsedTime > totalTime)
-		{
-			elapsedTime = totalTime;
-		}
+
+	@Override
+	public boolean execute(double delta) {
 		
-		float scaler = elapsedTime/totalTime;
-		return startPos.add(offset.mult(scaler));
+		bridge.render_node.setScale(update(delta));
+		
+		return finished();
 	}
-	
-	boolean finished()
-	{
-		return elapsedTime == totalTime;
+
+	@Override
+	public Command clone(String inMethod, List<Type> inArguments,
+			GraphicalBridge inBridge) {
+		
+		return new ScaleOverTimeCommand(inMethod, inArguments, inBridge);
 	}
 }

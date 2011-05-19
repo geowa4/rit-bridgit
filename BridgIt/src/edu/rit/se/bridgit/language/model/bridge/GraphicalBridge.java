@@ -2,11 +2,11 @@ package edu.rit.se.bridgit.language.model.bridge;
 
 import java.util.List;
 
-import com.jme.bounding.BoundingBox;
-import com.jme.math.Quaternion;
-import com.jme.math.Vector3f;
-import com.jme.renderer.Renderer;
-import com.jme.scene.TriMesh;
+import com.ardor3d.bounding.BoundingBox;
+import com.ardor3d.renderer.Renderer;
+import com.ardor3d.scenegraph.Node;
+
+
 
 import edu.rit.se.bridgit.language.bridge.PseudoInstanceBridge;
 import edu.rit.se.bridgit.language.model.Type;
@@ -18,20 +18,17 @@ public class GraphicalBridge implements PseudoInstanceBridge
 	private String pseudoType;
 	private List<String> availableMethods;
 	
-	private TriMesh render_node;
+	public Node render_node;
 	private String thumbnail;
 	
-	public GraphicalBridge(String pseudoType, List<String> methods, TriMesh in_render_node)
+	public GraphicalBridge(String pseudoType, List<String> methods, Node node)
 	{
 		this.pseudoType = pseudoType;
 		this.availableMethods = methods;
 
-        render_node = in_render_node;
+        render_node = node;
         
-        render_node.setModelBound(new BoundingBox());
-        render_node.updateModelBound();
-        render_node.setLocalTranslation(new Vector3f(0, 0, 0));
-        render_node.setRenderQueueMode(Renderer.QUEUE_OPAQUE);
+        render_node.setTranslation(0, 0, 0);
 	}
 	
 	
@@ -43,13 +40,13 @@ public class GraphicalBridge implements PseudoInstanceBridge
 	@Override
 	public Object sendMessage(String methodName, List<Type> arguments, int pseudo_thread) throws NoMethodFoundException
 	{
-		Command com;
-		com = new Command(methodName, arguments);
-		if(!availableMethods.contains(com.getMethodName()))
+		if(!availableMethods.contains(methodName))
 		{
-			throw new NoMethodFoundException(pseudoType, com.getMethodName());
+			throw new NoMethodFoundException(pseudoType, methodName);
 		}
-		GraphicalModelBridgeFactory.addAction(com, this, 0);
+		Command com = GraphicalModelBridgeFactory.createCommand(methodName, arguments, this);
+
+		GraphicalModelBridgeFactory.addAction(com, pseudo_thread);
 		return new Boolean(true);
 	}
 
@@ -86,7 +83,7 @@ public class GraphicalBridge implements PseudoInstanceBridge
 		this.thumbnail = thumbnail;
 	}
 
-	public TriMesh getGeometry()
+	public Node getGeometry()
 	{
 		return render_node;
 	}
@@ -98,81 +95,11 @@ public class GraphicalBridge implements PseudoInstanceBridge
 
 	public boolean executeAction(Command in_action, double delta)
 	{
-		
-		Command curCommand = in_action;
-		if(curCommand.getMethodName().equals("setTranslation"))
-		{
-			this.render_node.setLocalTranslation(Float.parseFloat(curCommand.getArguments().get(0).toString()),
-					Float.parseFloat(curCommand.getArguments().get(1).toString()),
-					Float.parseFloat(curCommand.getArguments().get(2).toString()));
-			return true;
-		}
-		else if(curCommand.getMethodName().equals("offsetTranslation"))
-		{
-			Vector3f oldTranslation = this.render_node.getLocalTranslation();
-			this.render_node.setLocalTranslation(oldTranslation.x + Float.parseFloat(curCommand.getArguments().get(0).toString()),
-					oldTranslation.y + Float.parseFloat(curCommand.getArguments().get(1).toString()),
-					oldTranslation.z + Float.parseFloat(curCommand.getArguments().get(2).toString()));
-			return true;
-		}
-		else if(curCommand.getMethodName().equals("setScale"))
-		{
-			this.render_node.setLocalScale(Float.parseFloat(curCommand.getArguments().get(0).toString()));
-			return true;
-		}
-		else if(curCommand.getMethodName().equals("setRotation"))
-		{
-			Quaternion q = new Quaternion();
-			q.fromAngles(Float.parseFloat(curCommand.getArguments().get(0).toString()),
-					Float.parseFloat(curCommand.getArguments().get(1).toString()),
-					Float.parseFloat(curCommand.getArguments().get(2).toString()));
-			this.render_node.setLocalRotation(q);
-		}
-		else if(curCommand.getMethodName().equals("moveOverTime"))
-		{
-			MoveOverTimeCommand motc = (MoveOverTimeCommand)curCommand;
-			if(!motc.initialized())
-			{
-				motc.setTime(Float.parseFloat(motc.getArguments().get(3).toString()));
-				motc.setInitialPosition(this.render_node.getLocalTranslation());
-			}
-			
-			this.render_node.setLocalTranslation(motc.startPos.add(motc.update(delta)));
-			
-			return motc.finished();
-		}
-		else if(curCommand.getMethodName().equals("scaleOverTime"))
-		{
-			MoveOverTimeCommand motc = (MoveOverTimeCommand)curCommand;
-			if(!motc.initialized())
-			{
-				motc.setTime(Float.parseFloat(motc.getArguments().get(3).toString()));
-			}
-			
-			this.render_node.setLocalScale(motc.startPos.add(motc.update(delta)));
-			
-			return motc.finished();
-		}
-		else if(curCommand.getMethodName().equals("rotateOverTime"))
-		{
-			MoveOverTimeCommand motc = (MoveOverTimeCommand)curCommand;
-			if(!motc.initialized())
-			{
-				motc.setTime(Float.parseFloat(motc.getArguments().get(3).toString()));
-			}
-			
-			Quaternion q = new Quaternion();
-			Vector3f ypr = motc.update(delta);
-			q.fromAngles(ypr.x, ypr.y, ypr.z);
-			this.render_node.setLocalRotation(q);
-			
-			return motc.finished();
-		}
-		else if(curCommand.getMethodName().equals("remove"))
-		{
-			this.render_node.removeFromParent();
-		}
-		
-		return false;
+		return in_action.execute(delta);	
+	}
+	
+	public void remove()
+	{
+		this.render_node.removeFromParent();
 	}
 }
