@@ -18,8 +18,7 @@ import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.IntegerType;
 import edu.rit.se.bridgit.language.model.Type;
-import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class FunctionTest
 {
@@ -50,7 +49,7 @@ public class FunctionTest
 	}
 	
 	@Test
-	public void voidFunctionReturnsVoidType() throws InvalidTypeException, NameConflictException
+	public void voidFunctionReturnsVoidType() throws PseudoException
 	{
 		function.setReturnType(Type.VOID_TYPE);
 		context.checking(new Expectations() {{
@@ -62,7 +61,7 @@ public class FunctionTest
 	
 	@SuppressWarnings("unchecked")
 	@Test
-	public void nonNullParameterListIsEvaluated() throws InvalidTypeException, NameConflictException
+	public void nonNullParameterListIsEvaluated() throws PseudoException
 	{
 		function.setReturnType(Type.VOID_TYPE);
 		function.setParameters(params);
@@ -76,7 +75,7 @@ public class FunctionTest
 	}
 	
 	@Test
-	public void functionDoesNotCareAboutReturnType() throws InvalidTypeException, NameConflictException
+	public void functionDoesNotCareAboutReturnType() throws PseudoException
 	{//the executing evaluator must check this
 		function.setReturnType(Type.STRING_TYPE);
 		context.checking(new Expectations() {{
@@ -89,7 +88,7 @@ public class FunctionTest
 	}
 	
 	@Test
-	public void functionIsAddedToScopeWithDefinitionScopeSet() throws InvalidTypeException, NameConflictException
+	public void functionIsAddedToScopeWithDefinitionScopeSet() throws PseudoException
 	{
 		function.setReturnType("Function:" + Type.VOID_TYPE);
 		fnEval.setFunction(function);

@@ -8,7 +8,7 @@ import org.junit.Test;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 import edu.rit.se.bridgit.language.model.exception.UnsupportedMemberException;
 
 public class IndexedAccessTest
@@ -24,7 +24,7 @@ public class IndexedAccessTest
 	}
 	
 	@Test
-	public void canAccessAnyElementInList() throws InvalidTypeException, NameConflictException 
+	public void canAccessAnyElementInList() throws PseudoException 
 	{
 		eval.setTerm(new ListEvaluator() {{
 			addTerm(new IntegerEvaluator(1));
@@ -36,7 +36,7 @@ public class IndexedAccessTest
 	}
 	
 	@Test
-	public void canAccessAnyElementInString() throws InvalidTypeException, NameConflictException 
+	public void canAccessAnyElementInString() throws PseudoException 
 	{
 		eval.setTerm(new StringEvaluator("12"));
 		eval.setIndex(new IntegerEvaluator(0));
@@ -45,7 +45,7 @@ public class IndexedAccessTest
 	}
 	
 	@Test(expected=UnsupportedMemberException.class)
-	public void errorAccessingElementInZeroLengthList() throws InvalidTypeException, NameConflictException 
+	public void errorAccessingElementInZeroLengthList() throws PseudoException 
 	{
 		eval.setTerm(new ListEvaluator());
 		eval.setIndex(new IntegerEvaluator(0));
@@ -53,7 +53,7 @@ public class IndexedAccessTest
 	}
 	
 	@Test(expected=UnsupportedMemberException.class)
-	public void errorAccessingElementInZeroLengthString() throws InvalidTypeException, NameConflictException 
+	public void errorAccessingElementInZeroLengthString() throws PseudoException 
 	{
 		eval.setTerm(new StringEvaluator(""));
 		eval.setIndex(new IntegerEvaluator(1));
@@ -61,7 +61,7 @@ public class IndexedAccessTest
 	}
 	
 	@Test(expected=UnsupportedMemberException.class)
-	public void errorAccessingElementAtIndexGreaterThanOrEqualToLengthOfList() throws InvalidTypeException, NameConflictException  
+	public void errorAccessingElementAtIndexGreaterThanOrEqualToLengthOfList() throws PseudoException  
 	{
 		eval.setTerm(new ListEvaluator() {{
 			addTerm(new IntegerEvaluator(1));
@@ -72,7 +72,7 @@ public class IndexedAccessTest
 	}
 
 	@Test(expected=UnsupportedMemberException.class)
-	public void errorAccessingElementAtIndexGreaterThanOrEqualToLengthOfString() throws InvalidTypeException, NameConflictException 
+	public void errorAccessingElementAtIndexGreaterThanOrEqualToLengthOfString() throws PseudoException 
 	{
 		eval.setTerm(new StringEvaluator("12"));
 		eval.setIndex(new IntegerEvaluator(2));
@@ -80,7 +80,7 @@ public class IndexedAccessTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void cannotAccessElementsInOtherTypes() throws InvalidTypeException, NameConflictException 
+	public void cannotAccessElementsInOtherTypes() throws PseudoException 
 	{
 		eval.setTerm(new DoubleEvaluator(12.0));
 		eval.setIndex(new IntegerEvaluator(0));
@@ -88,7 +88,7 @@ public class IndexedAccessTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void cannotUseAnythingButIntegerAsIndex() throws InvalidTypeException, NameConflictException
+	public void cannotUseAnythingButIntegerAsIndex() throws PseudoException
 	{
 		eval.setTerm(new StringEvaluator("12"));
 		eval.setIndex(new DoubleEvaluator(0.0));

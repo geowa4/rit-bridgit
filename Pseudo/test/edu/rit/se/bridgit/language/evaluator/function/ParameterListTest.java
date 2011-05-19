@@ -16,7 +16,7 @@ import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.StringType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class ParameterListTest
 {
@@ -31,7 +31,7 @@ public class ParameterListTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nullArgsWhenExpectingParamsIsNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nullArgsWhenExpectingParamsIsNotAllowed() throws PseudoException
 	{
 		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.evaluate(scope);
@@ -39,7 +39,7 @@ public class ParameterListTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nonNullArgsWhenNotExpectingParamsIsNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nonNullArgsWhenNotExpectingParamsIsNotAllowed() throws PseudoException
 	{
 		ple.setArgs(new LinkedList<Type>() {
 			private static final long serialVersionUID = 4920464986871390479L;
@@ -50,7 +50,7 @@ public class ParameterListTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void argsLenAndParamsLenCannotBeDifferent() throws InvalidTypeException, NameConflictException
+	public void argsLenAndParamsLenCannotBeDifferent() throws PseudoException
 	{
 		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.setArgs(new LinkedList<Type>() {
@@ -63,7 +63,7 @@ public class ParameterListTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void pseudoTypesOfArgsAndParamsMustMatch() throws InvalidTypeException, NameConflictException
+	public void pseudoTypesOfArgsAndParamsMustMatch() throws PseudoException
 	{
 		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.setArgs(new LinkedList<Type>() {
@@ -75,7 +75,7 @@ public class ParameterListTest
 	}
 	
 	@Test
-	public void parametersAreAddedAsVariablesToScope() throws InvalidTypeException, NameConflictException
+	public void parametersAreAddedAsVariablesToScope() throws PseudoException
 	{
 		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.setArgs(new LinkedList<Type>() {
@@ -88,7 +88,7 @@ public class ParameterListTest
 	}
 	
 	@Test
-	public void parameterCanBeSetToNullValue() throws InvalidTypeException, NameConflictException
+	public void parameterCanBeSetToNullValue() throws PseudoException
 	{
 		ple.addParam(new ParameterEvaluator("test", Type.STRING_TYPE));
 		ple.setArgs(new LinkedList<Type>() {

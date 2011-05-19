@@ -13,7 +13,7 @@ import edu.rit.se.bridgit.language.evaluator.term.NullEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class PlusTest
 {
@@ -27,7 +27,7 @@ public class PlusTest
 
 	@Test
 	public void integerAddedToIntegerIsAnInteger()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		PlusEvaluator evaluator = new PlusEvaluator(
 				new IntegerEvaluator(1), new IntegerEvaluator(1));
@@ -37,7 +37,7 @@ public class PlusTest
 	
 	@Test
 	public void integerAddedToDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		PlusEvaluator evaluator = new PlusEvaluator(
 				new IntegerEvaluator(3), new DoubleEvaluator(2.0));
@@ -47,7 +47,7 @@ public class PlusTest
 	
 	@Test
 	public void doubleAddedToDoubleIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		PlusEvaluator evaluator = new PlusEvaluator(
 				new DoubleEvaluator(3.0), new DoubleEvaluator(4.0));
@@ -57,7 +57,7 @@ public class PlusTest
 	
 	@Test
 	public void doubleAddedToIntegerIsADouble()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		PlusEvaluator evaluator = new PlusEvaluator(
 				new DoubleEvaluator(3.0), new IntegerEvaluator(3));
@@ -67,7 +67,7 @@ public class PlusTest
 	
 	@Test
 	public void stringAddedToIntegerIsAString()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		PlusEvaluator evaluator = new PlusEvaluator(
 				new StringEvaluator("hello"), new IntegerEvaluator(3));
@@ -77,7 +77,7 @@ public class PlusTest
 	
 	@Test
 	public void stringAddedToDoubleIsAString()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		PlusEvaluator evaluator = new PlusEvaluator(
 				new StringEvaluator("hello"), new DoubleEvaluator(3.0));
@@ -87,7 +87,7 @@ public class PlusTest
 	
 	@Test
 	public void stringAddedToStringIsAString()
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		PlusEvaluator evaluator = new PlusEvaluator(
 				new StringEvaluator("hello"), new StringEvaluator("3"));
@@ -96,7 +96,7 @@ public class PlusTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nullIsNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nullIsNotAllowed() throws PseudoException
 	{
 		NullEvaluator op1 = new NullEvaluator();
 		IntegerEvaluator op2 = new IntegerEvaluator(0);

@@ -14,7 +14,7 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.IntegerEvaluator;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class IfTest
 {
@@ -36,7 +36,7 @@ public class IfTest
 	
 	@Test
 	public void singleIfWithTrueConditional() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		context.checking(new Expectations() {{
 			oneOf(block).evaluate(scope);
@@ -47,7 +47,7 @@ public class IfTest
 	
 	@Test
 	public void singleIfWithFalseConditional() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		context.checking(new Expectations() {{
 			never(block).evaluate(scope);
@@ -58,7 +58,7 @@ public class IfTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void singleIfWithInvalidConditional() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		context.checking(new Expectations() {{
 			never(block).evaluate(scope);
@@ -70,7 +70,7 @@ public class IfTest
 	
 	@Test
 	public void ifElseWhereIfIsTrue() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		context.checking(new Expectations() {{
 			oneOf(ifBlock).evaluate(scope);
@@ -83,7 +83,7 @@ public class IfTest
 	
 	@Test
 	public void ifElseWhereIfIsFalse() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		context.checking(new Expectations() {{
 			never(ifBlock).evaluate(scope);
@@ -96,7 +96,7 @@ public class IfTest
 	
 	@Test
 	public void ifElseIfWhereBothAreFalse() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		context.checking(new Expectations() {{
 			never(ifBlock).evaluate(scope);
@@ -109,7 +109,7 @@ public class IfTest
 	
 	@Test
 	public void ifElseIfElseWhereAllButLastAreFalse() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		context.checking(new Expectations() {{
 			never(ifBlock).evaluate(scope);

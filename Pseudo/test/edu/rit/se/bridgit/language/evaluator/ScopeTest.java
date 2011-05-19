@@ -16,6 +16,7 @@ import edu.rit.se.bridgit.language.model.StringType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class ScopeTest
 {
@@ -37,7 +38,7 @@ public class ScopeTest
 	
 	@Test
 	public void addVariable() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope scope = new Scope(null);
 		Type type = new IntegerType(7);
@@ -49,7 +50,7 @@ public class ScopeTest
 	}
 	
 	@Test
-	public void addConstant() throws InvalidTypeException, NameConflictException
+	public void addConstant() throws PseudoException
 	{
 		Scope scope = new Scope(null);
 		Type type = new IntegerType(7);
@@ -62,7 +63,7 @@ public class ScopeTest
 	
 	@Test(expected=NameConflictException.class)
 	public void createNameConflictWithVariable() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope scope = new Scope(null);
 		Type type1 = new DoubleType(8d);
@@ -74,7 +75,7 @@ public class ScopeTest
 	
 	@Test(expected=NameConflictException.class)
 	public void createNameConflictWithConstant() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope scope = new Scope(null);
 		Type type1 = new DoubleType(8d);
@@ -86,7 +87,7 @@ public class ScopeTest
 	
 	@Test(expected=NameConflictException.class)
 	public void createNameConflictWithVariableInParent() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
@@ -99,7 +100,7 @@ public class ScopeTest
 	
 	@Test(expected=NameConflictException.class)
 	public void createNameConflictWithConstantInParent() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
@@ -112,7 +113,7 @@ public class ScopeTest
 	
 	@Test
 	public void constantsAreNotVariables() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope scope = new Scope(null);
 		Type type = new IntegerType(7);
@@ -123,7 +124,7 @@ public class ScopeTest
 	
 	@Test
 	public void variablesAreNotConstants() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope scope = new Scope(null);
 		Type type = new IntegerType(7);
@@ -134,7 +135,7 @@ public class ScopeTest
 	
 	@Test
 	public void modifyVariableToSameTypeInScopeWithNoParent() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope scope = new Scope(null);
 		Type original = new StringType("value");
@@ -149,7 +150,7 @@ public class ScopeTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void modifyVariableToDifferentTypeInScopeWithNoParent() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope scope = new Scope(null);
 		Type original = new StringType("value");
@@ -161,7 +162,7 @@ public class ScopeTest
 	
 	@Test
 	public void modifyVariableToSameTypeInParentScope() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);
@@ -181,7 +182,7 @@ public class ScopeTest
 	
 	@Test(expected=InvalidTypeException.class)
 	public void modifyVariableToDifferentTypeInParentScope() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		Scope parent = new Scope(null);
 		Scope scope = new Scope(parent);

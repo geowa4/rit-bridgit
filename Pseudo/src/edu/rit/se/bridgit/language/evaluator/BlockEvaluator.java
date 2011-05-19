@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 /**
  * Evaluates a list of Evaluators. Useful for `setup`, `main`, and `function` blocks.
@@ -33,7 +33,7 @@ public class BlockEvaluator implements Block
 	}
 	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
+	public Type evaluate(Scope scope) throws PseudoException
 	{
 		if(nestScope)
 		{

@@ -6,7 +6,7 @@ import edu.rit.se.bridgit.language.evaluator.Evaluator;
 import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class FunctionCallEvaluator implements Evaluator {
 
@@ -25,7 +25,7 @@ public class FunctionCallEvaluator implements Evaluator {
 	}
 	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException
+	public Type evaluate(Scope scope) throws PseudoException
 	{
 		List<Type> argVals = null;
 		if(arguments != null)

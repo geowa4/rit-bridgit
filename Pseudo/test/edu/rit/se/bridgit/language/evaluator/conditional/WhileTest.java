@@ -14,8 +14,7 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.evaluator.VariableEvaluator;
 import edu.rit.se.bridgit.language.evaluator.term.BooleanEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
-import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class WhileTest
 {
@@ -32,7 +31,7 @@ public class WhileTest
 	
 	@Test
 	public void neverExecutesWhenConditionalIsFalse() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		context.checking(new Expectations() {{
 			never(block).evaluate(scope);
@@ -45,7 +44,7 @@ public class WhileTest
 	
 	@Test
 	public void blockCanChangeTheConditional() 
-	throws InvalidTypeException, NameConflictException
+	throws PseudoException
 	{
 		WhileEvaluator evaluator = new WhileEvaluator();
 		VariableEvaluator conditionalValue = new VariableEvaluator(

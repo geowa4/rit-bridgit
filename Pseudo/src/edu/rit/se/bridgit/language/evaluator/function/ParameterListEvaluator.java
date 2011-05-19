@@ -8,7 +8,7 @@ import edu.rit.se.bridgit.language.evaluator.Scope;
 import edu.rit.se.bridgit.language.model.NullType;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
-import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class ParameterListEvaluator implements ParameterList
 {	
@@ -28,7 +28,7 @@ public class ParameterListEvaluator implements ParameterList
 	}
 	
 	@Override
-	public Type evaluate(Scope scope) throws InvalidTypeException, NameConflictException 
+	public Type evaluate(Scope scope) throws PseudoException 
 	{
 		if((params.size() == 0 && args != null) || 
 				(params.size() != 0 && args == null) || 
@@ -44,7 +44,7 @@ public class ParameterListEvaluator implements ParameterList
 	}
 
 	private void validateAndAddArgumentsToScope(Scope scope)
-			throws InvalidTypeException, NameConflictException
+			throws PseudoException
 	{
 		Iterator<ParameterEvaluator> paramsIter = params.iterator();
 		Iterator<Type> argsIter = args.iterator();

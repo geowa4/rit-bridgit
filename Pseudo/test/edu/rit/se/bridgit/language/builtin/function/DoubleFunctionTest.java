@@ -16,6 +16,7 @@ import edu.rit.se.bridgit.language.evaluator.term.StringEvaluator;
 import edu.rit.se.bridgit.language.model.Type;
 import edu.rit.se.bridgit.language.model.exception.InvalidTypeException;
 import edu.rit.se.bridgit.language.model.exception.NameConflictException;
+import edu.rit.se.bridgit.language.model.exception.PseudoException;
 
 public class DoubleFunctionTest
 {
@@ -30,7 +31,7 @@ public class DoubleFunctionTest
 	}
 	
 	@Test
-	public void stringsCanBeCastToDouble() throws InvalidTypeException, NameConflictException
+	public void stringsCanBeCastToDouble() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new StringEvaluator("42"));
@@ -40,7 +41,7 @@ public class DoubleFunctionTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void nonNumericStringsAreNotAllowed() throws InvalidTypeException, NameConflictException
+	public void nonNumericStringsAreNotAllowed() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new StringEvaluator("forty-two"));
@@ -50,7 +51,7 @@ public class DoubleFunctionTest
 	}
 	
 	@Test
-	public void booleansCanBeCastToDouble() throws InvalidTypeException, NameConflictException
+	public void booleansCanBeCastToDouble() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new BooleanEvaluator(true));
@@ -60,7 +61,7 @@ public class DoubleFunctionTest
 	}
 	
 	@Test
-	public void intsCanBeCastToDouble() throws InvalidTypeException, NameConflictException
+	public void intsCanBeCastToDouble() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new IntegerEvaluator(1));
@@ -70,7 +71,7 @@ public class DoubleFunctionTest
 	}
 	
 	@Test(expected=InvalidTypeException.class)
-	public void otherTypesAreDisallowed() throws InvalidTypeException, NameConflictException
+	public void otherTypesAreDisallowed() throws PseudoException
 	{
 		ArgumentListEvaluator arguments = new ArgumentListEvaluator();
 		arguments.addArg(new NullEvaluator());
