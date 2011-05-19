@@ -40,8 +40,6 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		log.trace("Starting the Activator.");
-//		System.loadLibrary("lwjgl");
-//		System.loadLibrary("jinput");
 		plugin = this;
 		setUpLogger();
 	}

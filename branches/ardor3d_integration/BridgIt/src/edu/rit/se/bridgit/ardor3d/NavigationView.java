@@ -1,6 +1,5 @@
 package edu.rit.se.bridgit.ardor3d;
 
-import java.net.URISyntaxException;
 import java.util.TimerTask;
 
 import org.eclipse.jface.action.Action;
@@ -14,7 +13,6 @@ import org.eclipse.swt.opengl.GLData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 import org.lwjgl.LWJGLException;
-
 
 import com.ardor3d.framework.CanvasRenderer;
 import com.ardor3d.framework.FrameHandler;
@@ -34,8 +32,6 @@ import com.ardor3d.input.swt.SwtMouseManager;
 import com.ardor3d.input.swt.SwtMouseWrapper;
 import com.ardor3d.math.Vector3;
 import com.ardor3d.renderer.Camera;
-import com.ardor3d.util.resource.ResourceLocatorTool;
-import com.ardor3d.util.resource.SimpleResourceLocator;
 
 /**
 * A simple example showing a textured and lit box spinning.
@@ -294,7 +290,7 @@ public class NavigationView extends ViewPart
 
 //        try {
 //            final SimpleResourceLocator srl = new SimpleResourceLocator(ResourceLocatorTool.getClassPathResource(
-//                    LwjglSwtExample.class, "/Users/student/Dropbox/"));
+//                    LwjglSwtExample.class, "textures/directory"));
 //           
 //           
 //            System.out.println("Resource Dir: " + srl.getBaseDir());
