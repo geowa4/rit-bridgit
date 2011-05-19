@@ -5,7 +5,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 
-public class ProgramEditorInput implements IEditorInput {
+public class ProgramEditorInput implements IEditorInput {public ProgramEditorInput(){}
 	@Override
 	public Object getAdapter(Class adapter) {
 		// TODO Auto-generated method stub
