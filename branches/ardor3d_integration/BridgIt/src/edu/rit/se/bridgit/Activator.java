@@ -12,6 +12,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import edu.rit.se.bridgit.execution.views.AppConsoleAppender;
+import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -39,9 +40,9 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		log.trace("Starting the Activator.");
 		plugin = this;
 		setUpLogger();
+		log.trace("Starting the Activator.");
 	}
 
 	private void setUpLogger() throws IOException
