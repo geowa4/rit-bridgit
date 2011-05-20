@@ -1,15 +1,10 @@
 package edu.rit.se.bridgit.language.model.bridge;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,6 +18,10 @@ import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+
+import com.ardor3d.extension.model.collada.jdom.ColladaImporter;
+import com.ardor3d.extension.model.collada.jdom.data.ColladaStorage;
+import com.ardor3d.util.resource.SimpleResourceLocator;
 
 import edu.rit.se.bridgit.ardor3d.NavigationView;
 import edu.rit.se.bridgit.edit.content.ContentLoadedListener;
@@ -100,7 +99,7 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 		return buildGraphicalBridge(pseudoType);
 	}
 	
-	public static void loadContent() throws FileNotFoundException
+	public static void loadContent() throws URISyntaxException, IOException
 	{
 		
 		File content_folder = new File(System.getProperty("user.home") + File.separator + "Dropbox" + File.separator + "Models");
@@ -119,7 +118,7 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 		
 	}
 	
-	private static void loadModels(File in_current_folder)
+	private static void loadModels(File in_current_folder) throws URISyntaxException, IOException
 	{
 		File[] list_of_files = in_current_folder.listFiles();
 		for(int i = 0; i < list_of_files.length; i++ )
@@ -129,9 +128,9 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 				if(list_of_files[i].isFile())
 				{
 					String name = list_of_files[i].getName();
-					if(name.contains(".obj"))
+					if(name.endsWith(".dae"))
 					{
-						String class_name = name.substring(0,name.indexOf('.'));
+						String class_name = name.substring(0, name.indexOf('.'));
 						List<String> methods = new LinkedList<String>();
 						methods.add("setTranslation");
 						methods.add("offsetTranslation");
@@ -139,20 +138,9 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 						methods.add("moveOverTime");
 						methods.add("scaleOvertime");
 						methods.add("remove");
-						//availableclasses.put(class_name, new GraphicalBridge(class_name, methods, loadObjModel(list_of_files[i])));
-					}
-					if(name.contains(".3ds"))
-					{
-						String class_name = name.substring(0,name.indexOf('.'));
-						List<String> methods = new LinkedList<String>();
-						methods.add("setTranslation");
-						methods.add("offsetTranslation");
-						methods.add("setScale");
-						methods.add("moveOverTime");
-						methods.add("scaleOverTime");
-						methods.add("remove");
-						//availableclasses.put(class_name, new GraphicalBridge(class_name, methods,
-							//	load3dsModel(list_of_files[i].getAbsolutePath(), list_of_files[i].getAbsolutePath())));
+						ColladaStorage cs = loadCollada(class_name, list_of_files[i]);
+						cs.hashCode();
+						//availableclasses.put(class_name, new GraphicalBridge(class_name, methods, loadCollada(list_of_files[i])));
 					}
 				}
 				else if(list_of_files[i].isDirectory())
@@ -163,57 +151,17 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 		}
 	}
 	
-//	private static TriMesh load3dsModel(String in_model_file, String textureDir)
-//	{
-//		Spatial output = null; // the geometry will go here.
-//		final ByteArrayOutputStream outStream =
-//			new ByteArrayOutputStream(); // byte array streams don't have to be closed
-//		try {
-//			final File textures;
-//			if(textureDir != null) { // set textureDir location
-//				textures = new File( textureDir );
-//			} else {// try to infer textureDir from modelPath.
-//				textures = new File(
-//						in_model_file.substring(0, in_model_file.lastIndexOf('/')) );
-//			}	// Add texture URL to auto-locator
-//			final SimpleResourceLocator location =
-//				new SimpleResourceLocator(textures.toURI().toURL());
-//            ResourceLocatorTool.addResourceLocator(
-//            		ResourceLocatorTool.TYPE_TEXTURE, location );
-// 
-//			// read .3ds file into memory & convert it to a jME usable format.
-//			final FileInputStream rawIn = new FileInputStream(in_model_file);
-//			CONVERTER_3DS.convert(rawIn, outStream);
-//			rawIn.close(); // FileInputStream s must be explicitly closed.
-// 
-//			// prepare outStream for loading.
-//			final ByteArrayInputStream convertedIn =
-//				new ByteArrayInputStream(outStream.toByteArray());
-// 
-//			// import the converted stream to jME as a Spatial
-//			output = (Spatial) BinaryImporter.getInstance().load(convertedIn);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//			System.err.println("File not found at: " + in_model_file);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//			System.err.println("Unable read model at: " + in_model_file);
-//		} catch (URISyntaxException e) {
-//			e.printStackTrace();
-//			System.err.println("Invalid texture location at:" + textureDir);
-//		}	/*
-//		* The bounding box is an important optimization.
-//		* There is no point in rendering geometry outside of the camera's
-//		* field of view. However, testing whether each individual triangle
-//		* is visible is nearly as expensive as actually rendering it. So you
-//		* don't test every triangle. Instead, you just test the bounding box.
-//		* If the box isn't in view, don't bother looking for triangles inside.
-//			*/
-//		output.setModelBound(new BoundingBox());
-//		output.updateModelBound();
-//		return (TriMesh) output;
-//
-//	}
+	private static ColladaStorage loadCollada(String name, File model) 
+	throws URISyntaxException, IOException
+	{
+		ColladaImporter importer = new ColladaImporter();
+		importer.setModelLocator(
+				new SimpleResourceLocator(model.getParentFile().toURI()));
+		importer.setTextureLocator(
+				new SimpleResourceLocator(new URI(model.getParentFile().getParent() + 
+						"/images/")));
+		return importer.load(name.substring(0, name.indexOf('.')));
+	}
 	
 //	private static TriMesh loadObjModel(File in_model_file)
 //	{
