@@ -160,58 +160,9 @@ public class GraphicalModelBridgeFactory implements PseudoBridge
 		importer.setTextureLocator(
 				new SimpleResourceLocator(new URI(model.getParentFile().getParent() + 
 						"/images/")));
-		return importer.load(name.substring(0, name.indexOf('.')));
+		return importer.load(model.getName());
 	}
 	
-//	private static TriMesh loadObjModel(File in_model_file)
-//	{
-//		
-//
-//		URL model_url = null;
-//		TriMesh model_node = null;
-//		try 
-//		{
-//			model_url = in_model_file.toURI().toURL();
-//			
-//			// Create something to convert .obj format to .jme
-//			FormatConverter converter = new ObjToJme();
-//				
-//			// Point the converter to where it will find the .mtl file from
-//			converter.setProperty("mtllib", model_url);
-//			
-//			// This byte array will hold my .jme file
-//			ByteArrayOutputStream BO = new ByteArrayOutputStream();
-//		
-//			// Use the format converter to convert .obj to .jme
-//			InputStream i_stream = model_url.openStream();
-//			converter.convert(i_stream, BO);
-//	
-//			
-//			model_node = (TriMesh) BinaryImporter.getInstance().load(
-//					new ByteArrayInputStream(BO.toByteArray()));
-//			
-//			model_node.setModelBound(new BoundingSphere());
-//			model_node.updateModelBound();
-//	
-//			return model_node;
-//		} 
-//		catch (MalformedURLException e) 
-//		{
-//			System.err.println("Could not open file:" + in_model_file.getName() + "\nPossibly missing texture");
-//
-//		}
-//		catch (IOException e) 
-//		{ 
-//			System.err.println("Error converting from obj to jme" + model_url.getFile());
-//		}
-//		catch (Exception e)
-//		{
-//			System.err.println("Error in model loading" + model_url.getFile());
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-
 	public static Collection<String> getAvailableClasses()
 	{
 		List<String> l = new ArrayList<String>(availableclasses.keySet());

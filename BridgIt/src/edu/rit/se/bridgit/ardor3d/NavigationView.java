@@ -1,5 +1,7 @@
 package edu.rit.se.bridgit.ardor3d;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.TimerTask;
 
 import org.eclipse.jface.action.Action;
@@ -36,6 +38,7 @@ import com.ardor3d.renderer.Camera;
 
 import edu.rit.bridgit.edit.editors.model.ProgramEditorInput;
 import edu.rit.se.bridgit.edit.editors.ProgramEditor;
+import edu.rit.se.bridgit.language.model.bridge.GraphicalModelBridgeFactory;
 
 /**
  * A simple example showing a textured and lit box spinning.
@@ -106,15 +109,28 @@ public class NavigationView extends ViewPart
 	 {
 		 // Create Ardor3d Context
 		 createArdor3dContext(parent);
-
 		 // Create Actions for Toolbar
 		 createViewActions();
-
 		 // Create the View's Toolbar
 		 createLocalToolbar();
-
 		 openEditor();
+		 loadModels();
 	 }
+
+
+	private void loadModels()
+	{
+		try
+		 {
+			 GraphicalModelBridgeFactory.loadContent();
+		 } catch (URISyntaxException e)
+		 {
+			 e.printStackTrace();
+		 } catch (IOException e)
+		 {
+			 e.printStackTrace();
+		 }
+	}
 
 
 	 private void openEditor()
